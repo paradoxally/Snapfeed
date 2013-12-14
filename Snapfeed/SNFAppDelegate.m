@@ -7,12 +7,32 @@
 //
 
 #import "SNFAppDelegate.h"
+#import <Crashlytics/Crashlytics.h>
+
+static NSString * const kCrashlyticsAPIKey = @"60c72262c2fc4df8067a6e7a2774efc31f783d0c";
+static NSString * const kNewRelicAgentAppToken = @"AAc5f6b5e6a79b38d12f6ceb6cf348234670ad7545";
 
 @implementation SNFAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    // New Relic agent initialization
+    //[NewRelicAgent startWithApplicationToken:kNewRelicAgentAppToken];
+    
+    // CocoaLumberjack logging initialization - logger and console
+	[DDLog addLogger:[DDASLLogger sharedInstance]];
+	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+	[[DDTTYLogger sharedInstance] setColorsEnabled:YES];
+	[[DDTTYLogger sharedInstance] setForegroundColor:[UIColor flatRedColor] backgroundColor:nil forFlag:LOG_FLAG_ERROR];
+	[[DDTTYLogger sharedInstance] setForegroundColor:[UIColor orangeColor] backgroundColor:nil forFlag:LOG_FLAG_WARN];
+	[[DDTTYLogger sharedInstance] setForegroundColor:[UIColor flatGreenColor] backgroundColor:nil forFlag:LOG_FLAG_INFO];
+	[[DDTTYLogger sharedInstance] setForegroundColor:[UIColor flatWhiteColor] backgroundColor:nil forFlag:LOG_FLAG_VERBOSE];
+
+    // Crashlytics initialization
+    [Crashlytics startWithAPIKey:kCrashlyticsAPIKey];
+    
+    DDLogInfo(@"Everything is A-ok!");
+    
     return YES;
 }
 							

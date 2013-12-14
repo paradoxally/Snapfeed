@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UIColor+MLPFlatColors.h>
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;    // logging level
 
 @interface SNFAppDelegate : UIResponder <UIApplicationDelegate>
 
