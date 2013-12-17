@@ -11,6 +11,8 @@
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;    // logging level
 
+extern NSString *const FBSessionStateOpenedNotification;
+
 @interface SNFAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
