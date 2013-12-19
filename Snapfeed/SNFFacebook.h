@@ -11,9 +11,22 @@
 
 @interface SNFFacebook : NSObject
 
+typedef void (^FBRequestResponseWithUser)(FBRequestConnection *request, NSDictionary<FBGraphUser> *user,NSError *error);
+typedef void (^FBRequestResponseWithDictionary)(FBRequestConnection *request, NSDictionary *result,NSError *error);
+typedef void (^FBRequestResponseWithID)(FBRequestConnection *request, id result,NSError *error);
+
 + (instancetype)sharedInstance;
 
 - (void)openSession;
 - (FBSessionState)activeSessionState;
+
+- (void)detailsFromUser:(NSString*) userID andResponse:(FBRequestResponseWithDictionary)response;
+- (void)friendsFromUser:(NSString*) userID andResponse:(FBRequestResponseWithDictionary)response;
+- (void)photosFromUser:(NSString *)userID andResponse:(FBRequestResponseWithID)response;
+- (void)getRecentPhotosFromUser:(NSString *)pid andResponse:(FBRequestResponseWithDictionary)response;
+
+- (void)myFriendsAvatar:(NSString *)uid withReponse:(FBRequestResponseWithID)response;
+
+- (void)getMainFeed:(FBRequestResponseWithDictionary)response;
 
 @end

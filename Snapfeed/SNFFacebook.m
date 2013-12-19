@@ -26,7 +26,7 @@
 #pragma mark - PUBLIC METHODS
 
 - (FBSessionState)activeSessionState {
-    return [[FBSession activeSession] state];
+	return [[FBSession activeSession] state];
 }
 
 - (void)openSession {
@@ -39,16 +39,92 @@
      }];
 }
 
+- (void)detailsFromUser:(NSString *)userID andResponse:(FBRequestResponseWithDictionary)response {
+	// DETAILS
+	[[FBRequest requestForGraphPath:[NSString stringWithFormat:@"%@?fields=name,location", userID]] startWithCompletionHandler: ^(FBRequestConnection *connection, NSDictionary *result, NSError *error) {
+	    response(connection, result, error);
+	}];
+}
+
+- (void)myFriends:(FBRequestResponseWithDictionary)response {
+	// FRIENDS
+	[[FBRequest requestForGraphPath:@"me/friends?fields=picture.type(normal),name,id"] startWithCompletionHandler: ^(FBRequestConnection *connection, NSDictionary *result, NSError *error) {
+	    response(connection, result, error);
+	}];
+}
+
+- (void)friendsFromUser:(NSString *)userID andResponse:(FBRequestResponseWithDictionary)response {
+	// FRIENDS
+	[[FBRequest requestForGraphPath:[NSString stringWithFormat:@"%@/?fields=friends.fields(id,name,picture)", userID]] startWithCompletionHandler: ^(FBRequestConnection *connection, NSDictionary *result, NSError *error) {
+	    response(connection, result, error);
+	}];
+}
+
+- (void)myPhotos:(FBRequestResponseWithID)response {
+	// TOTAL PHOTOS
+	[[FBRequest requestForGraphPath:@"me/albums"] startWithCompletionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {
+	    response(connection, result, error);
+	}];
+}
+
+- (void)photosFromUser:(NSString *)userID andResponse:(FBRequestResponseWithID)response {
+	// TOTAL PHOTOS
+	[[FBRequest requestForGraphPath:[NSString stringWithFormat:@"%@/albums", userID]] startWithCompletionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {
+	    response(connection, result, error);
+	}];
+}
+
+- (void)myFriendsAvatar:(NSString *)uid withReponse:(FBRequestResponseWithID)response {
+	[[FBRequest requestForGraphPath:[NSString stringWithFormat:@"me/friends?fields=picture&uid=%@", uid]] startWithCompletionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {
+	    response(connection, result, error);
+	}];
+}
+
+- (void)photoLikesAndComments:(NSString *)pid withReponse:(FBRequestResponseWithID)response {
+	[[FBRequest requestForGraphPath:[NSString stringWithFormat:@"%@?fields=comments.fields(like_count),likes.fields(id,name,pic_crop)", pid]] startWithCompletionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {
+	    response(connection, result, error);
+	}];
+}
+
+- (void)getMainFeed:(FBRequestResponseWithDictionary)response {
+	// MAIN FEED
+	[[FBRequest requestForGraphPath:@"me/home?fields=type,from,name,picture,message&limit=50"] startWithCompletionHandler: ^(FBRequestConnection *connection,
+	                                                                                                                         NSDictionary *result,
+	                                                                                                                         NSError *error) {
+	    response(connection, result, error);
+	}];
+}
+
+- (void)getRecentPhotosFromUser:(NSString *)pid andResponse:(FBRequestResponseWithDictionary)response {
+	NSString *ors = @"me()";
+	if (pid.length > 2) ors = pid;
+    
+	NSString *query = [NSString stringWithFormat:
+	                   @"select caption, src from photo where owner=%@ order by created desc limit 18", ors];
+    
+	// Set up the query parameter
+	NSDictionary *queryParam = @{ @"q": query };
+	// Make the API request that uses FQL
+	[FBRequestConnection startWithGraphPath:@"/fql"
+	                             parameters:queryParam
+	                             HTTPMethod:@"GET"
+	                      completionHandler: ^(FBRequestConnection *connection,
+	                                           id result,
+	                                           NSError *error) {
+                              response(connection, result, error);
+                          }];
+}
+
 #pragma mark - PRIVATE METHODS
 
 - (void)sessionStateChanged:(FBSession *)session
-                                state:(FBSessionState)state
-                                error:(NSError *)error {
+                      state:(FBSessionState)state
+                      error:(NSError *)error {
 	switch (state) {
 		case FBSessionStateOpen: {
 			// Login done
 			DDLogInfo(@"%@: Login finished, show the main view!", THIS_FILE);
-            [[NSNotificationCenter defaultCenter] postNotificationName:FBSessionStateOpenedNotification object:self];
+			[[NSNotificationCenter defaultCenter] postNotificationName:FBSessionStateOpenedNotification object:self];
 			break;
 		}
             
@@ -62,20 +138,20 @@
 			break;
 	}
     
-    if (error) {
-        [self showError:error];
-    }
+	if (error) {
+		[self showError:error];
+	}
 }
 
 - (void)showError:(NSError *)error {
-    DDLogError(@"%@: %@", THIS_FILE, error);
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Error"
+	DDLogError(@"%@: %@", THIS_FILE, error);
+	UIAlertView *alertView = [[UIAlertView alloc]
+	                          initWithTitle:@"Error"
                               message:[error localizedDescription]
                               delegate:nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
-    [alertView show];
+	[alertView show];
 }
 
 @end

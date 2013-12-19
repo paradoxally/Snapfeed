@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		05033BDE4FAB4F60AEDEFF2E /* libPods-Snapfeed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB6E181D8534314AF72E10C /* libPods-Snapfeed.a */; };
+		0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */; };
 		0F96453F185C0300004B2DE5 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F96453E185C0300004B2DE5 /* NewRelicAgent.framework */; };
 		0F964541185C0643004B2DE5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F964540185C0643004B2DE5 /* FacebookSDK.framework */; };
 		0FA4A5D4185C012C00D2C8E8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA4A5D2185C012C00D2C8E8 /* Crashlytics.framework */; };
+		0FA6DCBE1862ABEA0036626B /* SNFLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA6DCBD1862ABEA0036626B /* SNFLikeButton.m */; };
 		0FAE9E34185BEFAD00896242 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E33185BEFAD00896242 /* Foundation.framework */; };
 		0FAE9E36185BEFAD00896242 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E35185BEFAD00896242 /* CoreGraphics.framework */; };
 		0FAE9E38185BEFAD00896242 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E37185BEFAD00896242 /* UIKit.framework */; };
@@ -28,6 +30,8 @@
 		0FAE9E73185BF59200896242 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E72185BF59200896242 /* SystemConfiguration.framework */; };
 		0FAE9E75185BF59600896242 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E74185BF59600896242 /* libz.dylib */; };
 		0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */; };
+		0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB9019C1860F05A00918088 /* SNFFeedTVC.m */; };
+		0FB901A11860F3EB00918088 /* SNFFeedPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */; };
 		0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */; };
 		0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF71185FAD2F008CFD76 /* SNFOpenSessionViewController.m */; };
 /* End PBXBuildFile section */
@@ -44,9 +48,13 @@
 
 /* Begin PBXFileReference section */
 		0BD8E9F508BD483FB729A856 /* Pods-Snapfeed.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapfeed.xcconfig"; path = "Pods/Pods-Snapfeed.xcconfig"; sourceTree = "<group>"; };
+		0F757C39186238A600BB4868 /* SNFFeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedHeaderView.h; sourceTree = "<group>"; };
+		0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedHeaderView.m; sourceTree = "<group>"; };
 		0F96453E185C0300004B2DE5 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
 		0F964540185C0643004B2DE5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		0FA4A5D2185C012C00D2C8E8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
+		0FA6DCBC1862ABEA0036626B /* SNFLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFLikeButton.h; sourceTree = "<group>"; };
+		0FA6DCBD1862ABEA0036626B /* SNFLikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFLikeButton.m; sourceTree = "<group>"; };
 		0FAE9E30185BEFAD00896242 /* Snapfeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapfeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FAE9E33185BEFAD00896242 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FAE9E35185BEFAD00896242 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -69,6 +77,10 @@
 		0FAE9E74185BF59600896242 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		0FB90198185FBC3C00918088 /* SNFFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFriendsViewController.h; sourceTree = "<group>"; };
 		0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFriendsViewController.m; sourceTree = "<group>"; };
+		0FB9019B1860F05A00918088 /* SNFFeedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedTVC.h; sourceTree = "<group>"; };
+		0FB9019C1860F05A00918088 /* SNFFeedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedTVC.m; sourceTree = "<group>"; };
+		0FB9019F1860F3EB00918088 /* SNFFeedPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedPhotoCell.h; sourceTree = "<group>"; };
+		0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedPhotoCell.m; sourceTree = "<group>"; };
 		0FF1CF6C185FA427008CFD76 /* SNFFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFacebook.h; sourceTree = "<group>"; };
 		0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFacebook.m; sourceTree = "<group>"; };
 		0FF1CF70185FAD2F008CFD76 /* SNFOpenSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFOpenSessionViewController.h; sourceTree = "<group>"; };
@@ -107,6 +119,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F757C3C18623AC200BB4868 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0FF1CF6C185FA427008CFD76 /* SNFFacebook.h */,
+				0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		0FAE9E27185BEFAD00896242 = {
 			isa = PBXGroup;
 			children = (
@@ -148,16 +169,18 @@
 		0FAE9E39185BEFAD00896242 /* Snapfeed */ = {
 			isa = PBXGroup;
 			children = (
+				0F757C3C18623AC200BB4868 /* Model */,
 				0FAE9E4E185BEFAD00896242 /* Images.xcassets */,
 				0FF1CF6F185FACA4008CFD76 /* Login */,
 				0FAE9E45185BEFAD00896242 /* Main.storyboard */,
 				0FAE9E42185BEFAD00896242 /* SNFAppDelegate.h */,
 				0FAE9E43185BEFAD00896242 /* SNFAppDelegate.m */,
-				0FF1CF6C185FA427008CFD76 /* SNFFacebook.h */,
-				0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */,
-				0FAE9E3A185BEFAD00896242 /* Supporting Files */,
+				0FB9019B1860F05A00918088 /* SNFFeedTVC.h */,
+				0FB9019C1860F05A00918088 /* SNFFeedTVC.m */,
 				0FB90198185FBC3C00918088 /* SNFFriendsViewController.h */,
 				0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */,
+				0FAE9E3A185BEFAD00896242 /* Supporting Files */,
+				0FB9019E1860F39E00918088 /* Views */,
 			);
 			path = Snapfeed;
 			sourceTree = "<group>";
@@ -189,6 +212,19 @@
 				0FAE9E5E185BEFAD00896242 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0FB9019E1860F39E00918088 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0F757C39186238A600BB4868 /* SNFFeedHeaderView.h */,
+				0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */,
+				0FB9019F1860F3EB00918088 /* SNFFeedPhotoCell.h */,
+				0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */,
+				0FA6DCBC1862ABEA0036626B /* SNFLikeButton.h */,
+				0FA6DCBD1862ABEA0036626B /* SNFLikeButton.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		0FF1CF6F185FACA4008CFD76 /* Login */ = {
@@ -347,9 +383,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */,
+				0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */,
 				0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */,
+				0FA6DCBE1862ABEA0036626B /* SNFLikeButton.m in Sources */,
 				0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */,
 				0FAE9E44185BEFAD00896242 /* SNFAppDelegate.m in Sources */,
+				0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */,
+				0FB901A11860F3EB00918088 /* SNFFeedPhotoCell.m in Sources */,
 				0FAE9E40185BEFAD00896242 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

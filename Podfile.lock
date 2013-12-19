@@ -5,6 +5,7 @@ PODS:
   - CocoaLumberjack/Core (1.6.5.1)
   - CocoaLumberjack/Extensions (1.6.5.1):
     - CocoaLumberjack/Core
+  - NSDate+TimeAgo (1.0.2)
   - SDWebImage (3.5.1):
     - SDWebImage/Core
   - SDWebImage/Core (3.5.1)
@@ -12,11 +13,13 @@ PODS:
 
 DEPENDENCIES:
   - CocoaLumberjack (~> 1.6.5.1)
+  - NSDate+TimeAgo (~> 1.0.2)
   - SDWebImage (~> 3.5.1)
   - UIColor+MLPFlatColors (~> 1.0)
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 17803afbade3126a377d32b8d23367264b44ced6
+  NSDate+TimeAgo: fe93d3042e83093ae3630bc47ae7d57f782733f6
   SDWebImage: a408b548a634b792372e07e753fc1079aff5032a
   UIColor+MLPFlatColors: 8631d7f050b0e5afd9af178a60319891c5113d0e
 
