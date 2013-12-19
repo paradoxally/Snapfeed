@@ -10,4 +10,9 @@
 
 @interface SNFFeedHeaderView : UIView
 
+@property (nonatomic) NSUInteger sectionIndex;
+@property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *datePostedString;
+
 @end
