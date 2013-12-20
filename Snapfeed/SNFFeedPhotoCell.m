@@ -26,11 +26,4 @@
     // Configure the view for the selected state
 }
 
--(void)prepareForReuse {
-    
-    self.photoView.image = nil;
-    self.photoView.contentMode = UIViewContentModeScaleAspectFill;
-    self.description.text = @"";
-}
-
 @end

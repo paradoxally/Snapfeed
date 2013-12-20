@@ -75,30 +75,29 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <textView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Description" translatesAutoresizingMaskIntoConstraints="NO" id="qyf-wy-77S">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="295" translatesAutoresizingMaskIntoConstraints="NO" id="oqD-mp-FUb" customClass="TTTAttributedLabel">
                                             <rect key="frame" x="10" y="328" width="295" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                        </textView>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="7P6-d5-hL6" firstAttribute="top" secondItem="qyf-wy-77S" secondAttribute="bottom" constant="8" id="6vQ-45-jIh"/>
-                                        <constraint firstAttribute="trailing" secondItem="qyf-wy-77S" secondAttribute="trailing" constant="15" id="88c-82-tZc"/>
-                                        <constraint firstItem="qyf-wy-77S" firstAttribute="top" secondItem="tSA-oP-MaZ" secondAttribute="bottom" constant="8" id="EQM-NP-kEB"/>
+                                        <constraint firstItem="oqD-mp-FUb" firstAttribute="top" secondItem="tSA-oP-MaZ" secondAttribute="bottom" constant="8" id="Nca-CW-q6G"/>
                                         <constraint firstAttribute="bottom" secondItem="7P6-d5-hL6" secondAttribute="bottom" constant="6" id="RW8-qK-aja"/>
-                                        <constraint firstItem="qyf-wy-77S" firstAttribute="leading" secondItem="G1q-mI-8bo" secondAttribute="leading" constant="10" id="VhM-xz-1MM"/>
+                                        <constraint firstItem="oqD-mp-FUb" firstAttribute="leading" secondItem="G1q-mI-8bo" secondAttribute="leading" constant="10" id="T5F-kA-yCP"/>
                                         <constraint firstItem="tSA-oP-MaZ" firstAttribute="top" secondItem="G1q-mI-8bo" secondAttribute="top" id="Wtj-f5-Ykt"/>
                                         <constraint firstItem="tSA-oP-MaZ" firstAttribute="leading" secondItem="G1q-mI-8bo" secondAttribute="leading" id="Xfz-X7-JRA"/>
                                         <constraint firstItem="7P6-d5-hL6" firstAttribute="leading" secondItem="G1q-mI-8bo" secondAttribute="leading" constant="10" id="ewM-dF-LPr"/>
-                                        <constraint firstAttribute="bottom" secondItem="qyf-wy-77S" secondAttribute="bottom" constant="38" id="nF9-yN-B3L"/>
+                                        <constraint firstAttribute="trailing" secondItem="oqD-mp-FUb" secondAttribute="trailing" constant="15" id="gIk-Zp-Wng"/>
+                                        <constraint firstItem="7P6-d5-hL6" firstAttribute="top" secondItem="oqD-mp-FUb" secondAttribute="bottom" constant="8" id="nAB-q7-Jv3"/>
+                                        <constraint firstAttribute="bottom" secondItem="oqD-mp-FUb" secondAttribute="bottom" constant="38" id="twJ-R7-Ubj"/>
                                         <constraint firstAttribute="trailing" secondItem="tSA-oP-MaZ" secondAttribute="trailing" id="xsE-7z-BhL"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="description" destination="qyf-wy-77S" id="QVL-WX-jFd"/>
+                                    <outlet property="description" destination="oqD-mp-FUb" id="l3M-Aj-u6x"/>
                                     <outlet property="likeButton" destination="7P6-d5-hL6" id="U87-zT-8HL"/>
                                     <outlet property="photoView" destination="tSA-oP-MaZ" id="G4u-Iq-MtG"/>
                                 </connections>

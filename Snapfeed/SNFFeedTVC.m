@@ -107,14 +107,20 @@ static const NSUInteger kTableViewCellHeight = 320;
         cell = [[SNFFeedPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
+    cell.description.text = @"";
     NSString *description = (NSString *)self.posts[indexPath.section][@"message"];
     //DDLogVerbose(@"%@: Description for cell #%d: %@", THIS_FILE, indexPath.section,description);
     if(!description) {
         description = @"";
+        [cell.description removeFromSuperview];
+    } else {
+        cell.description.linkAttributes = @{(NSString *)kCTForegroundColorAttributeName : (id)[[UIColor flatBlueColor] CGColor]};
+        cell.description.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+        cell.description.text = description;
     }
     
-    cell.description.text = description;
-    
+    cell.photoView.image = nil;
+    cell.photoView.contentMode = UIViewContentModeScaleAspectFill;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         // By default, Facebook gives us a thumbnail of the image using the 'picture' key.
         // All thumbnail URLs are terminated with _s. We simply replace them with the _n terminators for regular images to show the large image
@@ -154,6 +160,7 @@ static const NSUInteger kTableViewCellHeight = 320;
     
     NSString *description = (NSString *)[[self.posts objectAtIndex:indexPath.section]objectForKey:@"message"];
     if (!description) {
+        DDLogVerbose(@"bitch is empty");
         description = @"";
     }
     
@@ -165,7 +172,7 @@ static const NSUInteger kTableViewCellHeight = 320;
                                           context:nil];
     
     DDLogVerbose(@"%@: Extra size height: %.1f", THIS_FILE, kTableViewCellHeight + extraSize.size.height);
-    return kTableViewCellHeight + ceilf(extraSize.size.height) + (!description ? 20 : 24+20+10);
+    return kTableViewCellHeight + ceilf(extraSize.size.height) + (!description ? 0 : 24+20+10);
 }
 
 /*
