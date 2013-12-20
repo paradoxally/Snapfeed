@@ -19,10 +19,19 @@ static const NSUInteger kTableViewCellHeight = 320;
 @interface SNFFeedTVC ()
 
 @property (nonatomic, strong) NSMutableArray *posts; // data source
+@property (nonatomic, strong) NSMutableDictionary *fetchedUserAvatarURLs; // keep a record of users' avatars we have fetched (ID : avatar URL)
 
 @end
 
 @implementation SNFFeedTVC
+
+- (NSMutableDictionary *)fetchedUserAvatarURLs {
+    if (!_fetchedUserAvatarURLs) {
+        _fetchedUserAvatarURLs = [NSMutableDictionary new];
+    }
+    
+    return _fetchedUserAvatarURLs;
+}
 
 - (void)viewDidLoad
 {
@@ -108,11 +117,12 @@ static const NSUInteger kTableViewCellHeight = 320;
     }
     
     cell.description.text = @"";
+    cell.description.hidden = NO;
     NSString *description = (NSString *)self.posts[indexPath.section][@"message"];
     //DDLogVerbose(@"%@: Description for cell #%d: %@", THIS_FILE, indexPath.section,description);
     if(!description) {
         description = @"";
-        [cell.description removeFromSuperview];
+        cell.description.hidden = YES;
     } else {
         cell.description.linkAttributes = @{(NSString *)kCTForegroundColorAttributeName : (id)[[UIColor flatBlueColor] CGColor]};
         cell.description.enabledTextCheckingTypes = NSTextCheckingTypeLink;
@@ -153,6 +163,24 @@ static const NSUInteger kTableViewCellHeight = 320;
     [header setUserInteractionEnabled:YES];
     [header addGestureRecognizer:tapOnFromLabel];*/
     
+    __block NSURL *avatarURL = nil;
+    if ([[self.fetchedUserAvatarURLs allKeys] containsObject:header.userID]) {
+        avatarURL = self.fetchedUserAvatarURLs[header.userID];
+        DDLogVerbose(@"%@: Cached avatar image URL for user ID %@: %@", THIS_FILE, header.userID, avatarURL);
+        [header.avatar setImageWithURL:avatarURL];
+    } else {
+        [[SNFFacebook sharedInstance] myFriendsAvatar:header.userID withReponse:^(FBRequestConnection *request, id result, NSError *error) {
+            if(!error) {
+                if([[result objectForKey:@"data"] count] > 0) {
+                    avatarURL = [NSURL URLWithString:result[@"data"][0][@"picture"][@"data"][@"url"]];
+                    [self.fetchedUserAvatarURLs setObject:avatarURL forKey:header.userID];
+                    DDLogVerbose(@"%@: Newly fetched avatar image URL for user ID %@: %@", THIS_FILE, header.userID, avatarURL);
+                    [header.avatar setImageWithURL:avatarURL];
+                }
+            }
+        }];
+    }
+    
     return header;
 }
 
@@ -172,7 +200,7 @@ static const NSUInteger kTableViewCellHeight = 320;
                                           context:nil];
     
     DDLogVerbose(@"%@: Extra size height: %.1f", THIS_FILE, kTableViewCellHeight + extraSize.size.height);
-    return kTableViewCellHeight + ceilf(extraSize.size.height) + (!description ? 0 : 24+20+10);
+    return kTableViewCellHeight + ceilf(extraSize.size.height) + ([description isEqualToString:@""] ? 25 : 24+20+10);
 }
 
 /*

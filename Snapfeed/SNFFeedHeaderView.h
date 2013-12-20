@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *datePostedString;
+@property (nonatomic, strong) UIImageView *avatar;
 
 @end

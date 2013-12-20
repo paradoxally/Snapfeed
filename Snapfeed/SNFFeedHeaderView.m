@@ -14,6 +14,15 @@
 
 @implementation SNFFeedHeaderView
 
+- (UIImageView *)avatar {
+    if (!_avatar) {
+        _avatar = [[UIImageView alloc] init];
+        _avatar.frame = CGRectMake(10, 10, 30, 30);
+    }
+    
+    return _avatar;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -49,27 +58,18 @@
     
     
     // AVATAR
-    __block UIImageView *avatar = [[UIImageView alloc] init];
-    avatar.frame = CGRectMake(10, 10, 30, 30);
+    //self.avatar = [[UIImageView alloc] init];
+    //self.avatar.frame = CGRectMake(10, 10, 30, 30);
     //avatar.image = [UIImage imageNamed:@"user_male-50"];
-    [avatar.layer setCornerRadius:15.0];
-    [avatar.layer setMasksToBounds:YES];
-    [[SNFFacebook sharedInstance] myFriendsAvatar:self.userID withReponse:^(FBRequestConnection *request, id result, NSError *error) {
-        if(!error) {
-            if([[result objectForKey:@"data"] count] > 0) {
-                NSURL *imageURL = [NSURL URLWithString:result[@"data"][0][@"picture"][@"data"][@"url"]];
-                DDLogVerbose(@"%@: Avatar image URL: %@", THIS_FILE, imageURL);
-                
-                [avatar setImageWithURL:imageURL];
-            }
-        }
-    }];
+    [self.avatar.layer setCornerRadius:15.0];
+    [self.avatar.layer setMasksToBounds:YES];
+    
     
     
     [self addSubview:from];
     [self addSubview:time];
     [self addSubview:dateIcon];
-    [self addSubview:avatar];
+    [self addSubview:self.avatar];
     
     [self setNeedsDisplay];
 
