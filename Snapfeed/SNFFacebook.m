@@ -74,12 +74,6 @@
 	}];
 }
 
-- (void)myFriendsAvatar:(NSString *)uid withReponse:(FBRequestResponseWithID)response {
-	[[FBRequest requestForGraphPath:[NSString stringWithFormat:@"me/friends?fields=picture&uid=%@", uid]] startWithCompletionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {
-	    response(connection, result, error);
-	}];
-}
-
 - (void)photoLikesAndComments:(NSString *)pid withReponse:(FBRequestResponseWithID)response {
 	[[FBRequest requestForGraphPath:[NSString stringWithFormat:@"%@?fields=comments.fields(like_count),likes.fields(id,name,pic_crop)", pid]] startWithCompletionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {
 	    response(connection, result, error);

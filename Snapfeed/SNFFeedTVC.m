@@ -19,23 +19,18 @@ static const NSUInteger kTableViewCellHeight = 320;
 @interface SNFFeedTVC ()
 
 @property (nonatomic, strong) NSMutableArray *posts; // data source
-@property (nonatomic, strong) NSMutableDictionary *fetchedUserAvatarURLs; // keep a record of users' avatars we have fetched (ID : avatar URL)
+@property (nonatomic) BOOL isLoadingData;
 
 @end
 
 @implementation SNFFeedTVC
 
-- (NSMutableDictionary *)fetchedUserAvatarURLs {
-    if (!_fetchedUserAvatarURLs) {
-        _fetchedUserAvatarURLs = [NSMutableDictionary new];
-    }
-    
-    return _fetchedUserAvatarURLs;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if(![self.posts count] > 0)
+        [self getPhotos];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -48,8 +43,8 @@ static const NSUInteger kTableViewCellHeight = 320;
     
     [super viewWillAppear:animated];
     
-    if(![self.posts count] > 0)
-        [self getPhotos];
+    /*if(![self.posts count] > 0)
+        [self getPhotos];*/
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,6 +57,7 @@ static const NSUInteger kTableViewCellHeight = 320;
     
     //[self loadingData:YES];
     
+    self.isLoadingData = YES;
     [[SNFFacebook sharedInstance] getMainFeed:^(FBRequestConnection *request, NSDictionary *result, NSError *error) {
         self.posts = [NSMutableArray new];
         for (NSDictionary *post in result[@"data"]) {
@@ -70,15 +66,15 @@ static const NSUInteger kTableViewCellHeight = 320;
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.isLoadingData = NO;
             [self.tableView reloadData];
             [self.tableView setNeedsDisplay];
-            [self loadingData:NO];
         });
         
     }];
 }
 
-- (void)loadingData:(BOOL)isLoading {
+/*- (void)loadingData:(BOOL)isLoading {
     
     if(isLoading) {
         UIActivityIndicatorView * activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
@@ -90,7 +86,7 @@ static const NSUInteger kTableViewCellHeight = 320;
     } else {
         [self navigationItem].leftBarButtonItem = nil;
     }
-}
+}*/
 
 #pragma mark - Table view data source
 
@@ -119,7 +115,6 @@ static const NSUInteger kTableViewCellHeight = 320;
     cell.description.text = @"";
     cell.description.hidden = NO;
     NSString *description = (NSString *)self.posts[indexPath.section][@"message"];
-    //DDLogVerbose(@"%@: Description for cell #%d: %@", THIS_FILE, indexPath.section,description);
     if(!description) {
         description = @"";
         cell.description.hidden = YES;
@@ -133,7 +128,7 @@ static const NSUInteger kTableViewCellHeight = 320;
     cell.photoView.contentMode = UIViewContentModeScaleAspectFill;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         // By default, Facebook gives us a thumbnail of the image using the 'picture' key.
-        // All thumbnail URLs are terminated with _s. We simply replace them with the _n terminators for regular images to show the large image
+        // All thumbnail URLs are terminated with _s. We simply replace them with the _n terminators for normal images to show the large image
         NSURL *imageURL = [NSURL URLWithString:[self.posts[indexPath.section][@"picture"] stringByReplacingOccurrencesOfString:@"_s" withString:@"_n"]];
         DDLogVerbose(@"%@: Image URL: %@", THIS_FILE, imageURL);
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -152,34 +147,22 @@ static const NSUInteger kTableViewCellHeight = 320;
     
     SNFFeedHeaderView *header = [[SNFFeedHeaderView alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
     
-    header.userID = [[[self.posts objectAtIndex:section] objectForKey:@"from"] objectForKey:@"id"];
-    header.username = [[[self.posts objectAtIndex:section] objectForKey:@"from"] objectForKey:@"name"];
-    header.datePostedString = [[[[self.posts objectAtIndex:section] objectForKey:@"created_time"] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    NSDictionary *postAuthor = self.posts[section][@"from"];
+    header.userID = postAuthor[@"id"];
+    header.username = postAuthor[@"name"];
+    DDLogVerbose(@"%@: User ID: %@; Name: %@", THIS_FILE, header.userID, header.username);
+    header.datePostedString = [[self.posts[section][@"created_time"] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    DDLogVerbose(@"%@: Post %ld date: %@", THIS_FILE, (long)section, header.datePostedString);
     header.sectionIndex = section;
+    
+    NSURL *avatarURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture", header.userID]];
+    [header.avatar setImageWithURL:avatarURL placeholderImage:nil options:SDWebImageRefreshCached];
     
     // TAP ON FROM TO OPEN
     /*UITapGestureRecognizer *tapOnFromLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedOnFromLabel:)];
     [tapOnFromLabel setNumberOfTapsRequired:1];
     [header setUserInteractionEnabled:YES];
     [header addGestureRecognizer:tapOnFromLabel];*/
-    
-    __block NSURL *avatarURL = nil;
-    if ([[self.fetchedUserAvatarURLs allKeys] containsObject:header.userID]) {
-        avatarURL = self.fetchedUserAvatarURLs[header.userID];
-        DDLogVerbose(@"%@: Cached avatar image URL for user ID %@: %@", THIS_FILE, header.userID, avatarURL);
-        [header.avatar setImageWithURL:avatarURL];
-    } else {
-        [[SNFFacebook sharedInstance] myFriendsAvatar:header.userID withReponse:^(FBRequestConnection *request, id result, NSError *error) {
-            if(!error) {
-                if([[result objectForKey:@"data"] count] > 0) {
-                    avatarURL = [NSURL URLWithString:result[@"data"][0][@"picture"][@"data"][@"url"]];
-                    [self.fetchedUserAvatarURLs setObject:avatarURL forKey:header.userID];
-                    DDLogVerbose(@"%@: Newly fetched avatar image URL for user ID %@: %@", THIS_FILE, header.userID, avatarURL);
-                    [header.avatar setImageWithURL:avatarURL];
-                }
-            }
-        }];
-    }
     
     return header;
 }
@@ -188,7 +171,6 @@ static const NSUInteger kTableViewCellHeight = 320;
     
     NSString *description = (NSString *)[[self.posts objectAtIndex:indexPath.section]objectForKey:@"message"];
     if (!description) {
-        DDLogVerbose(@"bitch is empty");
         description = @"";
     }
     
@@ -199,7 +181,7 @@ static const NSUInteger kTableViewCellHeight = 320;
                                        attributes:attributesDictionary
                                           context:nil];
     
-    DDLogVerbose(@"%@: Extra size height: %.1f", THIS_FILE, kTableViewCellHeight + extraSize.size.height);
+    //DDLogVerbose(@"%@: Extra size height: %.1f", THIS_FILE, kTableViewCellHeight + extraSize.size.height);
     return kTableViewCellHeight + ceilf(extraSize.size.height) + ([description isEqualToString:@""] ? 25 : 24+20+10);
 }
 

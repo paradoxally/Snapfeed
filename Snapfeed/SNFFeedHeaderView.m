@@ -30,7 +30,8 @@
     
     // ADD BORDER BOTTOM
     UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.frame.size.height-1,self.frame.size.width, 1)];
-    [navBorder setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.00]];
+    //[navBorder setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.00]];
+    [navBorder setBackgroundColor:[UIColor redColor]];
     [self addSubview:navBorder];
     
     
@@ -62,6 +63,8 @@
     //self.avatar.frame = CGRectMake(10, 10, 30, 30);
     //avatar.image = [UIImage imageNamed:@"user_male-50"];
     [self.avatar.layer setCornerRadius:15.0];
+    [self.avatar.layer setBorderColor:[UIColor flatDarkWhiteColor].CGColor];
+    [self.avatar.layer setBorderWidth:0.5f];
     [self.avatar.layer setMasksToBounds:YES];
     
     
