@@ -30,8 +30,7 @@
     
     // ADD BORDER BOTTOM
     UIView *navBorder = [[UIView alloc] initWithFrame:CGRectMake(0,self.frame.size.height-1,self.frame.size.width, 1)];
-    //[navBorder setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.00]];
-    [navBorder setBackgroundColor:[UIColor redColor]];
+    [navBorder setBackgroundColor:[UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.00]];
     [self addSubview:navBorder];
     
     
@@ -46,7 +45,7 @@
     NSString *dateInString = self.datePostedString;
     NSDate *myDate = [df dateFromString: dateInString];
     UILabel *time = [[UILabel alloc]initWithFrame:CGRectMake(230,0,80,50)];
-    //time.text = [myDate dateTimeUntilNow];
+    time.text = [myDate dateTimeUntilNow];
     time.textAlignment = NSTextAlignmentRight;
     [time setFont:[UIFont systemFontOfSize:10]];
     

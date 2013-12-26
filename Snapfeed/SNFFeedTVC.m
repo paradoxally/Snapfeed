@@ -18,7 +18,8 @@ static const NSUInteger kTableViewCellHeight = 320;
 
 @interface SNFFeedTVC ()
 
-@property (nonatomic, strong) NSMutableArray *posts; // data source
+@property (nonatomic, strong) NSArray *posts; // data source
+@property (nonatomic, strong) NSDictionary *paging; // data paging
 @property (nonatomic) BOOL isLoadingData;
 
 @end
@@ -58,12 +59,10 @@ static const NSUInteger kTableViewCellHeight = 320;
     //[self loadingData:YES];
     
     self.isLoadingData = YES;
-    [[SNFFacebook sharedInstance] getMainFeed:^(FBRequestConnection *request, NSDictionary *result, NSError *error) {
-        self.posts = [NSMutableArray new];
-        for (NSDictionary *post in result[@"data"]) {
-            if([post[@"type"] isEqualToString:@"photo"])
-                [self.posts addObject:post];
-        }
+    [[SNFFacebook sharedInstance] getMainFeedPhotos:^(FBRequestConnection *request, NSDictionary *result, NSError *error) {
+        self.posts = result[@"data"];
+        //DDLogVerbose(@"TESTING: %@", self.posts[0]);
+        self.paging = result[@"paging"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.isLoadingData = NO;
@@ -112,9 +111,14 @@ static const NSUInteger kTableViewCellHeight = 320;
         cell = [[SNFFeedPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
+    NSDictionary *post = self.posts[indexPath.section];
+    
+    cell.likeLabel.text = @"";
+    cell.likesSection.hidden = NO;
     cell.description.text = @"";
     cell.description.hidden = NO;
-    NSString *description = (NSString *)self.posts[indexPath.section][@"message"];
+    NSString *description = post[@"message"];
+    DDLogVerbose(@"Description: %@", description);;
     if(!description) {
         description = @"";
         cell.description.hidden = YES;
@@ -124,17 +128,21 @@ static const NSUInteger kTableViewCellHeight = 320;
         cell.description.text = description;
     }
     
+    NSUInteger likes = [post[@"likes"][@"summary"][@"total_count"] unsignedIntegerValue];
+    DDLogVerbose(@"Likes: %u", likes);
+    if (likes == 0) {
+        cell.likesSection.hidden = YES;
+    } else {
+        cell.likeLabel.text = [NSString stringWithFormat:@"%u likes", likes];
+    }
+    
     cell.photoView.image = nil;
     cell.photoView.contentMode = UIViewContentModeScaleAspectFill;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         // By default, Facebook gives us a thumbnail of the image using the 'picture' key.
         // All thumbnail URLs are terminated with _s. We simply replace them with the _n terminators for normal images to show the large image
-        NSURL *imageURL = [NSURL URLWithString:[self.posts[indexPath.section][@"picture"] stringByReplacingOccurrencesOfString:@"_s" withString:@"_n"]];
-        DDLogVerbose(@"%@: Image URL: %@", THIS_FILE, imageURL);
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [cell.photoView setImageWithURL:imageURL];
-        });
-    });
+    NSURL *imageURL = [NSURL URLWithString:[post[@"picture"] stringByReplacingOccurrencesOfString:@"_s" withString:@"_n"]];
+    DDLogVerbose(@"%@: Image URL: %@", THIS_FILE, imageURL);
+    [cell.photoView setImageWithURL:imageURL];
     
     return cell;
 }
@@ -169,20 +177,23 @@ static const NSUInteger kTableViewCellHeight = 320;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *description = (NSString *)[[self.posts objectAtIndex:indexPath.section]objectForKey:@"message"];
+    //DDLogVerbose(@"%@: %@", THIS_FILE, self.posts[data]);
+    NSString *description = self.posts[indexPath.section][@"message"];
+    NSUInteger likes = [self.posts[indexPath.section][@"likes"][@"summary"][@"total_count"] unsignedIntegerValue];
+    
     if (!description) {
         description = @"";
     }
     
     NSDictionary *attributesDictionary = @{NSFontAttributeName : [UIFont systemFontOfSize:14.f]};
     
-    CGRect extraSize = [description boundingRectWithSize:CGSizeMake(295, CGFLOAT_MAX)
+    CGRect extraDescriptionSize = [description boundingRectWithSize:CGSizeMake(295, CGFLOAT_MAX)
                                           options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
                                        attributes:attributesDictionary
                                           context:nil];
     
     //DDLogVerbose(@"%@: Extra size height: %.1f", THIS_FILE, kTableViewCellHeight + extraSize.size.height);
-    return kTableViewCellHeight + ceilf(extraSize.size.height) + ([description isEqualToString:@""] ? 25 : 24+20+10);
+    return kTableViewCellHeight + (likes == 0 && ![description isEqualToString:@""] ? -25 : 0) + (likes == 0 && [description isEqualToString:@""] ? 10 : 40) + ceilf(extraDescriptionSize.size.height) + ([description isEqualToString:@""] ? 40 : 55);
 }
 
 /*

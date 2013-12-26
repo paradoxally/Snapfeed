@@ -12,6 +12,8 @@
 @interface SNFFeedPhotoCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *description;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *likeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UIView *likesSection;
 
 @end

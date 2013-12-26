@@ -74,15 +74,9 @@
 	}];
 }
 
-- (void)photoLikesAndComments:(NSString *)pid withReponse:(FBRequestResponseWithID)response {
-	[[FBRequest requestForGraphPath:[NSString stringWithFormat:@"%@?fields=comments.fields(like_count),likes.fields(id,name,pic_crop)", pid]] startWithCompletionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {
-	    response(connection, result, error);
-	}];
-}
-
-- (void)getMainFeed:(FBRequestResponseWithDictionary)response {
+- (void)getMainFeedPhotos:(FBRequestResponseWithDictionary)response {
 	// MAIN FEED
-	[[FBRequest requestForGraphPath:@"me/home?fields=type,from,name,picture,message&limit=50"] startWithCompletionHandler: ^(FBRequestConnection *connection,
+	[[FBRequest requestForGraphPath:@"me/home?fields=type,from,picture,message,comments.limit(3).summary(true),likes.limit(1).summary(true)&filter=app_2305272732&limit=10"] startWithCompletionHandler: ^(FBRequestConnection *connection,
 	                                                                                                                         NSDictionary *result,
 	                                                                                                                         NSError *error) {
 	    response(connection, result, error);
