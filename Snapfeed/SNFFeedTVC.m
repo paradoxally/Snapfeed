@@ -113,6 +113,13 @@ static const NSUInteger kTableViewCellHeight = 320;
     
     NSDictionary *post = self.posts[indexPath.section];
     
+    cell.photoView.contentMode = UIViewContentModeScaleAspectFill;
+    // By default, Facebook gives us a thumbnail of the image using the 'picture' key.
+    // All thumbnail URLs are terminated with _s. We simply replace them with the _n terminators for normal images to show the large image
+    NSURL *imageURL = [NSURL URLWithString:[post[@"picture"] stringByReplacingOccurrencesOfString:@"_s" withString:@"_n"]];
+    DDLogVerbose(@"%@: Image URL: %@", THIS_FILE, imageURL);
+    [cell.photoView setImageWithURL:imageURL];
+    
     cell.likeLabel.text = @"";
     cell.likesSection.hidden = NO;
     cell.description.text = @"";
@@ -129,20 +136,12 @@ static const NSUInteger kTableViewCellHeight = 320;
     }
     
     NSUInteger likes = [post[@"likes"][@"summary"][@"total_count"] unsignedIntegerValue];
-    DDLogVerbose(@"Likes: %u", likes);
+    DDLogVerbose(@"Likes: %lu", (unsigned long)likes);
     if (likes == 0) {
         cell.likesSection.hidden = YES;
     } else {
-        cell.likeLabel.text = [NSString stringWithFormat:@"%u likes", likes];
+        cell.likeLabel.text = [NSString stringWithFormat:@"%lu likes", (unsigned long)likes];
     }
-    
-    cell.photoView.image = nil;
-    cell.photoView.contentMode = UIViewContentModeScaleAspectFill;
-        // By default, Facebook gives us a thumbnail of the image using the 'picture' key.
-        // All thumbnail URLs are terminated with _s. We simply replace them with the _n terminators for normal images to show the large image
-    NSURL *imageURL = [NSURL URLWithString:[post[@"picture"] stringByReplacingOccurrencesOfString:@"_s" withString:@"_n"]];
-    DDLogVerbose(@"%@: Image URL: %@", THIS_FILE, imageURL);
-    [cell.photoView setImageWithURL:imageURL];
     
     return cell;
 }

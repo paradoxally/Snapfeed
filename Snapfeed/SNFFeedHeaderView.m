@@ -9,7 +9,7 @@
 #import "SNFFeedHeaderView.h"
 #import "SNFFacebook.h"
 #import "SNFAppDelegate.h"
-#import <NSDate+TimeAgo.h>
+#import "NSDate+ShortTimeAgo.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation SNFFeedHeaderView
@@ -40,22 +40,24 @@
     from.font = [UIFont boldSystemFontOfSize:14];
     
     // DATE
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *dateInString = self.datePostedString;
-    NSDate *myDate = [df dateFromString: dateInString];
-    UILabel *time = [[UILabel alloc]initWithFrame:CGRectMake(230,0,80,50)];
-    time.text = [myDate dateTimeUntilNow];
-    time.textAlignment = NSTextAlignmentRight;
-    [time setFont:[UIFont systemFontOfSize:10]];
-    
-    
-    // ICON FOR DATE
-    CGSize sizeDateText = [time.text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10]}];
-    UIImageView *dateIcon = [[UIImageView alloc] initWithFrame:CGRectMake(320-sizeDateText.width-15-15, 17, 15, 15)];
-    //dateIcon.image = [UIImage imageNamed:@"alarm_clock-25"];
-    dateIcon.contentMode = UIViewContentModeCenter;
-    
+    if (![self.datePostedString isEqualToString:@""]) {
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *datePosted = [df dateFromString: self.datePostedString];
+        UILabel *relativeTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(230,0,80,50)];
+        relativeTimeLabel.text = [datePosted shortTimeAgo];;
+        relativeTimeLabel.textAlignment = NSTextAlignmentRight;
+        [relativeTimeLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+        
+        // ICON FOR DATE
+        CGSize sizeDateText = [relativeTimeLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.0f]}];
+        UIImageView *dateIcon = [[UIImageView alloc] initWithFrame:CGRectMake(320-sizeDateText.width-15-15, 17, 15, 15)];
+        //dateIcon.image = [UIImage imageNamed:@"alarm_clock-25"];
+        dateIcon.contentMode = UIViewContentModeCenter;
+        
+        [self addSubview:relativeTimeLabel];
+        [self addSubview:dateIcon];
+    }
     
     // AVATAR
     //self.avatar = [[UIImageView alloc] init];
@@ -66,11 +68,7 @@
     [self.avatar.layer setBorderWidth:0.5f];
     [self.avatar.layer setMasksToBounds:YES];
     
-    
-    
     [self addSubview:from];
-    [self addSubview:time];
-    [self addSubview:dateIcon];
     [self addSubview:self.avatar];
     
     [self setNeedsDisplay];

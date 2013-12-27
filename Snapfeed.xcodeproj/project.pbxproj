@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		05033BDE4FAB4F60AEDEFF2E /* libPods-Snapfeed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB6E181D8534314AF72E10C /* libPods-Snapfeed.a */; };
+		0F01AC4A186D283B006C01A0 /* NSDate+ShortTimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F01AC49186D283B006C01A0 /* NSDate+ShortTimeAgo.m */; };
 		0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */; };
 		0F96453F185C0300004B2DE5 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F96453E185C0300004B2DE5 /* NewRelicAgent.framework */; };
 		0F964541185C0643004B2DE5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F964540185C0643004B2DE5 /* FacebookSDK.framework */; };
@@ -48,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		0BD8E9F508BD483FB729A856 /* Pods-Snapfeed.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapfeed.xcconfig"; path = "Pods/Pods-Snapfeed.xcconfig"; sourceTree = "<group>"; };
+		0F01AC48186D283B006C01A0 /* NSDate+ShortTimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ShortTimeAgo.h"; sourceTree = "<group>"; };
+		0F01AC49186D283B006C01A0 /* NSDate+ShortTimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ShortTimeAgo.m"; sourceTree = "<group>"; };
 		0F757C39186238A600BB4868 /* SNFFeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedHeaderView.h; sourceTree = "<group>"; };
 		0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedHeaderView.m; sourceTree = "<group>"; };
 		0F96453E185C0300004B2DE5 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
@@ -119,6 +122,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F01AC4B186D2844006C01A0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0F01AC48186D283B006C01A0 /* NSDate+ShortTimeAgo.h */,
+				0F01AC49186D283B006C01A0 /* NSDate+ShortTimeAgo.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		0F757C3C18623AC200BB4868 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +181,7 @@
 		0FAE9E39185BEFAD00896242 /* Snapfeed */ = {
 			isa = PBXGroup;
 			children = (
+				0F01AC4B186D2844006C01A0 /* Helpers */,
 				0F757C3C18623AC200BB4868 /* Model */,
 				0FAE9E4E185BEFAD00896242 /* Images.xcassets */,
 				0FF1CF6F185FACA4008CFD76 /* Login */,
@@ -384,6 +397,7 @@
 			files = (
 				0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */,
 				0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */,
+				0F01AC4A186D283B006C01A0 /* NSDate+ShortTimeAgo.m in Sources */,
 				0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */,
 				0FA6DCBE1862ABEA0036626B /* SNFLikeButton.m in Sources */,
 				0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */,

@@ -104,7 +104,7 @@ NSString *const FBSessionStateOpenedNotification = @"FBSessionStateOpenedNotific
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [FBSession.activeSession close];
+    //[FBSession.activeSession close];
 }
 
 @end

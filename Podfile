@@ -3,10 +3,9 @@
 
 target "Snapfeed" do
     pod 'SDWebImage', '~> 3.5.1'
-    pod 'CocoaLumberjack', '~> 1.6.5.1'
-    pod 'UIColor+MLPFlatColors', '~> 1.0'
-    pod 'NSDate+TimeAgo', '~> 1.0.2'
-    pod 'TTTAttributedLabel', '~> 1.8.0'
+    pod 'CocoaLumberjack'
+    pod 'UIColor+MLPFlatColors'
+    pod 'TTTAttributedLabel'
 end
 
 target "SnapfeedTests" do

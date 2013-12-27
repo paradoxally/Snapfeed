@@ -10,4 +10,6 @@
 
 @interface NSDate (ShortTimeAgo)
 
+- (NSString *)shortTimeAgo;
+
 @end
