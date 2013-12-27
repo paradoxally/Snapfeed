@@ -46,23 +46,23 @@
                         }
                     } else {
                         // different hour
-                        return [NSString stringWithFormat:@"%dh", components.hour];
+                        return [NSString stringWithFormat:@"%dh", (int)components.hour];
                     }
                 } else {
                     // different day
-                    return [NSString stringWithFormat:@"%dd", components.day];
+                    return [NSString stringWithFormat:@"%dd", (int)components.day];
                 }
             } else {
                 // different week
-                return [NSString stringWithFormat:@"%dw", components.week];
+                return [NSString stringWithFormat:@"%dw", (int)components.week];
             }
         } else {
             // different month
-            return [NSString stringWithFormat:@"%dm", components.month];
+            return [NSString stringWithFormat:@"%dm", (int)components.month];
         }
     } else {
         // different year
-        return [NSString stringWithFormat:@"%dy", components.year];
+        return [NSString stringWithFormat:@"%dy", (int)components.year];
     }
 }
 

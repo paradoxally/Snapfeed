@@ -12,7 +12,6 @@
 #import <Crashlytics/Crashlytics.h>
 
 static NSString * const kCrashlyticsAPIKey = @"60c72262c2fc4df8067a6e7a2774efc31f783d0c";
-static NSString * const kNewRelicAgentAppToken = @"AAc5f6b5e6a79b38d12f6ceb6cf348234670ad7545";
 
 NSString *const FBSessionStateOpenedNotification = @"FBSessionStateOpenedNotification";
 
@@ -28,9 +27,6 @@ NSString *const FBSessionStateOpenedNotification = @"FBSessionStateOpenedNotific
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // New Relic agent initialization
-    //[NewRelicAgent startWithApplicationToken:kNewRelicAgentAppToken];
-    
     // CocoaLumberjack logging initialization - logger and console
 	[DDLog addLogger:[DDASLLogger sharedInstance]];
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];

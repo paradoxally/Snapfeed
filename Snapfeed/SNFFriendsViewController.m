@@ -41,7 +41,7 @@
     FBRequest *request = [FBRequest requestForMyFriends];
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         NSArray *friends = result[@"data"];
-        self.friendsLabel.text = [NSString stringWithFormat:@"You have %d friends", [friends count]];
+        self.friendsLabel.text = [NSString stringWithFormat:@"You have %ud friends", (unsigned int)[friends count]];
         
         if (error) {
             DDLogError(@"%@", error);

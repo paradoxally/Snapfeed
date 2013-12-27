@@ -10,7 +10,6 @@
 		05033BDE4FAB4F60AEDEFF2E /* libPods-Snapfeed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB6E181D8534314AF72E10C /* libPods-Snapfeed.a */; };
 		0F01AC4A186D283B006C01A0 /* NSDate+ShortTimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F01AC49186D283B006C01A0 /* NSDate+ShortTimeAgo.m */; };
 		0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */; };
-		0F96453F185C0300004B2DE5 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F96453E185C0300004B2DE5 /* NewRelicAgent.framework */; };
 		0F964541185C0643004B2DE5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F964540185C0643004B2DE5 /* FacebookSDK.framework */; };
 		0FA4A5D4185C012C00D2C8E8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA4A5D2185C012C00D2C8E8 /* Crashlytics.framework */; };
 		0FA6DCBE1862ABEA0036626B /* SNFLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA6DCBD1862ABEA0036626B /* SNFLikeButton.m */; };
@@ -53,7 +52,6 @@
 		0F01AC49186D283B006C01A0 /* NSDate+ShortTimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ShortTimeAgo.m"; sourceTree = "<group>"; };
 		0F757C39186238A600BB4868 /* SNFFeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedHeaderView.h; sourceTree = "<group>"; };
 		0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedHeaderView.m; sourceTree = "<group>"; };
-		0F96453E185C0300004B2DE5 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
 		0F964540185C0643004B2DE5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		0FA4A5D2185C012C00D2C8E8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
 		0FA6DCBC1862ABEA0036626B /* SNFLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFLikeButton.h; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 			files = (
 				0FAE9E75185BF59600896242 /* libz.dylib in Frameworks */,
 				0F964541185C0643004B2DE5 /* FacebookSDK.framework in Frameworks */,
-				0F96453F185C0300004B2DE5 /* NewRelicAgent.framework in Frameworks */,
 				0FAE9E73185BF59200896242 /* SystemConfiguration.framework in Frameworks */,
 				0FA4A5D4185C012C00D2C8E8 /* Crashlytics.framework in Frameworks */,
 				0FAE9E71185BF58B00896242 /* CoreTelephony.framework in Frameworks */,
@@ -170,7 +167,6 @@
 				0FAE9E33185BEFAD00896242 /* Foundation.framework */,
 				AEB6E181D8534314AF72E10C /* libPods-Snapfeed.a */,
 				0FAE9E74185BF59600896242 /* libz.dylib */,
-				0F96453E185C0300004B2DE5 /* NewRelicAgent.framework */,
 				0FAE9E72185BF59200896242 /* SystemConfiguration.framework */,
 				0FAE9E37185BEFAD00896242 /* UIKit.framework */,
 				0FAE9E55185BEFAD00896242 /* XCTest.framework */,
@@ -536,6 +532,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"/Users/HBK/Documents/MEI/1º\\ Ano/SIMOV/Snapfeed",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snapfeed/Snapfeed-Prefix.pch";
@@ -556,6 +553,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"/Users/HBK/Documents/MEI/1º\\ Ano/SIMOV/Snapfeed",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snapfeed/Snapfeed-Prefix.pch";
