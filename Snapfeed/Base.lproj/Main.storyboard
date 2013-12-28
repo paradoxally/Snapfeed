@@ -62,7 +62,7 @@
                                                 <constraint firstAttribute="height" constant="320" id="h0B-p4-6rx"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7P6-d5-hL6" customClass="SNFLikeButton">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7P6-d5-hL6" customClass="SNFRoundedRectButton">
                                             <rect key="frame" x="10" y="377" width="50" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,12 +75,43 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="295" translatesAutoresizingMaskIntoConstraints="NO" id="oqD-mp-FUb" customClass="TTTAttributedLabel">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uut-Cf-7Vg" customClass="SNFRoundedRectButton">
+                                            <rect key="frame" x="279" y="377" width="31" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="31" id="e6f-Hu-656"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="...">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeI-cI-8Nt" customClass="SNFRoundedRectButton">
+                                            <rect key="frame" x="68" y="377" width="90" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="90" id="roE-H7-KFV"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="Comment">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="295" translatesAutoresizingMaskIntoConstraints="NO" id="oqD-mp-FUb" customClass="TTTAttributedLabel">
                                             <rect key="frame" x="10" y="352" width="295" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Description">
+                                                    <attributes>
+                                                        <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aNh-5B-5eV">
@@ -116,16 +147,22 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="tSA-oP-MaZ" secondAttribute="trailing" id="26n-Zx-SaY"/>
                                         <constraint firstAttribute="bottom" secondItem="7P6-d5-hL6" secondAttribute="bottom" constant="32" id="31f-7x-sYK"/>
+                                        <constraint firstAttribute="trailing" secondItem="uut-Cf-7Vg" secondAttribute="trailing" constant="10" id="5IM-u2-Iqb"/>
                                         <constraint firstItem="tSA-oP-MaZ" firstAttribute="leading" secondItem="G1q-mI-8bo" secondAttribute="leading" id="A7T-Mf-gEa"/>
                                         <constraint firstItem="7P6-d5-hL6" firstAttribute="leading" secondItem="G1q-mI-8bo" secondAttribute="leading" constant="10" id="CDE-Ej-gEB"/>
                                         <constraint firstItem="7P6-d5-hL6" firstAttribute="top" secondItem="oqD-mp-FUb" secondAttribute="bottom" priority="502" constant="8" id="CZQ-qs-m92"/>
                                         <constraint firstAttribute="bottom" secondItem="oqD-mp-FUb" secondAttribute="bottom" constant="64" id="Lat-3Z-sOO"/>
+                                        <constraint firstItem="DeI-cI-8Nt" firstAttribute="bottom" secondItem="7P6-d5-hL6" secondAttribute="bottom" id="M9i-DV-qwW"/>
                                         <constraint firstAttribute="trailing" secondItem="7P6-d5-hL6" secondAttribute="trailing" constant="260" id="MgH-qp-fyw"/>
                                         <constraint firstAttribute="trailing" secondItem="aNh-5B-5eV" secondAttribute="trailing" constant="107" id="T6a-J9-tF8"/>
                                         <constraint firstItem="tSA-oP-MaZ" firstAttribute="top" secondItem="G1q-mI-8bo" secondAttribute="top" id="U2w-Up-C3h"/>
+                                        <constraint firstItem="uut-Cf-7Vg" firstAttribute="bottom" secondItem="DeI-cI-8Nt" secondAttribute="bottom" id="Z5C-h6-H0O"/>
+                                        <constraint firstItem="DeI-cI-8Nt" firstAttribute="top" secondItem="oqD-mp-FUb" secondAttribute="bottom" constant="8" symbolic="YES" id="adQ-Cm-Kjt"/>
+                                        <constraint firstItem="DeI-cI-8Nt" firstAttribute="leading" secondItem="7P6-d5-hL6" secondAttribute="trailing" constant="8" symbolic="YES" id="bAC-3T-jvo"/>
                                         <constraint firstItem="aNh-5B-5eV" firstAttribute="top" secondItem="tSA-oP-MaZ" secondAttribute="bottom" constant="8" symbolic="YES" id="dmS-dG-mnA"/>
                                         <constraint firstItem="aNh-5B-5eV" firstAttribute="leading" secondItem="G1q-mI-8bo" secondAttribute="leading" constant="10" id="exN-xz-qEh"/>
                                         <constraint firstAttribute="trailing" secondItem="oqD-mp-FUb" secondAttribute="trailing" constant="15" id="lT6-sc-qhZ"/>
+                                        <constraint firstItem="uut-Cf-7Vg" firstAttribute="top" secondItem="oqD-mp-FUb" secondAttribute="bottom" constant="8" symbolic="YES" id="wDR-qM-5CI"/>
                                         <constraint firstItem="oqD-mp-FUb" firstAttribute="leading" secondItem="aNh-5B-5eV" secondAttribute="leading" id="wLU-v2-RuJ"/>
                                         <constraint firstItem="oqD-mp-FUb" firstAttribute="leading" secondItem="7P6-d5-hL6" secondAttribute="leading" id="zLp-In-DVh"/>
                                     </constraints>

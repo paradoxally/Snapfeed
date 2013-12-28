@@ -12,7 +12,7 @@
 		0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */; };
 		0F964541185C0643004B2DE5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F964540185C0643004B2DE5 /* FacebookSDK.framework */; };
 		0FA4A5D4185C012C00D2C8E8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA4A5D2185C012C00D2C8E8 /* Crashlytics.framework */; };
-		0FA6DCBE1862ABEA0036626B /* SNFLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA6DCBD1862ABEA0036626B /* SNFLikeButton.m */; };
+		0FA6DCBE1862ABEA0036626B /* SNFRoundedRectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA6DCBD1862ABEA0036626B /* SNFRoundedRectButton.m */; };
 		0FAE9E34185BEFAD00896242 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E33185BEFAD00896242 /* Foundation.framework */; };
 		0FAE9E36185BEFAD00896242 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E35185BEFAD00896242 /* CoreGraphics.framework */; };
 		0FAE9E38185BEFAD00896242 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E37185BEFAD00896242 /* UIKit.framework */; };
@@ -54,8 +54,8 @@
 		0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedHeaderView.m; sourceTree = "<group>"; };
 		0F964540185C0643004B2DE5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		0FA4A5D2185C012C00D2C8E8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
-		0FA6DCBC1862ABEA0036626B /* SNFLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFLikeButton.h; sourceTree = "<group>"; };
-		0FA6DCBD1862ABEA0036626B /* SNFLikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFLikeButton.m; sourceTree = "<group>"; };
+		0FA6DCBC1862ABEA0036626B /* SNFRoundedRectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFRoundedRectButton.h; sourceTree = "<group>"; };
+		0FA6DCBD1862ABEA0036626B /* SNFRoundedRectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFRoundedRectButton.m; sourceTree = "<group>"; };
 		0FAE9E30185BEFAD00896242 /* Snapfeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapfeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FAE9E33185BEFAD00896242 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FAE9E35185BEFAD00896242 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -230,8 +230,8 @@
 				0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */,
 				0FB9019F1860F3EB00918088 /* SNFFeedPhotoCell.h */,
 				0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */,
-				0FA6DCBC1862ABEA0036626B /* SNFLikeButton.h */,
-				0FA6DCBD1862ABEA0036626B /* SNFLikeButton.m */,
+				0FA6DCBC1862ABEA0036626B /* SNFRoundedRectButton.h */,
+				0FA6DCBD1862ABEA0036626B /* SNFRoundedRectButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -395,7 +395,7 @@
 				0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */,
 				0F01AC4A186D283B006C01A0 /* NSDate+ShortTimeAgo.m in Sources */,
 				0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */,
-				0FA6DCBE1862ABEA0036626B /* SNFLikeButton.m in Sources */,
+				0FA6DCBE1862ABEA0036626B /* SNFRoundedRectButton.m in Sources */,
 				0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */,
 				0FAE9E44185BEFAD00896242 /* SNFAppDelegate.m in Sources */,
 				0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */,

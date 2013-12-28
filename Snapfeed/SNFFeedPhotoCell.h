@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <TTTAttributedLabel.h>
 
-@interface SNFFeedPhotoCell : UITableViewCell
+@interface SNFFeedPhotoCell : UITableViewCell <TTTAttributedLabelDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *description;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *likeLabel;

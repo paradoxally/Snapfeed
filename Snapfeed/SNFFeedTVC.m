@@ -12,11 +12,16 @@
 #import "SNFFeedHeaderView.h"
 #import "SNFAppDelegate.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SVWebViewController.h>
+#import <UIImage+Resize.h>
 
 static const NSUInteger kTableViewHeaderHeight = 50;
 static const NSUInteger kTableViewCellHeight = 320;
 
-@interface SNFFeedTVC ()
+//static const CGFloat kPhotoViewSize = 320;
+//static const CGFloat kHeaderAvatarSize = 30;
+
+@interface SNFFeedTVC () <TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) NSArray *posts; // data source
 @property (nonatomic, strong) NSDictionary *paging; // data paging
@@ -29,6 +34,8 @@ static const NSUInteger kTableViewCellHeight = 320;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //SDWebImageManager.sharedManager.delegate = self;
     
     if(![self.posts count] > 0)
         [self getPhotos];
@@ -131,7 +138,8 @@ static const NSUInteger kTableViewCellHeight = 320;
         cell.description.hidden = YES;
     } else {
         cell.description.linkAttributes = @{(NSString *)kCTForegroundColorAttributeName : (id)[[UIColor flatBlueColor] CGColor]};
-        cell.description.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+        cell.description.enabledTextCheckingTypes = NSTextCheckingTypeLink; // Automatically detect links when the label text is subsequently changed
+        cell.description.delegate = self;
         cell.description.text = description;
     }
     
@@ -176,7 +184,6 @@ static const NSUInteger kTableViewCellHeight = 320;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //DDLogVerbose(@"%@: %@", THIS_FILE, self.posts[data]);
     NSString *description = self.posts[indexPath.section][@"message"];
     NSUInteger likes = [self.posts[indexPath.section][@"likes"][@"summary"][@"total_count"] unsignedIntegerValue];
     
@@ -194,6 +201,28 @@ static const NSUInteger kTableViewCellHeight = 320;
     //DDLogVerbose(@"%@: Extra size height: %.1f", THIS_FILE, kTableViewCellHeight + extraSize.size.height);
     return kTableViewCellHeight + (likes == 0 && ![description isEqualToString:@""] ? -25 : 0) + (likes == 0 && [description isEqualToString:@""] ? 10 : 40) + ceilf(extraDescriptionSize.size.height) + ([description isEqualToString:@""] ? 40 : 55);
 }
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    DDLogVerbose(@"%@: Tapped on link %@", THIS_FILE, url);
+    SVWebViewController *webViewController = [[SVWebViewController alloc] initWithURL:url];
+    webViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:webViewController animated:YES];
+}
+
+/*- (UIImage *)imageManager:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL {
+    UIImage *resizedImage = nil;
+        
+    if ([[imageURL absoluteString] rangeOfString:@"_n."].location != NSNotFound) {
+        DDLogVerbose(@"%@: Photo image view original size: %.1f %.1f", THIS_FILE, image.size.width, image.size.height);
+        return resizedImage = [image resizedImageToFitInSize:CGSizeMake(kPhotoViewSize, kPhotoViewSize) scaleIfSmaller:YES];
+    } else if ([[imageURL absoluteString] rangeOfString:@"picture"].location != NSNotFound) {
+        DDLogVerbose(@"%@: Header image view original size: %.1f %.1f", THIS_FILE, image.size.width, image.size.height);
+        return resizedImage = [image resizedImageToFitInSize:CGSizeMake(kHeaderAvatarSize, kHeaderAvatarSize) scaleIfSmaller:YES];
+    }
+
+    DDLogVerbose(@"%@: No resize done, returning original image", THIS_FILE);
+    return image;
+}*/
 
 /*
 #pragma mark - Navigation

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SNFFeedTVC : UITableViewController 
+@interface SNFFeedTVC : UITableViewController
 
 @end

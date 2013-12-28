@@ -1,16 +1,16 @@
 //
-//  SNFLikeButton.m
+//  SNFRoundedRectButton.m
 //  Snapfeed
 //
 //  Created by Nino Vitale on 12/19/13.
 //
 //
 
-#import "SNFLikeButton.h"
+#import "SNFRoundedRectButton.h"
 
-static const CGFloat kLikeButtonCornerRadius = 4.0f;
+static const CGFloat kRectButtonCornerRadius = 2.5f;
 
-@implementation SNFLikeButton
+@implementation SNFRoundedRectButton
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,7 +24,7 @@ static const CGFloat kLikeButtonCornerRadius = 4.0f;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    [self.layer setCornerRadius:kLikeButtonCornerRadius];
+    [self.layer setCornerRadius:kRectButtonCornerRadius];
 }
 
 @end

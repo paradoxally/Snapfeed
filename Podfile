@@ -6,6 +6,8 @@ target "Snapfeed" do
     pod 'CocoaLumberjack'
     pod 'UIColor+MLPFlatColors'
     pod 'TTTAttributedLabel'
+    pod 'SVWebViewController', :head
+    pod 'UIImage-Resize'
 end
 
 target "SnapfeedTests" do

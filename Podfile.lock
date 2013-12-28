@@ -8,19 +8,25 @@ PODS:
   - SDWebImage (3.5.1):
     - SDWebImage/Core
   - SDWebImage/Core (3.5.1)
+  - SVWebViewController (HEAD based on 1.0)
   - TTTAttributedLabel (1.8.0)
   - UIColor+MLPFlatColors (1.0)
+  - UIImage-Resize (1.0.1)
 
 DEPENDENCIES:
   - CocoaLumberjack
   - SDWebImage (~> 3.5.1)
+  - SVWebViewController (HEAD)
   - TTTAttributedLabel
   - UIColor+MLPFlatColors
+  - UIImage-Resize
 
 SPEC CHECKSUMS:
   CocoaLumberjack: be87113f649942f020a37c061c58009b6ee5ff68
   SDWebImage: a408b548a634b792372e07e753fc1079aff5032a
+  SVWebViewController: e576371f7015bce92c97c304c32336700064847b
   TTTAttributedLabel: cc759a194a485c1fdf2446bf2ee7a55bada1f08d
   UIColor+MLPFlatColors: 8631d7f050b0e5afd9af178a60319891c5113d0e
+  UIImage-Resize: 575381c9746383a5f557bc584a538a2d2ff53c76
 
 COCOAPODS: 0.29.0
