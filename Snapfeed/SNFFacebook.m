@@ -8,6 +8,7 @@
 
 #import "SNFFacebook.h"
 #import "SNFAppDelegate.h"
+#import "NSArray+PrettyPrint.h"
 
 @implementation SNFFacebook
 
@@ -81,6 +82,23 @@
 	                                                                                                                         NSError *error) {
 	    response(connection, result, error);
 	}];
+}
+
+- (void)getLikedPostsForIDs:(NSArray *)postIDs andResponse:(FBRequestResponseWithID)response {
+    NSString *query = [NSString stringWithFormat:
+                       @"SELECT post_id "
+                       @"FROM like "
+                       @"WHERE post_id IN (%@) "
+                       @"AND user_id = me()", postIDs.prettyPrint];
+    
+    NSDictionary *queryParam = @{@"q" : query};
+    
+    [FBRequestConnection startWithGraphPath:@"/fql"
+                                 parameters:queryParam
+                                 HTTPMethod:@"GET"
+                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        response(connection, result, error);
+    }];
 }
 
 - (void)getRecentPhotosFromUser:(NSString *)pid andResponse:(FBRequestResponseWithDictionary)response {

@@ -32,6 +32,7 @@
 		0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */; };
 		0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB9019C1860F05A00918088 /* SNFFeedTVC.m */; };
 		0FB901A11860F3EB00918088 /* SNFFeedPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */; };
+		0FD2D9E21871CDBD007860CA /* NSArray+PrettyPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */; };
 		0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */; };
 		0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF71185FAD2F008CFD76 /* SNFOpenSessionViewController.m */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,8 @@
 		0FB9019C1860F05A00918088 /* SNFFeedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedTVC.m; sourceTree = "<group>"; };
 		0FB9019F1860F3EB00918088 /* SNFFeedPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedPhotoCell.h; sourceTree = "<group>"; };
 		0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedPhotoCell.m; sourceTree = "<group>"; };
+		0FD2D9E01871CDBD007860CA /* NSArray+PrettyPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PrettyPrint.h"; sourceTree = "<group>"; };
+		0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PrettyPrint.m"; sourceTree = "<group>"; };
 		0FF1CF6C185FA427008CFD76 /* SNFFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFacebook.h; sourceTree = "<group>"; };
 		0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFacebook.m; sourceTree = "<group>"; };
 		0FF1CF70185FAD2F008CFD76 /* SNFOpenSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFOpenSessionViewController.h; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 		0F01AC4B186D2844006C01A0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0FD2D9E01871CDBD007860CA /* NSArray+PrettyPrint.h */,
+				0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */,
 				0F01AC48186D283B006C01A0 /* NSDate+ShortTimeAgo.h */,
 				0F01AC49186D283B006C01A0 /* NSDate+ShortTimeAgo.m */,
 			);
@@ -391,6 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FD2D9E21871CDBD007860CA /* NSArray+PrettyPrint.m in Sources */,
 				0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */,
 				0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */,
 				0F01AC4A186D283B006C01A0 /* NSDate+ShortTimeAgo.m in Sources */,

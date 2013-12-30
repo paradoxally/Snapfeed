@@ -11,6 +11,8 @@
 #import "SNFFeedPhotoCell.h"
 #import "SNFFeedHeaderView.h"
 #import "SNFAppDelegate.h"
+#import "SNFRoundedRectButton.h"
+#import "NSArray+PrettyPrint.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVWebViewController.h>
 #import <UIImage+Resize.h>
@@ -23,13 +25,31 @@ static const NSUInteger kTableViewCellHeight = 320;
 
 @interface SNFFeedTVC () <TTTAttributedLabelDelegate>
 
-@property (nonatomic, strong) NSArray *posts; // data source
+@property (nonatomic, strong) NSMutableArray *posts; // data source
 @property (nonatomic, strong) NSDictionary *paging; // data paging
+@property (nonatomic, strong) NSMutableArray *postIDs; // all post IDs
+@property (nonatomic, strong) NSMutableArray *likedPostIDs; // post IDs which the user has liked
 @property (nonatomic) BOOL isLoadingData;
 
 @end
 
 @implementation SNFFeedTVC
+
+- (NSMutableArray *)likedPostIDs {
+    if (!_likedPostIDs) {
+        _likedPostIDs = [NSMutableArray new];
+    }
+    
+    return _likedPostIDs;
+}
+
+- (NSMutableArray *)postIDs {
+    if (!_postIDs) {
+        _postIDs = [NSMutableArray new];
+    }
+    
+    return _postIDs;
+}
 
 - (void)viewDidLoad
 {
@@ -68,15 +88,22 @@ static const NSUInteger kTableViewCellHeight = 320;
     self.isLoadingData = YES;
     [[SNFFacebook sharedInstance] getMainFeedPhotos:^(FBRequestConnection *request, NSDictionary *result, NSError *error) {
         self.posts = result[@"data"];
-        //DDLogVerbose(@"TESTING: %@", self.posts[0]);
         self.paging = result[@"paging"];
+
+        for (id postID in [result valueForKeyPath:@"data.id"]) {
+            [self.postIDs addObject:postID];
+        }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.isLoadingData = NO;
-            [self.tableView reloadData];
-            [self.tableView setNeedsDisplay];
-        });
-        
+        [[SNFFacebook sharedInstance] getLikedPostsForIDs:[self.postIDs copy] andResponse:^(FBRequestConnection *request, id result, NSError *error) {
+            [self.likedPostIDs addObjectsFromArray:result[@"data"]];
+            DDLogVerbose(@"%@: Liked posts: %d", THIS_FILE, [self.likedPostIDs count]);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.isLoadingData = NO;
+                [self.tableView reloadData];
+                [self.tableView setNeedsDisplay];
+            });
+        }];
     }];
 }
 
@@ -113,12 +140,28 @@ static const NSUInteger kTableViewCellHeight = 320;
     static NSString *cellIdentifier = @"FeedCell";
     SNFFeedPhotoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     [cell prepareForReuse];
-
+    
     if (!cell) {
         cell = [[SNFFeedPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
+    cell.likeLabel.text = @"";
+    cell.likesSection.hidden = NO;
+    cell.description.text = @"";
+    cell.description.hidden = NO;
+    [cell setLikeButtonSelected:NO];
+    
     NSDictionary *post = self.posts[indexPath.section];
+    cell.sectionIndex = indexPath.section;
+    cell.postID = post[@"id"];
+    
+    for (NSDictionary *likedPostID in self.likedPostIDs) {
+        if ([likedPostID[@"post_id"] isEqualToString:cell.postID]) {
+            DDLogVerbose(@"HE LIKES THIS POST");
+            [cell setLikeButtonSelected:YES];
+            break;
+        }
+    }
     
     cell.photoView.contentMode = UIViewContentModeScaleAspectFill;
     // By default, Facebook gives us a thumbnail of the image using the 'picture' key.
@@ -127,10 +170,14 @@ static const NSUInteger kTableViewCellHeight = 320;
     DDLogVerbose(@"%@: Image URL: %@", THIS_FILE, imageURL);
     [cell.photoView setImageWithURL:imageURL];
     
-    cell.likeLabel.text = @"";
-    cell.likesSection.hidden = NO;
-    cell.description.text = @"";
-    cell.description.hidden = NO;
+    NSUInteger likes = [post[@"likes"][@"summary"][@"total_count"] unsignedIntegerValue];
+    DDLogVerbose(@"Likes: %lu", (unsigned long)likes);
+    if (likes == 0) {
+        cell.likesSection.hidden = YES;
+    } else {
+        cell.likeLabel.text = [NSString stringWithFormat:@"%lu likes", (unsigned long)likes];
+    }
+    
     NSString *description = post[@"message"];
     DDLogVerbose(@"Description: %@", description);;
     if(!description) {
@@ -141,14 +188,6 @@ static const NSUInteger kTableViewCellHeight = 320;
         cell.description.enabledTextCheckingTypes = NSTextCheckingTypeLink; // Automatically detect links when the label text is subsequently changed
         cell.description.delegate = self;
         cell.description.text = description;
-    }
-    
-    NSUInteger likes = [post[@"likes"][@"summary"][@"total_count"] unsignedIntegerValue];
-    DDLogVerbose(@"Likes: %lu", (unsigned long)likes);
-    if (likes == 0) {
-        cell.likesSection.hidden = YES;
-    } else {
-        cell.likeLabel.text = [NSString stringWithFormat:@"%lu likes", (unsigned long)likes];
     }
     
     return cell;
@@ -168,7 +207,6 @@ static const NSUInteger kTableViewCellHeight = 320;
     DDLogVerbose(@"%@: User ID: %@; Name: %@", THIS_FILE, header.userID, header.username);
     header.datePostedString = [[self.posts[section][@"created_time"] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] stringByReplacingOccurrencesOfString:@"T" withString:@" "];
     DDLogVerbose(@"%@: Post %ld date: %@", THIS_FILE, (long)section, header.datePostedString);
-    header.sectionIndex = section;
     
     NSURL *avatarURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture", header.userID]];
     [header.avatar setImageWithURL:avatarURL placeholderImage:nil options:SDWebImageRefreshCached];
