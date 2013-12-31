@@ -35,8 +35,26 @@
 	                                   allowLoginUI:YES
 	                              completionHandler:
 	 ^(FBSession *session,
-	   FBSessionState state, NSError *error) {
-         [self sessionStateChanged:session state:state error:error];
+	   FBSessionState state, NSError *readPermissionsError) {
+         [self sessionStateChanged:session state:state error:readPermissionsError];
+         if (!readPermissionsError) {
+             DDLogInfo(@"%@: Read permissions acquired for active session", THIS_FILE);
+             if (![FBSession.activeSession.permissions containsObject:@"publish_stream"]) {
+                 // We don't have publish permissions, so let's ask for them
+                 DDLogVerbose(@"%@: No publish permissions, requesting...", THIS_FILE);
+                 [FBSession.activeSession requestNewPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *publishPermissionsError) {
+                     if (!publishPermissionsError) {
+                         DDLogInfo(@"%@: Publish permissions acquired for active session", THIS_FILE);
+                     } else {
+                         DDLogError(@"%@: Error acquiring publish permissions - %@", THIS_FILE, publishPermissionsError);
+                     }
+                 }];
+             } else {
+                 DDLogInfo(@"%@: Already had publish permissions for active session", THIS_FILE);
+             }
+         } else {
+             DDLogError(@"%@: Error acquiring read permissions - %@", THIS_FILE, readPermissionsError);
+         }
      }];
 }
 
@@ -86,11 +104,11 @@
 
 - (void)getLikedPostsForIDs:(NSArray *)postIDs andResponse:(FBRequestResponseWithID)response {
     NSString *query = [NSString stringWithFormat:
-                       @"SELECT post_id "
-                       @"FROM like "
-                       @"WHERE post_id IN (%@) "
-                       @"AND user_id = me()", postIDs.prettyPrint];
+                       @"SELECT post_id, like_info.user_likes "
+                       @"FROM stream "
+                       @"WHERE post_id IN (%@) ", postIDs.prettyPrint];
     
+    DDLogVerbose(@"%@: FQL query: %@", THIS_FILE, query);
     NSDictionary *queryParam = @{@"q" : query};
     
     [FBRequestConnection startWithGraphPath:@"/fql"
@@ -99,6 +117,22 @@
                           completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         response(connection, result, error);
     }];
+}
+
+- (void)likePost:(NSString *)postID andResponse:(FBRequestResponseWithID)response {
+    [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@/likes", postID]
+                                  parameters:nil
+                                  HTTPMethod:@"POST"
+                           completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {                               response(connection, result, error);
+    }];
+}
+
+- (void)unlikePost:(NSString *)postID andResponse:(FBRequestResponseWithID)response {
+    [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@/likes", postID]
+                                 parameters:nil
+                                 HTTPMethod:@"DELETE"
+                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {                               response(connection, result, error);
+                          }];
 }
 
 - (void)getRecentPhotosFromUser:(NSString *)pid andResponse:(FBRequestResponseWithDictionary)response {

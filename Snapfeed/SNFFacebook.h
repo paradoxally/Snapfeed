@@ -28,4 +28,7 @@ typedef void (^FBRequestResponseWithID)(FBRequestConnection *request, id result,
 - (void)getMainFeedPhotos:(FBRequestResponseWithDictionary)response;
 - (void)getLikedPostsForIDs:(NSArray *)postIDs andResponse:(FBRequestResponseWithID)response;
 
+- (void)likePost:(NSString *)postID andResponse:(FBRequestResponseWithID)response;
+- (void)unlikePost:(NSString *)postID andResponse:(FBRequestResponseWithID)response;
+
 @end

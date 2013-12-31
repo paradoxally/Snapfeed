@@ -9,6 +9,7 @@
 #import "SNFFeedPhotoCell.h"
 #import "SNFRoundedRectButton.h"
 #import "SNFAppDelegate.h"
+#import "SNFFacebook.h"
 #import <UIColor+MLPFlatColors.h>
 
 @implementation SNFFeedPhotoCell
@@ -36,7 +37,7 @@
         [self.likeButton setSelected:YES];
     } else {
         [self.likeButton setTitle:@"Like" forState:UIControlStateNormal];
-        [self.likeButton setBackgroundColor:[UIColor flatWhiteColor]];
+        [self.likeButton setBackgroundColor:[UIColor flatDarkGrayColor]];
         [self.likeButton setSelected:NO];
     }
 }
@@ -46,9 +47,23 @@
     if (!button.isSelected) {
         DDLogVerbose(@"%@: Liking post!", THIS_FILE);
         [self setLikeButtonSelected:YES];
+        // We ask our Facebook class to like the post remotely, but after giving feedback to the user
+        [[SNFFacebook sharedInstance] likePost:self.postID andResponse:^(FBRequestConnection *request, id result, NSError *error) {
+            if (error) {
+                DDLogVerbose(@"%@: Error liking post: %@", THIS_FILE, error);
+            }
+        }];
+        
+        // Notify the tableview controller we have liked a post for future reference
+        
     } else {
         DDLogVerbose(@"%@: Unliking post!", THIS_FILE);
         [self setLikeButtonSelected:NO];
+        [[SNFFacebook sharedInstance] unlikePost:self.postID andResponse:^(FBRequestConnection *request, id result, NSError *error) {
+            if (error) {
+                DDLogVerbose(@"%@: Error unliking post: %@", THIS_FILE, error);
+            }
+        }];
     }
 }
 

@@ -28,7 +28,7 @@ static const NSUInteger kTableViewCellHeight = 320;
 @property (nonatomic, strong) NSMutableArray *posts; // data source
 @property (nonatomic, strong) NSDictionary *paging; // data paging
 @property (nonatomic, strong) NSMutableArray *postIDs; // all post IDs
-@property (nonatomic, strong) NSMutableArray *likedPostIDs; // post IDs which the user has liked
+@property (nonatomic, strong) NSMutableArray *likedPostIDs; // post IDs containing user like info
 @property (nonatomic) BOOL isLoadingData;
 
 @end
@@ -96,7 +96,6 @@ static const NSUInteger kTableViewCellHeight = 320;
         
         [[SNFFacebook sharedInstance] getLikedPostsForIDs:[self.postIDs copy] andResponse:^(FBRequestConnection *request, id result, NSError *error) {
             [self.likedPostIDs addObjectsFromArray:result[@"data"]];
-            DDLogVerbose(@"%@: Liked posts: %d", THIS_FILE, [self.likedPostIDs count]);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.isLoadingData = NO;
@@ -154,11 +153,14 @@ static const NSUInteger kTableViewCellHeight = 320;
     NSDictionary *post = self.posts[indexPath.section];
     cell.sectionIndex = indexPath.section;
     cell.postID = post[@"id"];
+    DDLogVerbose(@"%@: Post ID: %@", THIS_FILE, cell.postID);
     
     for (NSDictionary *likedPostID in self.likedPostIDs) {
         if ([likedPostID[@"post_id"] isEqualToString:cell.postID]) {
-            DDLogVerbose(@"HE LIKES THIS POST");
-            [cell setLikeButtonSelected:YES];
+            BOOL userLikesPost = [likedPostID[@"like_info"][@"user_likes"] boolValue];
+            if (userLikesPost) {
+                [cell setLikeButtonSelected:YES];
+            }
             break;
         }
     }
