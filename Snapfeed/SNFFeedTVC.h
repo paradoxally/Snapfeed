@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const postLikedNotificationName;
+extern NSString *const postUnlikedNotificationName;
+
 @interface SNFFeedTVC : UITableViewController
 
 @end

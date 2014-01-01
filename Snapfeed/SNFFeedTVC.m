@@ -17,6 +17,9 @@
 #import <SVWebViewController.h>
 #import <UIImage+Resize.h>
 
+NSString *const postLikedNotificationName = @"postLiked";
+NSString *const postUnlikedNotificationName = @"postUnliked";
+
 static const NSUInteger kTableViewHeaderHeight = 50;
 static const NSUInteger kPhotoViewHeight = 320;
 
@@ -25,19 +28,19 @@ static const NSUInteger kPhotoViewHeight = 320;
 @property (nonatomic, strong) NSMutableArray *posts; // data source
 @property (nonatomic, strong) NSDictionary *paging; // data paging
 @property (nonatomic, strong) NSMutableArray *postIDs; // all post IDs
-@property (nonatomic, strong) NSMutableArray *likedPostIDs; // post IDs containing user like info
+@property (nonatomic, strong) NSMutableArray *likedPosts; // post IDs containing user like info
 @property (nonatomic) BOOL isLoadingData;
 
 @end
 
 @implementation SNFFeedTVC
 
-- (NSMutableArray *)likedPostIDs {
-	if (!_likedPostIDs) {
-		_likedPostIDs = [NSMutableArray new];
+- (NSMutableArray *)likedPosts {
+	if (!_likedPosts) {
+		_likedPosts = [NSMutableArray new];
 	}
     
-	return _likedPostIDs;
+	return _likedPosts;
 }
 
 - (NSMutableArray *)postIDs {
@@ -61,6 +64,16 @@ static const NSUInteger kPhotoViewHeight = 320;
     
 	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 	// self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(postLiked:)
+                                                 name:postLikedNotificationName
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(postUnliked:)
+                                                 name:postUnlikedNotificationName
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -73,6 +86,10 @@ static const NSUInteger kPhotoViewHeight = 320;
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)getPhotos {
@@ -88,7 +105,7 @@ static const NSUInteger kPhotoViewHeight = 320;
 		}
         
 	    [[SNFFacebook sharedInstance] getLikedPostsForIDs:[self.postIDs copy] andResponse: ^(FBRequestConnection *request, id result, NSError *error) {
-	        [self.likedPostIDs addObjectsFromArray:result[@"data"]];
+	        [self.likedPosts addObjectsFromArray:result[@"data"]];
             
 	        dispatch_async(dispatch_get_main_queue(), ^{
 	            self.isLoadingData = NO;
@@ -145,15 +162,16 @@ static const NSUInteger kPhotoViewHeight = 320;
 	cell.postID = post[@"id"];
 	DDLogVerbose(@"%@: Post ID: %@", THIS_FILE, cell.postID);
     
-	for (NSDictionary *likedPostID in self.likedPostIDs) {
-		if ([likedPostID[@"post_id"] isEqualToString:cell.postID]) {
-			BOOL userLikesPost = [likedPostID[@"like_info"][@"user_likes"] boolValue];
-			if (userLikesPost) {
-				[cell setLikeButtonSelected:YES];
-			}
-			break;
-		}
-	}
+    NSInteger likedPostIndex = [self getLikedPostIndex:cell.postID];
+    if (likedPostIndex != -1) {
+        NSDictionary *likedPost = [self.likedPosts objectAtIndex:(NSUInteger)likedPostIndex];
+        if (likedPost) {
+            BOOL userLikesPost = [likedPost[@"like_info"][@"user_likes"] boolValue];
+            if (userLikesPost) {
+                [cell setLikeButtonSelected:YES];
+            }
+        }
+    }
     
 	cell.photoView.contentMode = UIViewContentModeScaleAspectFill;
 	// By default, Facebook gives us a thumbnail of the image using the 'picture' key.
@@ -243,6 +261,39 @@ static const NSUInteger kPhotoViewHeight = 320;
 	SVWebViewController *webViewController = [[SVWebViewController alloc] initWithURL:url];
 	webViewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:webViewController animated:YES];
+}
+
+- (void)postLiked:(NSNotification *)notification {
+    [self updateLikedPostsArrayWithPost:notification.userInfo andLike:YES];
+}
+
+- (void)postUnliked:(NSNotification *)notification {
+    [self updateLikedPostsArrayWithPost:notification.userInfo andLike:NO];
+}
+
+- (NSInteger)getLikedPostIndex:(NSString *)postID {
+    for (NSInteger i = 0; i < [self.likedPosts count]; i++) {
+        if ([self.likedPosts[i][@"post_id"] isEqualToString:postID]) {
+            return i;
+        }
+    }
+    
+    return -1;
+}
+
+- (void)updateLikedPostsArrayWithPost:(NSDictionary *)post
+                              andLike:(BOOL)like {
+    if (post) {
+        NSInteger likedPostIndex = [self getLikedPostIndex:post[@"post_id"]];
+        if (likedPostIndex != -1) {
+            NSDictionary *likedPost = [self.likedPosts objectAtIndex:(NSUInteger)likedPostIndex];
+            if (likedPost) {
+                likedPost[@"like_info"][@"user_likes"] = (like ? @true : @false);
+                [self.likedPosts replaceObjectAtIndex:likedPostIndex withObject:likedPost];
+                DDLogVerbose(@"%@: Updated dictionary liked post object to %@: %@", THIS_FILE, (like ? @"true" : @"false"), likedPost.description);
+            }
+        }
+    }
 }
 
 /*- (UIImage *)imageManager:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL {

@@ -10,6 +10,7 @@
 #import "SNFRoundedRectButton.h"
 #import "SNFAppDelegate.h"
 #import "SNFFacebook.h"
+#import "SNFFeedTVC.h"
 #import <UIColor+MLPFlatColors.h>
 
 @implementation SNFFeedPhotoCell
@@ -44,6 +45,8 @@
 
 - (IBAction)likeButtonTapped:(SNFRoundedRectButton *)button {
     DDLogVerbose(@"%@: Button tapped for cell: #%lu and Facebook post ID: %@", THIS_FILE, (unsigned long)self.sectionIndex, self.postID);
+    NSDictionary *post = @{ @"post_id" : self.postID };
+    
     if (!button.isSelected) {
         DDLogVerbose(@"%@: Liking post!", THIS_FILE);
         [self setLikeButtonSelected:YES];
@@ -51,17 +54,24 @@
         [[SNFFacebook sharedInstance] likePost:self.postID andResponse:^(FBRequestConnection *request, id result, NSError *error) {
             if (error) {
                 DDLogVerbose(@"%@: Error liking post: %@", THIS_FILE, error);
+            } else {
+                // Notify the tableview controller we have liked a post
+                [[NSNotificationCenter defaultCenter] postNotificationName:postLikedNotificationName
+                                                                    object:self
+                                                                  userInfo:post];
             }
         }];
-        
-        // Notify the tableview controller we have liked a post for future reference
-        
     } else {
         DDLogVerbose(@"%@: Unliking post!", THIS_FILE);
         [self setLikeButtonSelected:NO];
         [[SNFFacebook sharedInstance] unlikePost:self.postID andResponse:^(FBRequestConnection *request, id result, NSError *error) {
             if (error) {
                 DDLogVerbose(@"%@: Error unliking post: %@", THIS_FILE, error);
+            } else {
+                // Notify the tableview controller we have unlike a post
+                [[NSNotificationCenter defaultCenter] postNotificationName:postUnlikedNotificationName
+                                                                    object:self
+                                                                  userInfo:post];
             }
         }];
     }
