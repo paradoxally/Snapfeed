@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SNFFeedTVC">
+            <connections>
+                <outlet property="cameraOverlayView" destination="1" id="50R-o8-UbV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar alpha="0.74999999999999978" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xr4-e4-Slx">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <navigationItem id="UQO-G4-tJh">
+                            <barButtonItem key="leftBarButtonItem" systemItem="stop" id="Lgr-mU-XhQ">
+                                <connections>
+                                    <action selector="cameraCloseTapped:" destination="-1" id="hNc-gg-r4g"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <view alpha="0.34999999999999964" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJ3-JR-iPv">
+                    <rect key="frame" x="0.0" y="426" width="320" height="144"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nl-HQ-7U1">
+                            <rect key="frame" x="110" y="0.0" width="100" height="144"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="aBN-le-Zka"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                            <state key="normal" title="TAKE">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="7nl-HQ-7U1" firstAttribute="top" secondItem="AJ3-JR-iPv" secondAttribute="top" id="5cg-rp-I3N"/>
+                        <constraint firstAttribute="bottom" secondItem="7nl-HQ-7U1" secondAttribute="bottom" id="V6f-2d-GgA"/>
+                        <constraint firstItem="7nl-HQ-7U1" firstAttribute="centerX" secondItem="AJ3-JR-iPv" secondAttribute="centerX" id="vHq-Mp-nJM"/>
+                    </constraints>
+                </view>
+                <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JR6-yG-H58">
+                    <rect key="frame" x="0.0" y="373" width="320" height="53"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Lv-2Y-hz2">
+                            <rect key="frame" x="20" y="12" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Grid">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAt-78-NRe">
+                            <rect key="frame" x="142" y="12" width="36" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Front">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baG-qg-zRZ">
+                            <rect key="frame" x="263" y="12" width="37" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Flash">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="NAt-78-NRe" firstAttribute="centerX" secondItem="JR6-yG-H58" secondAttribute="centerX" id="OuL-p3-hEP"/>
+                        <constraint firstItem="NAt-78-NRe" firstAttribute="baseline" secondItem="baG-qg-zRZ" secondAttribute="baseline" id="RqR-Qv-rHp"/>
+                        <constraint firstItem="6Lv-2Y-hz2" firstAttribute="leading" secondItem="JR6-yG-H58" secondAttribute="leading" constant="20" symbolic="YES" id="TDq-Bp-82Z"/>
+                        <constraint firstItem="NAt-78-NRe" firstAttribute="baseline" secondItem="6Lv-2Y-hz2" secondAttribute="baseline" id="V7w-br-VC0"/>
+                        <constraint firstAttribute="trailing" secondItem="baG-qg-zRZ" secondAttribute="trailing" constant="20" symbolic="YES" id="afF-J1-ixm"/>
+                        <constraint firstItem="6Lv-2Y-hz2" firstAttribute="centerY" secondItem="JR6-yG-H58" secondAttribute="centerY" constant="0.5" id="oGR-4j-hz9"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="AJ3-JR-iPv" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="3Ew-Gx-3rb"/>
+                <constraint firstAttribute="trailing" secondItem="AJ3-JR-iPv" secondAttribute="trailing" id="40E-Gk-Q9k"/>
+                <constraint firstItem="AJ3-JR-iPv" firstAttribute="top" secondItem="1" secondAttribute="top" constant="426" id="CrC-qt-79Q"/>
+                <constraint firstItem="Xr4-e4-Slx" firstAttribute="leading" secondItem="JR6-yG-H58" secondAttribute="leading" id="PtP-N3-IG5"/>
+                <constraint firstItem="JR6-yG-H58" firstAttribute="top" secondItem="1" secondAttribute="top" constant="373" id="RXg-zF-IG7"/>
+                <constraint firstItem="AJ3-JR-iPv" firstAttribute="top" secondItem="JR6-yG-H58" secondAttribute="bottom" id="Ubv-cJ-zk2"/>
+                <constraint firstItem="JR6-yG-H58" firstAttribute="trailing" secondItem="AJ3-JR-iPv" secondAttribute="trailing" id="VH7-gr-Rcm"/>
+                <constraint firstItem="Xr4-e4-Slx" firstAttribute="top" secondItem="1" secondAttribute="top" id="dLQ-td-4ZX"/>
+                <constraint firstAttribute="bottom" secondItem="AJ3-JR-iPv" secondAttribute="bottom" constant="-2" id="kqJ-z5-SSb"/>
+                <constraint firstItem="Xr4-e4-Slx" firstAttribute="trailing" secondItem="JR6-yG-H58" secondAttribute="trailing" id="lAQ-66-Msd"/>
+                <constraint firstItem="JR6-yG-H58" firstAttribute="leading" secondItem="AJ3-JR-iPv" secondAttribute="leading" id="qV2-UQ-kTp"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+</document>

@@ -33,6 +33,8 @@
 		0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB9019C1860F05A00918088 /* SNFFeedTVC.m */; };
 		0FB901A11860F3EB00918088 /* SNFFeedPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */; };
 		0FD2D9E21871CDBD007860CA /* NSArray+PrettyPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */; };
+		0FD2D9E418759F27007860CA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD2D9E318759F27007860CA /* MobileCoreServices.framework */; };
+		0FD2D9E61875D177007860CA /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD2D9E51875D177007860CA /* CameraOverlayView.xib */; };
 		0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */; };
 		0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF71185FAD2F008CFD76 /* SNFOpenSessionViewController.m */; };
 /* End PBXBuildFile section */
@@ -85,6 +87,8 @@
 		0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedPhotoCell.m; sourceTree = "<group>"; };
 		0FD2D9E01871CDBD007860CA /* NSArray+PrettyPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PrettyPrint.h"; sourceTree = "<group>"; };
 		0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PrettyPrint.m"; sourceTree = "<group>"; };
+		0FD2D9E318759F27007860CA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0FD2D9E51875D177007860CA /* CameraOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
 		0FF1CF6C185FA427008CFD76 /* SNFFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFacebook.h; sourceTree = "<group>"; };
 		0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFacebook.m; sourceTree = "<group>"; };
 		0FF1CF70185FAD2F008CFD76 /* SNFOpenSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFOpenSessionViewController.h; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FD2D9E418759F27007860CA /* MobileCoreServices.framework in Frameworks */,
 				0FAE9E75185BF59600896242 /* libz.dylib in Frameworks */,
 				0F964541185C0643004B2DE5 /* FacebookSDK.framework in Frameworks */,
 				0FAE9E73185BF59200896242 /* SystemConfiguration.framework in Frameworks */,
@@ -165,6 +170,7 @@
 		0FAE9E32185BEFAD00896242 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0FD2D9E318759F27007860CA /* MobileCoreServices.framework */,
 				0FAE9E35185BEFAD00896242 /* CoreGraphics.framework */,
 				0FAE9E70185BF58B00896242 /* CoreTelephony.framework */,
 				0FA4A5D2185C012C00D2C8E8 /* Crashlytics.framework */,
@@ -237,6 +243,7 @@
 				0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */,
 				0FA6DCBC1862ABEA0036626B /* SNFRoundedRectButton.h */,
 				0FA6DCBD1862ABEA0036626B /* SNFRoundedRectButton.m */,
+				0FD2D9E51875D177007860CA /* CameraOverlayView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -329,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FD2D9E61875D177007860CA /* CameraOverlayView.xib in Resources */,
 				0FAE9E4F185BEFAD00896242 /* Images.xcassets in Resources */,
 				0FAE9E3E185BEFAD00896242 /* InfoPlist.strings in Resources */,
 				0FAE9E47185BEFAD00896242 /* Main.storyboard in Resources */,

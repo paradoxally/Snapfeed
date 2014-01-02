@@ -180,7 +180,13 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Feed" id="q3b-Xy-RnK"/>
+                    <navigationItem key="navigationItem" title="Feed" id="q3b-Xy-RnK">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="v5Y-Z1-oPX">
+                            <connections>
+                                <action selector="addPhotoTapped:" destination="mP3-x9-0ed" id="AKR-w5-Y0T"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pqc-p0-pqt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
