@@ -35,6 +35,9 @@
 		0FD2D9E21871CDBD007860CA /* NSArray+PrettyPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */; };
 		0FD2D9E418759F27007860CA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD2D9E318759F27007860CA /* MobileCoreServices.framework */; };
 		0FD2D9E61875D177007860CA /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD2D9E51875D177007860CA /* CameraOverlayView.xib */; };
+		0FD2D9E91876105D007860CA /* SNFCameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2D9E81876105D007860CA /* SNFCameraOverlayView.m */; };
+		0FD2D9EC187655BC007860CA /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2D9EB187655BC007860CA /* CaptureSessionManager.m */; };
+		0FD2D9EF18765CD9007860CA /* SNFTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2D9EE18765CD9007860CA /* SNFTakePhotoViewController.m */; };
 		0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */; };
 		0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF71185FAD2F008CFD76 /* SNFOpenSessionViewController.m */; };
 /* End PBXBuildFile section */
@@ -89,6 +92,12 @@
 		0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PrettyPrint.m"; sourceTree = "<group>"; };
 		0FD2D9E318759F27007860CA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		0FD2D9E51875D177007860CA /* CameraOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
+		0FD2D9E71876105D007860CA /* SNFCameraOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFCameraOverlayView.h; sourceTree = "<group>"; };
+		0FD2D9E81876105D007860CA /* SNFCameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFCameraOverlayView.m; sourceTree = "<group>"; };
+		0FD2D9EA187655BC007860CA /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
+		0FD2D9EB187655BC007860CA /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
+		0FD2D9ED18765CD9007860CA /* SNFTakePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFTakePhotoViewController.h; sourceTree = "<group>"; };
+		0FD2D9EE18765CD9007860CA /* SNFTakePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFTakePhotoViewController.m; sourceTree = "<group>"; };
 		0FF1CF6C185FA427008CFD76 /* SNFFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFacebook.h; sourceTree = "<group>"; };
 		0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFacebook.m; sourceTree = "<group>"; };
 		0FF1CF70185FAD2F008CFD76 /* SNFOpenSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFOpenSessionViewController.h; sourceTree = "<group>"; };
@@ -130,6 +139,8 @@
 		0F01AC4B186D2844006C01A0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0FD2D9EA187655BC007860CA /* CaptureSessionManager.h */,
+				0FD2D9EB187655BC007860CA /* CaptureSessionManager.m */,
 				0FD2D9E01871CDBD007860CA /* NSArray+PrettyPrint.h */,
 				0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */,
 				0F01AC48186D283B006C01A0 /* NSDate+ShortTimeAgo.h */,
@@ -193,6 +204,8 @@
 				0FAE9E4E185BEFAD00896242 /* Images.xcassets */,
 				0FF1CF6F185FACA4008CFD76 /* Login */,
 				0FAE9E45185BEFAD00896242 /* Main.storyboard */,
+				0FD2D9ED18765CD9007860CA /* SNFTakePhotoViewController.h */,
+				0FD2D9EE18765CD9007860CA /* SNFTakePhotoViewController.m */,
 				0FAE9E42185BEFAD00896242 /* SNFAppDelegate.h */,
 				0FAE9E43185BEFAD00896242 /* SNFAppDelegate.m */,
 				0FB9019B1860F05A00918088 /* SNFFeedTVC.h */,
@@ -244,6 +257,8 @@
 				0FA6DCBC1862ABEA0036626B /* SNFRoundedRectButton.h */,
 				0FA6DCBD1862ABEA0036626B /* SNFRoundedRectButton.m */,
 				0FD2D9E51875D177007860CA /* CameraOverlayView.xib */,
+				0FD2D9E71876105D007860CA /* SNFCameraOverlayView.h */,
+				0FD2D9E81876105D007860CA /* SNFCameraOverlayView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -406,6 +421,7 @@
 			files = (
 				0FD2D9E21871CDBD007860CA /* NSArray+PrettyPrint.m in Sources */,
 				0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */,
+				0FD2D9EF18765CD9007860CA /* SNFTakePhotoViewController.m in Sources */,
 				0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */,
 				0F01AC4A186D283B006C01A0 /* NSDate+ShortTimeAgo.m in Sources */,
 				0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */,
@@ -413,7 +429,9 @@
 				0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */,
 				0FAE9E44185BEFAD00896242 /* SNFAppDelegate.m in Sources */,
 				0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */,
+				0FD2D9EC187655BC007860CA /* CaptureSessionManager.m in Sources */,
 				0FB901A11860F3EB00918088 /* SNFFeedPhotoCell.m in Sources */,
+				0FD2D9E91876105D007860CA /* SNFCameraOverlayView.m in Sources */,
 				0FAE9E40185BEFAD00896242 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

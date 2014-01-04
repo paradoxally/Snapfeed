@@ -8,6 +8,7 @@ PODS:
   - SDWebImage (3.5.1):
     - SDWebImage/Core
   - SDWebImage/Core (3.5.1)
+  - SparkInspector (1.1)
   - SVWebViewController (HEAD based on 1.0)
   - TTTAttributedLabel (1.8.0)
   - UIColor+MLPFlatColors (1.0)
@@ -16,6 +17,7 @@ PODS:
 DEPENDENCIES:
   - CocoaLumberjack
   - SDWebImage (~> 3.5.1)
+  - SparkInspector
   - SVWebViewController (HEAD)
   - TTTAttributedLabel
   - UIColor+MLPFlatColors
@@ -24,6 +26,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   CocoaLumberjack: be87113f649942f020a37c061c58009b6ee5ff68
   SDWebImage: a408b548a634b792372e07e753fc1079aff5032a
+  SparkInspector: 8eebd96bf33d608504ee03782d8046fa5016b1ef
   SVWebViewController: e576371f7015bce92c97c304c32336700064847b
   TTTAttributedLabel: cc759a194a485c1fdf2446bf2ee7a55bada1f08d
   UIColor+MLPFlatColors: 8631d7f050b0e5afd9af178a60319891c5113d0e

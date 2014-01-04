@@ -4,35 +4,23 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SNFFeedTVC">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SNFTakePhotoViewController">
             <connections>
-                <outlet property="cameraOverlayView" destination="1" id="50R-o8-UbV"/>
+                <outlet property="cameraOverlayView" destination="1" id="95K-dK-6ze"/>
+                <outlet property="view" destination="1" id="f0q-0G-fF9"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+        <view contentMode="scaleToFill" id="1" customClass="SNFCameraOverlayView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar alpha="0.74999999999999978" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xr4-e4-Slx">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <items>
-                        <navigationItem id="UQO-G4-tJh">
-                            <barButtonItem key="leftBarButtonItem" systemItem="stop" id="Lgr-mU-XhQ">
-                                <connections>
-                                    <action selector="cameraCloseTapped:" destination="-1" id="hNc-gg-r4g"/>
-                                </connections>
-                            </barButtonItem>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
-                <view alpha="0.34999999999999964" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJ3-JR-iPv">
-                    <rect key="frame" x="0.0" y="426" width="320" height="144"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJ3-JR-iPv">
+                    <rect key="frame" x="0.0" y="426" width="320" height="56"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nl-HQ-7U1">
-                            <rect key="frame" x="110" y="0.0" width="100" height="144"/>
+                            <rect key="frame" x="110" y="0.0" width="100" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="aBN-le-Zka"/>
@@ -51,7 +39,7 @@
                         <constraint firstItem="7nl-HQ-7U1" firstAttribute="centerX" secondItem="AJ3-JR-iPv" secondAttribute="centerX" id="vHq-Mp-nJM"/>
                     </constraints>
                 </view>
-                <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JR6-yG-H58">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JR6-yG-H58">
                     <rect key="frame" x="0.0" y="373" width="320" height="53"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -91,22 +79,47 @@
                         <constraint firstItem="6Lv-2Y-hz2" firstAttribute="centerY" secondItem="JR6-yG-H58" secondAttribute="centerY" constant="0.5" id="oGR-4j-hz9"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqt-7n-6Vr">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkk-y9-VRG">
+                            <rect key="frame" x="10" y="12" width="30" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                            <state key="normal" title="x"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="nkk-y9-VRG" firstAttribute="top" secondItem="yqt-7n-6Vr" secondAttribute="top" constant="12" id="NMg-dl-fVz"/>
+                        <constraint firstAttribute="width" constant="320" id="OwA-bm-7y9"/>
+                        <constraint firstItem="nkk-y9-VRG" firstAttribute="leading" secondItem="yqt-7n-6Vr" secondAttribute="leading" constant="10" id="PG2-kE-Qhz"/>
+                        <constraint firstAttribute="bottom" secondItem="nkk-y9-VRG" secondAttribute="bottom" constant="11" id="S8e-rR-7f2"/>
+                        <constraint firstAttribute="height" constant="53" id="WU8-tq-dhK"/>
+                    </constraints>
+                </view>
             </subviews>
             <constraints>
                 <constraint firstItem="AJ3-JR-iPv" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="3Ew-Gx-3rb"/>
                 <constraint firstAttribute="trailing" secondItem="AJ3-JR-iPv" secondAttribute="trailing" id="40E-Gk-Q9k"/>
                 <constraint firstItem="AJ3-JR-iPv" firstAttribute="top" secondItem="1" secondAttribute="top" constant="426" id="CrC-qt-79Q"/>
-                <constraint firstItem="Xr4-e4-Slx" firstAttribute="leading" secondItem="JR6-yG-H58" secondAttribute="leading" id="PtP-N3-IG5"/>
                 <constraint firstItem="JR6-yG-H58" firstAttribute="top" secondItem="1" secondAttribute="top" constant="373" id="RXg-zF-IG7"/>
                 <constraint firstItem="AJ3-JR-iPv" firstAttribute="top" secondItem="JR6-yG-H58" secondAttribute="bottom" id="Ubv-cJ-zk2"/>
                 <constraint firstItem="JR6-yG-H58" firstAttribute="trailing" secondItem="AJ3-JR-iPv" secondAttribute="trailing" id="VH7-gr-Rcm"/>
-                <constraint firstItem="Xr4-e4-Slx" firstAttribute="top" secondItem="1" secondAttribute="top" id="dLQ-td-4ZX"/>
+                <constraint firstItem="yqt-7n-6Vr" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="bbU-wn-SPJ"/>
+                <constraint firstItem="yqt-7n-6Vr" firstAttribute="top" secondItem="1" secondAttribute="top" id="fL6-Yi-itG"/>
                 <constraint firstAttribute="bottom" secondItem="AJ3-JR-iPv" secondAttribute="bottom" constant="-2" id="kqJ-z5-SSb"/>
-                <constraint firstItem="Xr4-e4-Slx" firstAttribute="trailing" secondItem="JR6-yG-H58" secondAttribute="trailing" id="lAQ-66-Msd"/>
                 <constraint firstItem="JR6-yG-H58" firstAttribute="leading" secondItem="AJ3-JR-iPv" secondAttribute="leading" id="qV2-UQ-kTp"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="cameraControlBar" destination="JR6-yG-H58" id="ccg-BT-YY4"/>
+                <outlet property="cameraHeader" destination="yqt-7n-6Vr" id="vWP-Pq-bjZ"/>
+                <outlet property="cameraShutterBar" destination="AJ3-JR-iPv" id="plc-xW-sWJ"/>
+                <outlet property="closeButton" destination="nkk-y9-VRG" id="WkL-WC-fjF"/>
+            </connections>
         </view>
     </objects>
 </document>

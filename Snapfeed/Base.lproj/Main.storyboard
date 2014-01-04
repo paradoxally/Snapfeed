@@ -183,7 +183,7 @@
                     <navigationItem key="navigationItem" title="Feed" id="q3b-Xy-RnK">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="v5Y-Z1-oPX">
                             <connections>
-                                <action selector="addPhotoTapped:" destination="mP3-x9-0ed" id="AKR-w5-Y0T"/>
+                                <segue destination="bcc-da-5cg" kind="modal" identifier="takePhoto" id="Dkl-SP-osH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -191,6 +191,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pqc-p0-pqt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1139" y="-513"/>
+        </scene>
+        <!--Take Photo View Controller-->
+        <scene sceneID="bsF-Yj-KHr">
+            <objects>
+                <viewController id="B0F-qO-iP6" customClass="SNFTakePhotoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="f8T-ip-GgL"/>
+                        <viewControllerLayoutGuide type="bottom" id="6Mo-to-J74"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6ab-xR-JBd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Jqt-hF-Plr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VqU-M3-eLd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2062" y="-513"/>
         </scene>
         <!--Navigation Controller - Feed-->
         <scene sceneID="Kew-vy-Mud">
@@ -291,6 +310,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s63-pH-5kv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="-522"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8Jb-7u-UlA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bcc-da-5cg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yty-XB-GBv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="B0F-qO-iP6" kind="relationship" relationship="rootViewController" id="wmd-hP-OJ1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PZ2-1N-wRn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1536" y="-513"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

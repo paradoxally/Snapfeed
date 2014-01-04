@@ -11,6 +11,6 @@
 extern NSString *const postLikedNotificationName;
 extern NSString *const postUnlikedNotificationName;
 
-@interface SNFFeedTVC : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface SNFFeedTVC : UITableViewController
 
 @end

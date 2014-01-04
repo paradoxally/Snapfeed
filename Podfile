@@ -8,9 +8,11 @@ target "Snapfeed" do
     pod 'TTTAttributedLabel'
     pod 'SVWebViewController', :head
     pod 'UIImage-Resize'
+    pod 'SparkInspector'
 end
 
 target "SnapfeedTests" do
 
 end
+
 

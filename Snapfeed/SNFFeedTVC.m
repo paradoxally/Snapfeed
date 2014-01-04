@@ -33,7 +33,6 @@ static const NSUInteger kPhotoViewHeight = 320;
 @property (nonatomic, strong) NSMutableArray *likedPosts; // post IDs containing user like info
 @property (nonatomic) BOOL isLoadingData;
 
-@property (strong, nonatomic) IBOutlet UIView *cameraOverlayView;
 @end
 
 @implementation SNFFeedTVC
@@ -312,7 +311,7 @@ static const NSUInteger kPhotoViewHeight = 320;
 }
 
 - (void)presentImagePicker:(UIImagePickerControllerSourceType)sourceType {
-	NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:sourceType];
+	/*NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:sourceType];
 	if ([availableMediaTypes containsObject:(NSString *)kUTTypeImage]) {
 		self.picker.sourceType = sourceType;
 		self.picker.mediaTypes = @[(NSString *)kUTTypeImage];
@@ -320,29 +319,24 @@ static const NSUInteger kPhotoViewHeight = 320;
         self.picker.showsCameraControls = NO;
 		self.picker.delegate = self;
         
-        /*CGSize screenBounds = [UIScreen mainScreen].bounds.size;
+        CGSize screenBounds = [UIScreen mainScreen].bounds.size;
         CGFloat cameraAspectRatio = 1.0f/1.0f;
         CGFloat camViewHeight = screenBounds.width * cameraAspectRatio;
         CGFloat scale = screenBounds.height / camViewHeight;
         
         self.picker.cameraViewTransform = CGAffineTransformMakeTranslation(0, (screenBounds.height - camViewHeight) / 2.0);
-        self.picker.cameraViewTransform = CGAffineTransformScale(self.picker.cameraViewTransform, scale, scale);*/
+        self.picker.cameraViewTransform = CGAffineTransformScale(self.picker.cameraViewTransform, scale, scale);
         
         [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
         self.cameraOverlayView.frame = self.picker.cameraOverlayView.frame;
         self.picker.cameraOverlayView = self.cameraOverlayView;
         self.cameraOverlayView = nil;
         
-        UIView *redBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, 320, self.picker.cameraOverlayView.frame.size.height - 44.0 - 144 - 51)];
-        redBorderView.layer.borderColor = [UIColor redColor].CGColor;
-        redBorderView.layer.borderWidth = 3.0f;
-        [self.picker.cameraOverlayView addSubview:redBorderView];
-        
 		[self presentViewController:self.picker animated:YES completion:nil];
-	}
+	}*/
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+/*- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -357,9 +351,10 @@ static const NSUInteger kPhotoViewHeight = 320;
 	}
 }
 
-- (IBAction)cameraCloseTapped:(UIBarButtonItem *)sender {
+- (IBAction)cameraCloseTapped:(UIButton *)sender {
     [self imagePickerControllerDidCancel:self.picker];
-}
+}*/
+
 
 /*- (UIImage *)imageManager:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL {
  UIImage *resizedImage = nil;
