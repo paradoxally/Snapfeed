@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <UIColor+MLPFlatColors.h>
 
+#define IS_IPHONE_4_INCH ([[UIScreen mainScreen] bounds].size.height == 568)
+
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;    // logging level
 
 extern NSString *const FBSessionStateOpenedNotification;

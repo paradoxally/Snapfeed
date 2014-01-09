@@ -29,6 +29,10 @@
 		0FAE9E71185BF58B00896242 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E70185BF58B00896242 /* CoreTelephony.framework */; };
 		0FAE9E73185BF59200896242 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E72185BF59200896242 /* SystemConfiguration.framework */; };
 		0FAE9E75185BF59600896242 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E74185BF59600896242 /* libz.dylib */; };
+		0FB7CC49187D005A0089D09E /* SNFCameraNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC48187D005A0089D09E /* SNFCameraNavigationController.m */; };
+		0FB7CC4D187D88F30089D09E /* SNFCameraNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC4C187D88F30089D09E /* SNFCameraNavigationBar.m */; };
+		0FB7CC53187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC52187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m */; };
+		0FB7CC56187DD3A20089D09E /* SNFCameraControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC55187DD3A20089D09E /* SNFCameraControlButton.m */; };
 		0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */; };
 		0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB9019C1860F05A00918088 /* SNFFeedTVC.m */; };
 		0FB901A11860F3EB00918088 /* SNFFeedPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */; };
@@ -82,6 +86,14 @@
 		0FAE9E70185BF58B00896242 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		0FAE9E72185BF59200896242 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0FAE9E74185BF59600896242 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		0FB7CC47187D005A0089D09E /* SNFCameraNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFCameraNavigationController.h; sourceTree = "<group>"; };
+		0FB7CC48187D005A0089D09E /* SNFCameraNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFCameraNavigationController.m; sourceTree = "<group>"; };
+		0FB7CC4B187D88F30089D09E /* SNFCameraNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFCameraNavigationBar.h; sourceTree = "<group>"; };
+		0FB7CC4C187D88F30089D09E /* SNFCameraNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFCameraNavigationBar.m; sourceTree = "<group>"; };
+		0FB7CC51187DA49A0089D09E /* UINavigationItem+iOS7Spacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+iOS7Spacing.h"; sourceTree = "<group>"; };
+		0FB7CC52187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+iOS7Spacing.m"; sourceTree = "<group>"; };
+		0FB7CC54187DD3A20089D09E /* SNFCameraControlButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFCameraControlButton.h; sourceTree = "<group>"; };
+		0FB7CC55187DD3A20089D09E /* SNFCameraControlButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFCameraControlButton.m; sourceTree = "<group>"; };
 		0FB90198185FBC3C00918088 /* SNFFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFriendsViewController.h; sourceTree = "<group>"; };
 		0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFriendsViewController.m; sourceTree = "<group>"; };
 		0FB9019B1860F05A00918088 /* SNFFeedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedTVC.h; sourceTree = "<group>"; };
@@ -139,8 +151,8 @@
 		0F01AC4B186D2844006C01A0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				0FD2D9EA187655BC007860CA /* CaptureSessionManager.h */,
-				0FD2D9EB187655BC007860CA /* CaptureSessionManager.m */,
+				0FB7CC51187DA49A0089D09E /* UINavigationItem+iOS7Spacing.h */,
+				0FB7CC52187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m */,
 				0FD2D9E01871CDBD007860CA /* NSArray+PrettyPrint.h */,
 				0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */,
 				0F01AC48186D283B006C01A0 /* NSDate+ShortTimeAgo.h */,
@@ -199,13 +211,12 @@
 		0FAE9E39185BEFAD00896242 /* Snapfeed */ = {
 			isa = PBXGroup;
 			children = (
+				0FB7CC46187D00100089D09E /* Camera */,
 				0F01AC4B186D2844006C01A0 /* Helpers */,
 				0F757C3C18623AC200BB4868 /* Model */,
 				0FAE9E4E185BEFAD00896242 /* Images.xcassets */,
 				0FF1CF6F185FACA4008CFD76 /* Login */,
 				0FAE9E45185BEFAD00896242 /* Main.storyboard */,
-				0FD2D9ED18765CD9007860CA /* SNFTakePhotoViewController.h */,
-				0FD2D9EE18765CD9007860CA /* SNFTakePhotoViewController.m */,
 				0FAE9E42185BEFAD00896242 /* SNFAppDelegate.h */,
 				0FAE9E43185BEFAD00896242 /* SNFAppDelegate.m */,
 				0FB9019B1860F05A00918088 /* SNFFeedTVC.h */,
@@ -245,6 +256,31 @@
 				0FAE9E5E185BEFAD00896242 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0FB7CC46187D00100089D09E /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				0FB7CC4A187D88B80089D09E /* Views */,
+				0FD2D9EA187655BC007860CA /* CaptureSessionManager.h */,
+				0FD2D9EB187655BC007860CA /* CaptureSessionManager.m */,
+				0FD2D9ED18765CD9007860CA /* SNFTakePhotoViewController.h */,
+				0FD2D9EE18765CD9007860CA /* SNFTakePhotoViewController.m */,
+				0FB7CC47187D005A0089D09E /* SNFCameraNavigationController.h */,
+				0FB7CC48187D005A0089D09E /* SNFCameraNavigationController.m */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
+		0FB7CC4A187D88B80089D09E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0FB7CC4B187D88F30089D09E /* SNFCameraNavigationBar.h */,
+				0FB7CC4C187D88F30089D09E /* SNFCameraNavigationBar.m */,
+				0FB7CC54187DD3A20089D09E /* SNFCameraControlButton.h */,
+				0FB7CC55187DD3A20089D09E /* SNFCameraControlButton.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		0FB9019E1860F39E00918088 /* Views */ = {
@@ -423,9 +459,13 @@
 				0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */,
 				0FD2D9EF18765CD9007860CA /* SNFTakePhotoViewController.m in Sources */,
 				0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */,
+				0FB7CC56187DD3A20089D09E /* SNFCameraControlButton.m in Sources */,
 				0F01AC4A186D283B006C01A0 /* NSDate+ShortTimeAgo.m in Sources */,
+				0FB7CC49187D005A0089D09E /* SNFCameraNavigationController.m in Sources */,
 				0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */,
 				0FA6DCBE1862ABEA0036626B /* SNFRoundedRectButton.m in Sources */,
+				0FB7CC4D187D88F30089D09E /* SNFCameraNavigationBar.m in Sources */,
+				0FB7CC53187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m in Sources */,
 				0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */,
 				0FAE9E44185BEFAD00896242 /* SNFAppDelegate.m in Sources */,
 				0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */,

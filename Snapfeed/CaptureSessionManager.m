@@ -21,6 +21,7 @@
 - (id)init {
 	if ((self = [super init])) {
 		[self setCaptureSession:[[AVCaptureSession alloc] init]];
+        [captureSession setSessionPreset:AVCaptureSessionPresetPhoto];
 	}
 	return self;
 }
@@ -38,16 +39,16 @@
     
     for (AVCaptureDevice *device in devices) {
         
-        NSLog(@"Device name: %@", [device localizedName]);
+        DDLogVerbose(@"Device name: %@", [device localizedName]);
         
         if ([device hasMediaType:AVMediaTypeVideo]) {
             
             if ([device position] == AVCaptureDevicePositionBack) {
-                NSLog(@"Device position : back");
+                DDLogVerbose(@"Device position : back");
                 backCamera = device;
             }
             else {
-                NSLog(@"Device position : front");
+                DDLogVerbose(@"Device position : front");
                 frontCamera = device;
             }
         }
@@ -61,7 +62,7 @@
             if ([[self captureSession] canAddInput:frontFacingCameraDeviceInput]) {
                 [[self captureSession] addInput:frontFacingCameraDeviceInput];
             } else {
-                NSLog(@"Couldn't add front facing video input");
+                DDLogVerbose(@"Couldn't add front facing video input");
             }
         }
     } else {
@@ -70,7 +71,7 @@
             if ([[self captureSession] canAddInput:backFacingCameraDeviceInput]) {
                 [[self captureSession] addInput:backFacingCameraDeviceInput];
             } else {
-                NSLog(@"Couldn't add back facing video input");
+                DDLogVerbose(@"Couldn't add back facing video input");
             }
         }
     }
@@ -118,19 +119,20 @@
     AVCaptureVideoOrientation avcaptureOrientation;
     if ( deviceOrientation == UIDeviceOrientationLandscapeLeft )
         avcaptureOrientation  = AVCaptureVideoOrientationLandscapeRight;
-    
     else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )
         avcaptureOrientation  = AVCaptureVideoOrientationLandscapeLeft;
+    else if (deviceOrientation == UIDeviceOrientationPortrait)
+        avcaptureOrientation = AVCaptureVideoOrientationPortrait;
     
     [videoConnection setVideoOrientation:avcaptureOrientation];
-	NSLog(@"about to request a capture from: %@", [self stillImageOutput]);
+	DDLogVerbose(@"About to request a capture from: %@", [self stillImageOutput]);
 	[[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:videoConnection
                                                          completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
                                                              CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
                                                              if (exifAttachments) {
-                                                                 NSLog(@"attachements: %@", exifAttachments);
+                                                                 DDLogVerbose(@"Attachments: %@", exifAttachments);
                                                              } else {
-                                                                 NSLog(@"no attachments");
+                                                                 DDLogVerbose(@"No attachments");
                                                              }
                                                              NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
                                                              UIImage *image = [[UIImage alloc] initWithData:imageData];

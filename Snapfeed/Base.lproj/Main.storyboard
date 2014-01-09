@@ -311,10 +311,10 @@
             </objects>
             <point key="canvasLocation" x="132" y="-522"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Camera Navigation Controller-->
         <scene sceneID="8Jb-7u-UlA">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bcc-da-5cg" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bcc-da-5cg" customClass="SNFCameraNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yty-XB-GBv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

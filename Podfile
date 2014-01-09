@@ -9,6 +9,7 @@ target "Snapfeed" do
     pod 'SVWebViewController', :head
     pod 'UIImage-Resize'
     pod 'SparkInspector'
+    pod 'Reveal-iOS-SDK'
 end
 
 target "SnapfeedTests" do
