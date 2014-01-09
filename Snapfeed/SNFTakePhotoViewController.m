@@ -9,6 +9,7 @@
 #import "SNFCameraOverlayView.h"
 #import "SNFAppDelegate.h"
 #import "SNFCameraControlButton.h"
+#import "UIImage+SquareImage.h"
 #import "SNFTakePhotoViewController.h"
 
 static const CGFloat kViewAlphaValue = 0.9;
@@ -104,46 +105,34 @@ static const CGFloat kiPhone4InchShutterViewHeight = 140;
 
 - (void)shutterButtonPressed {
     [self.captureManager captureStillImage];
+    [self.captureManager.captureSession stopRunning];
 }
-
 
 - (void)saveImageToPhotoAlbum
 {
-    // Resize image first before saving to album (test: this will separate to become different methods)
-    DDLogVerbose(@"%@: Image crop rect: (%f, %f, %f, %f)", THIS_FILE, self.imageCropRect.origin.x, self.imageCropRect.origin.y, self.imageCropRect.size.width, self.imageCropRect.size.height);
-    
-    // Create new image context (retina safe)
-    /*UIGraphicsBeginImageContextWithOptions(CGSizeMake(300, 300), NO, 0.0);
-    
-    // Create rect for image
-    CGRect rect = CGRectMake(0, 0, 320, 332);
-    
-    // Draw the image into the rect
-    [self.captureManager.stillImage drawInRect:rect];
-    
-    // Saving the image, ending image context
-    UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();*/
+    UIImageWriteToSavedPhotosAlbum(self.captureManager.stillImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     
     DDLogVerbose(@"%@: Original image size: (%f, %f)", THIS_FILE, self.captureManager.stillImage.size.width, self.captureManager.stillImage.size.height);
-
     
-    // Make a new bounding rectangle including our crop
-    CGRect newSize = CGRectMake(0.0, 50.0 * 7, 320.0 * 7, 430.0 * 7);
+    // Resize image first before saving to album
+    CGSize croppedImageSize = CGSizeMake(1936, 1936);
     
-    // Create a new image in quartz with our new bounds and original image
-    CGImageRef tmp = CGImageCreateWithImageInRect([self.captureManager.stillImage CGImage], newSize);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        UIImage *croppedImage = [UIImage squareImageWithImage:self.captureManager.stillImage scaledToSize:croppedImageSize];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImageWriteToSavedPhotosAlbum(croppedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            self.captureManager.stillImage = nil;
+            
+            /*UIImageView *view = [[UIImageView alloc] initWithFrame:self.imageCropRect];
+            view.image = croppedImage;
+            view.layer.borderWidth = 1;
+            view.layer.borderColor = [UIColor redColor].CGColor;
+            view.contentMode = UIViewContentModeScaleToFill;
+            [self.view addSubview:view];*/
+        });
+    });
     
-    // Pump our cropped image back into a UIImage object
-    UIImage *croppedImage = [UIImage imageWithCGImage:tmp];
-    
-    // Be good memory citizens and release the memory
-    CGImageRelease(tmp);
-    
-    
-    UIImageWriteToSavedPhotosAlbum(self.captureManager.stillImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    UIImageWriteToSavedPhotosAlbum(croppedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo

@@ -33,6 +33,7 @@
 		0FB7CC4D187D88F30089D09E /* SNFCameraNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC4C187D88F30089D09E /* SNFCameraNavigationBar.m */; };
 		0FB7CC53187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC52187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m */; };
 		0FB7CC56187DD3A20089D09E /* SNFCameraControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC55187DD3A20089D09E /* SNFCameraControlButton.m */; };
+		0FB7CC5E187F2CA30089D09E /* UIImage+SquareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC5D187F2CA30089D09E /* UIImage+SquareImage.m */; };
 		0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */; };
 		0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB9019C1860F05A00918088 /* SNFFeedTVC.m */; };
 		0FB901A11860F3EB00918088 /* SNFFeedPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */; };
@@ -94,6 +95,8 @@
 		0FB7CC52187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+iOS7Spacing.m"; sourceTree = "<group>"; };
 		0FB7CC54187DD3A20089D09E /* SNFCameraControlButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFCameraControlButton.h; sourceTree = "<group>"; };
 		0FB7CC55187DD3A20089D09E /* SNFCameraControlButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFCameraControlButton.m; sourceTree = "<group>"; };
+		0FB7CC5C187F2CA30089D09E /* UIImage+SquareImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SquareImage.h"; sourceTree = "<group>"; };
+		0FB7CC5D187F2CA30089D09E /* UIImage+SquareImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SquareImage.m"; sourceTree = "<group>"; };
 		0FB90198185FBC3C00918088 /* SNFFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFriendsViewController.h; sourceTree = "<group>"; };
 		0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFriendsViewController.m; sourceTree = "<group>"; };
 		0FB9019B1860F05A00918088 /* SNFFeedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedTVC.h; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 		0F01AC4B186D2844006C01A0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0FB7CC5C187F2CA30089D09E /* UIImage+SquareImage.h */,
+				0FB7CC5D187F2CA30089D09E /* UIImage+SquareImage.m */,
 				0FB7CC51187DA49A0089D09E /* UINavigationItem+iOS7Spacing.h */,
 				0FB7CC52187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m */,
 				0FD2D9E01871CDBD007860CA /* NSArray+PrettyPrint.h */,
@@ -468,6 +473,7 @@
 				0FB7CC53187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m in Sources */,
 				0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */,
 				0FAE9E44185BEFAD00896242 /* SNFAppDelegate.m in Sources */,
+				0FB7CC5E187F2CA30089D09E /* UIImage+SquareImage.m in Sources */,
 				0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */,
 				0FD2D9EC187655BC007860CA /* CaptureSessionManager.m in Sources */,
 				0FB901A11860F3EB00918088 /* SNFFeedPhotoCell.m in Sources */,

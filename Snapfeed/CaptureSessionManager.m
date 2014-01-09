@@ -134,10 +134,14 @@
                                                              } else {
                                                                  DDLogVerbose(@"No attachments");
                                                              }
-                                                             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-                                                             UIImage *image = [[UIImage alloc] initWithData:imageData];
-                                                             [self setStillImage:image];
-                                                             [[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:nil];
+                                                             if (imageSampleBuffer) {
+                                                                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+                                                                 UIImage *image = [[UIImage alloc] initWithData:imageData];
+                                                                 [self setStillImage:image];
+                                                                 [[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:nil];
+                                                             } else {
+                                                                 DDLogError(@"%@: Buffer is NULL", THIS_FILE);
+                                                             }
                                                          }];
 }
 
