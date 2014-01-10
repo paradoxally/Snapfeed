@@ -5,6 +5,7 @@ PODS:
   - CocoaLumberjack/Core (1.7.0)
   - CocoaLumberjack/Extensions (1.7.0):
     - CocoaLumberjack/Core
+  - RegExCategories (1.0)
   - Reveal-iOS-SDK (1.0.3)
   - SDWebImage (3.5.2):
     - SDWebImage/Core
@@ -17,6 +18,7 @@ PODS:
 
 DEPENDENCIES:
   - CocoaLumberjack
+  - RegExCategories
   - Reveal-iOS-SDK
   - SDWebImage (~> 3.5.1)
   - SparkInspector
@@ -27,6 +29,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: be87113f649942f020a37c061c58009b6ee5ff68
+  RegExCategories: 4251b5b17ed9d0e16229652ff8539c131365e218
   Reveal-iOS-SDK: f2525cb560a564fdc086316e89ec45ced6977fd3
   SDWebImage: fe7ce01ae4e0a884d168f59c9dd82d35baf8429e
   SparkInspector: 8eebd96bf33d608504ee03782d8046fa5016b1ef

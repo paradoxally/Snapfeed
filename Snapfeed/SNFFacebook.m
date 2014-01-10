@@ -136,24 +136,14 @@
 	                      completionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {                               response(connection, result, error); }];
 }
 
-- (void)getRecentPhotosFromUser:(NSString *)pid andResponse:(FBRequestResponseWithDictionary)response {
-	NSString *ors = @"me()";
-	if (pid.length > 2) ors = pid;
-    
-	NSString *query = [NSString stringWithFormat:
-	                   @"select caption, src from photo where owner=%@ order by created desc limit 18", ors];
-    
-	// Set up the query parameter
-	NSDictionary *queryParam = @{ @"q": query };
-	// Make the API request that uses FQL
-	[FBRequestConnection startWithGraphPath:@"/fql"
-	                             parameters:queryParam
-	                             HTTPMethod:@"GET"
-	                      completionHandler: ^(FBRequestConnection *connection,
-	                                           id result,
-	                                           NSError *error) {
-                              response(connection, result, error);
-                          }];
+- (void)getRecentPhotosFromUser:(NSString *)userID andResponse:(FBRequestResponseWithDictionary)response {
+	// Make the API request
+	[[FBRequest requestForGraphPath:@"me/photos/uploaded?fields=source&limit=25"]
+	 startWithCompletionHandler: ^(FBRequestConnection *connection,
+	                               NSDictionary *result,
+	                               NSError *error) {
+         response(connection, result, error);
+     }];
 }
 
 - (NSURL *)picURLForUser:(NSString *)userID andSize:(CGSize)size {

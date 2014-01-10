@@ -10,6 +10,6 @@
 
 @interface SNFProfilePhotosCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) IBOutlet UIImageView *thumbnail;
+@property (nonatomic, weak) IBOutlet UIImageView *thumbnail;
 
 @end

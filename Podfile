@@ -10,6 +10,7 @@ target "Snapfeed" do
     pod 'UIImage-Resize'
     pod 'SparkInspector'
     pod 'Reveal-iOS-SDK'
+    pod 'RegExCategories'
 end
 
 target "SnapfeedTests" do

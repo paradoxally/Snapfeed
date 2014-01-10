@@ -12,6 +12,8 @@
 #import "SNFProfilePictureButton.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <SDWebImage/UIButton+WebCache.h>
+#import <UIImageView+WebCache.h>
+#import <RegExCategories.h>
 
 @interface ProfileTVC ()
 
@@ -97,18 +99,20 @@
     
 	[cell prepareForReuse];
     
-	// IMAGEM
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-	    NSString *imageURL = self.photos[indexPath.row][@"src"];
-        DDLogVerbose(@"%@: Collection view image URL: %@", THIS_FILE, imageURL);
-	    NSURL *url = [NSURL URLWithString:imageURL];
-	    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-	    dispatch_sync(dispatch_get_main_queue(), ^{
-	        //if ([[self.collectionView indexPathsForVisibleItems] containsObject:indexPath]) {
-	        cell.thumbnail.image = image;
-	        [cell setNeedsDisplay];
-	        //}
-		});
+	    // Get the image URL as a string
+        NSString *originalImageSource = self.photos[indexPath.row][@"source"];
+        
+        if (![originalImageSource isEqualToString:@""]) {
+            // See if URL is contains 'sWIDTHxHEIGHT', if yes, modify it
+            NSString *modifiedImageSource = [originalImageSource replace:RX(@"^*s\\d+x\\d+") withBlock:^NSString *(NSString *match) {
+                return [NSString stringWithFormat:@"s%ux%u", 200, 200];
+            }];
+            
+            DDLogVerbose(@"%@: Collection view image URL: %@", THIS_FILE, modifiedImageSource);
+            NSURL *url = [NSURL URLWithString:modifiedImageSource];
+            [cell.thumbnail setImageWithURL:url];
+        }
 	});
     
 	return cell;
@@ -126,7 +130,7 @@
 	            self.nameLabel.text = [result objectForKey:@"name"];
 	            self.descLabel.text = [[result objectForKey:@"location"] objectForKey:@"name"];
                 
-	            NSURL *profilePicURL = [[SNFFacebook sharedInstance] picURLForUser:numberUserID andSize:CGSizeMake(100, 100)];
+	            NSURL *profilePicURL = [[SNFFacebook sharedInstance] picURLForUser:numberUserID andSize:CGSizeMake(200, 200)];
 	            if (profilePicURL) {
 	                [self.profilePicture setProfileImageFromURL:profilePicURL forState:UIControlStateNormal];
 				}
