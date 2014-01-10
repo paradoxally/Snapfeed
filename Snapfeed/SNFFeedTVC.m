@@ -38,11 +38,11 @@ static const NSUInteger kPhotoViewHeight = 320;
 @implementation SNFFeedTVC
 
 - (UIImagePickerController *)picker {
-    if (!_picker) {
-        _picker = [[UIImagePickerController alloc] init];
-    }
+	if (!_picker) {
+		_picker = [[UIImagePickerController alloc] init];
+	}
     
-    return _picker;
+	return _picker;
 }
 
 - (NSMutableArray *)likedPosts {
@@ -75,15 +75,15 @@ static const NSUInteger kPhotoViewHeight = 320;
 	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 	// self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(postLiked:)
-                                                 name:postLikedNotificationName
-                                               object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+	                                         selector:@selector(postLiked:)
+	                                             name:postLikedNotificationName
+	                                           object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(postUnliked:)
-                                                 name:postUnlikedNotificationName
-                                               object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+	                                         selector:@selector(postUnliked:)
+	                                             name:postUnlikedNotificationName
+	                                           object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -99,7 +99,7 @@ static const NSUInteger kPhotoViewHeight = 320;
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)getPhotos {
@@ -172,16 +172,16 @@ static const NSUInteger kPhotoViewHeight = 320;
 	cell.postID = post[@"id"];
 	DDLogVerbose(@"%@: Post ID: %@", THIS_FILE, cell.postID);
     
-    NSInteger likedPostIndex = [self getLikedPostIndex:cell.postID];
-    if (likedPostIndex != -1) {
-        NSDictionary *likedPost = [self.likedPosts objectAtIndex:(NSUInteger)likedPostIndex];
-        if (likedPost) {
-            BOOL userLikesPost = [likedPost[@"like_info"][@"user_likes"] boolValue];
-            if (userLikesPost) {
-                [cell setLikeButtonSelected:YES];
-            }
-        }
-    }
+	NSInteger likedPostIndex = [self getLikedPostIndex:cell.postID];
+	if (likedPostIndex != -1) {
+		NSDictionary *likedPost = [self.likedPosts objectAtIndex:(NSUInteger)likedPostIndex];
+		if (likedPost) {
+			BOOL userLikesPost = [likedPost[@"like_info"][@"user_likes"] boolValue];
+			if (userLikesPost) {
+				[cell setLikeButtonSelected:YES];
+			}
+		}
+	}
     
 	cell.photoView.contentMode = UIViewContentModeScaleAspectFill;
 	// By default, Facebook gives us a thumbnail of the image using the 'picture' key.
@@ -229,14 +229,12 @@ static const NSUInteger kPhotoViewHeight = 320;
 	header.datePostedString = [[self.posts[section][@"created_time"] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] stringByReplacingOccurrencesOfString:@"T" withString:@" "];
 	DDLogVerbose(@"%@: Post %ld date: %@", THIS_FILE, (long)section, header.datePostedString);
     
-	NSURL *avatarURL = [NSURL URLWithString:[NSString stringWithFormat:
-	                                         @"https://graph.facebook.com/%@/picture/?width=%u&height=%u",
-	                                         header.userID,
-	                                         (unsigned int)100,
-	                                         (unsigned int)100]];
-	[header.avatar setImageWithURL:avatarURL
-                  placeholderImage:nil
-                           options:SDWebImageRefreshCached];
+	NSURL *avatarURL = [[SNFFacebook sharedInstance] picURLForUser:header.userID andSize:CGSizeMake(100, 100)];
+	if (avatarURL) {
+		[header.avatar setImageWithURL:avatarURL
+		              placeholderImage:nil
+		                       options:SDWebImageRefreshCached];
+	}
     
 	// TAP ON FROM TO OPEN
 	/*UITapGestureRecognizer *tapOnFromLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedOnFromLabel:)];
@@ -274,86 +272,86 @@ static const NSUInteger kPhotoViewHeight = 320;
 }
 
 - (void)postLiked:(NSNotification *)notification {
-    [self updateLikedPostsArrayWithPost:notification.userInfo andLike:YES];
+	[self updateLikedPostsArrayWithPost:notification.userInfo andLike:YES];
 }
 
 - (void)postUnliked:(NSNotification *)notification {
-    [self updateLikedPostsArrayWithPost:notification.userInfo andLike:NO];
+	[self updateLikedPostsArrayWithPost:notification.userInfo andLike:NO];
 }
 
 - (NSInteger)getLikedPostIndex:(NSString *)postID {
-    for (NSInteger i = 0; i < [self.likedPosts count]; i++) {
-        if ([self.likedPosts[i][@"post_id"] isEqualToString:postID]) {
-            return i;
-        }
-    }
+	for (NSInteger i = 0; i < [self.likedPosts count]; i++) {
+		if ([self.likedPosts[i][@"post_id"] isEqualToString:postID]) {
+			return i;
+		}
+	}
     
-    return -1;
+	return -1;
 }
 
 - (void)updateLikedPostsArrayWithPost:(NSDictionary *)post
                               andLike:(BOOL)like {
-    if (post) {
-        NSInteger likedPostIndex = [self getLikedPostIndex:post[@"post_id"]];
-        if (likedPostIndex != -1) {
-            NSDictionary *likedPost = [self.likedPosts objectAtIndex:(NSUInteger)likedPostIndex];
-            if (likedPost) {
-                likedPost[@"like_info"][@"user_likes"] = (like ? @true : @false);
-                [self.likedPosts replaceObjectAtIndex:likedPostIndex withObject:likedPost];
-                DDLogVerbose(@"%@: Updated dictionary liked post object to %@: %@", THIS_FILE, (like ? @"true" : @"false"), likedPost.description);
-            }
-        }
-    }
+	if (post) {
+		NSInteger likedPostIndex = [self getLikedPostIndex:post[@"post_id"]];
+		if (likedPostIndex != -1) {
+			NSDictionary *likedPost = [self.likedPosts objectAtIndex:(NSUInteger)likedPostIndex];
+			if (likedPost) {
+				likedPost[@"like_info"][@"user_likes"] = (like ? @true : @false);
+				[self.likedPosts replaceObjectAtIndex:likedPostIndex withObject:likedPost];
+				DDLogVerbose(@"%@: Updated dictionary liked post object to %@: %@", THIS_FILE, (like ? @"true" : @"false"), likedPost.description);
+			}
+		}
+	}
 }
 
 - (IBAction)addPhotoTapped:(UIBarButtonItem *)sender {
-    [self presentImagePicker:UIImagePickerControllerSourceTypeCamera];
+	[self presentImagePicker:UIImagePickerControllerSourceTypeCamera];
 }
 
 - (void)presentImagePicker:(UIImagePickerControllerSourceType)sourceType {
 	/*NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:sourceType];
-	if ([availableMediaTypes containsObject:(NSString *)kUTTypeImage]) {
-		self.picker.sourceType = sourceType;
-		self.picker.mediaTypes = @[(NSString *)kUTTypeImage];
-		self.picker.allowsEditing = YES;
-        self.picker.showsCameraControls = NO;
-		self.picker.delegate = self;
-        
-        CGSize screenBounds = [UIScreen mainScreen].bounds.size;
-        CGFloat cameraAspectRatio = 1.0f/1.0f;
-        CGFloat camViewHeight = screenBounds.width * cameraAspectRatio;
-        CGFloat scale = screenBounds.height / camViewHeight;
-        
-        self.picker.cameraViewTransform = CGAffineTransformMakeTranslation(0, (screenBounds.height - camViewHeight) / 2.0);
-        self.picker.cameraViewTransform = CGAffineTransformScale(self.picker.cameraViewTransform, scale, scale);
-        
-        [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
-        self.cameraOverlayView.frame = self.picker.cameraOverlayView.frame;
-        self.picker.cameraOverlayView = self.cameraOverlayView;
-        self.cameraOverlayView = nil;
-        
-		[self presentViewController:self.picker animated:YES completion:nil];
-	}*/
+     if ([availableMediaTypes containsObject:(NSString *)kUTTypeImage]) {
+     self.picker.sourceType = sourceType;
+     self.picker.mediaTypes = @[(NSString *)kUTTypeImage];
+     self.picker.allowsEditing = YES;
+     self.picker.showsCameraControls = NO;
+     self.picker.delegate = self;
+     
+     CGSize screenBounds = [UIScreen mainScreen].bounds.size;
+     CGFloat cameraAspectRatio = 1.0f/1.0f;
+     CGFloat camViewHeight = screenBounds.width * cameraAspectRatio;
+     CGFloat scale = screenBounds.height / camViewHeight;
+     
+     self.picker.cameraViewTransform = CGAffineTransformMakeTranslation(0, (screenBounds.height - camViewHeight) / 2.0);
+     self.picker.cameraViewTransform = CGAffineTransformScale(self.picker.cameraViewTransform, scale, scale);
+     
+     [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
+     self.cameraOverlayView.frame = self.picker.cameraOverlayView.frame;
+     self.picker.cameraOverlayView = self.cameraOverlayView;
+     self.cameraOverlayView = nil;
+     
+     [self presentViewController:self.picker animated:YES completion:nil];
+     }*/
 }
 
 /*- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	// Let's get the edited image
-	UIImage *image = info[UIImagePickerControllerEditedImage];
-	// But if for some reason we disable editing in the future, this is our safeguard
-	if (!image) image = info[UIImagePickerControllerOriginalImage];
-	if (image) {
-        DDLogVerbose(@"%@: Image details: %@", THIS_FILE, image.description);
-		[self dismissViewControllerAnimated:YES completion:nil];
-	}
-}
-
-- (IBAction)cameraCloseTapped:(UIButton *)sender {
-    [self imagePickerControllerDidCancel:self.picker];
-}*/
+ [self dismissViewControllerAnimated:YES completion:nil];
+ }
+ 
+ - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+ // Let's get the edited image
+ UIImage *image = info[UIImagePickerControllerEditedImage];
+ // But if for some reason we disable editing in the future, this is our safeguard
+ if (!image) image = info[UIImagePickerControllerOriginalImage];
+ if (image) {
+ DDLogVerbose(@"%@: Image details: %@", THIS_FILE, image.description);
+ [self dismissViewControllerAnimated:YES completion:nil];
+ }
+ }
+ 
+ - (IBAction)cameraCloseTapped:(UIButton *)sender {
+ [self imagePickerControllerDidCancel:self.picker];
+ }*/
 
 
 /*- (UIImage *)imageManager:(SDWebImageManager *)imageManager transformDownloadedImage:(UIImage *)image withURL:(NSURL *)imageURL {

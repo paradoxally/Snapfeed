@@ -10,4 +10,6 @@
 
 @interface ProfileTVC : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
+@property (nonatomic, strong) NSString *userID;
+
 @end

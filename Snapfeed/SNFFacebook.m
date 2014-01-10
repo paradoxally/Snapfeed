@@ -42,17 +42,20 @@
              if (![FBSession.activeSession.permissions containsObject:@"publish_stream"]) {
                  // We don't have publish permissions, so let's ask for them
                  DDLogVerbose(@"%@: No publish permissions, requesting...", THIS_FILE);
-                 [FBSession.activeSession requestNewPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *publishPermissionsError) {
+                 [FBSession.activeSession requestNewPublishPermissions:@[@"publish_stream"] defaultAudience:FBSessionDefaultAudienceFriends completionHandler: ^(FBSession *session, NSError *publishPermissionsError) {
                      if (!publishPermissionsError) {
                          DDLogInfo(@"%@: Publish permissions acquired for active session", THIS_FILE);
-                     } else {
+                     }
+                     else {
                          DDLogError(@"%@: Error acquiring publish permissions - %@", THIS_FILE, publishPermissionsError);
                      }
                  }];
-             } else {
+             }
+             else {
                  DDLogInfo(@"%@: Already had publish permissions for active session", THIS_FILE);
              }
-         } else {
+         }
+         else {
              DDLogError(@"%@: Error acquiring read permissions - %@", THIS_FILE, readPermissionsError);
          }
      }];
@@ -96,43 +99,41 @@
 - (void)getMainFeedPhotos:(FBRequestResponseWithDictionary)response {
 	// MAIN FEED
 	[[FBRequest requestForGraphPath:@"me/home?fields=type,from,picture,message,comments.limit(3).summary(true),likes.limit(1).summary(true)&filter=app_2305272732&limit=10"] startWithCompletionHandler: ^(FBRequestConnection *connection,
-	                                                                                                                         NSDictionary *result,
-	                                                                                                                         NSError *error) {
+	                                                                                                                                                                                                       NSDictionary *result,
+	                                                                                                                                                                                                       NSError *error) {
 	    response(connection, result, error);
 	}];
 }
 
 - (void)getLikedPostsForIDs:(NSArray *)postIDs andResponse:(FBRequestResponseWithID)response {
-    NSString *query = [NSString stringWithFormat:
-                       @"SELECT post_id, like_info.user_likes "
-                       @"FROM stream "
-                       @"WHERE post_id IN (%@) ", postIDs.prettyPrint];
+	NSString *query = [NSString stringWithFormat:
+	                   @"SELECT post_id, like_info.user_likes "
+	                   @"FROM stream "
+	                   @"WHERE post_id IN (%@) ", postIDs.prettyPrint];
     
-    DDLogVerbose(@"%@: FQL query: %@", THIS_FILE, query);
-    NSDictionary *queryParam = @{@"q" : query};
+	DDLogVerbose(@"%@: FQL query: %@", THIS_FILE, query);
+	NSDictionary *queryParam = @{ @"q" : query };
     
-    [FBRequestConnection startWithGraphPath:@"/fql"
-                                 parameters:queryParam
-                                 HTTPMethod:@"GET"
-                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        response(connection, result, error);
-    }];
+	[FBRequestConnection startWithGraphPath:@"/fql"
+	                             parameters:queryParam
+	                             HTTPMethod:@"GET"
+	                      completionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {
+                              response(connection, result, error);
+                          }];
 }
 
 - (void)likePost:(NSString *)postID andResponse:(FBRequestResponseWithID)response {
-    [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@/likes", postID]
-                                  parameters:nil
-                                  HTTPMethod:@"POST"
-                           completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {                               response(connection, result, error);
-    }];
+	[FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@/likes", postID]
+	                             parameters:nil
+	                             HTTPMethod:@"POST"
+	                      completionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {                               response(connection, result, error); }];
 }
 
 - (void)unlikePost:(NSString *)postID andResponse:(FBRequestResponseWithID)response {
-    [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@/likes", postID]
-                                 parameters:nil
-                                 HTTPMethod:@"DELETE"
-                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {                               response(connection, result, error);
-                          }];
+	[FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@/likes", postID]
+	                             parameters:nil
+	                             HTTPMethod:@"DELETE"
+	                      completionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {                               response(connection, result, error); }];
 }
 
 - (void)getRecentPhotosFromUser:(NSString *)pid andResponse:(FBRequestResponseWithDictionary)response {
@@ -153,6 +154,14 @@
 	                                           NSError *error) {
                               response(connection, result, error);
                           }];
+}
+
+- (NSURL *)picURLForUser:(NSString *)userID andSize:(CGSize)size {
+	return [NSURL URLWithString:[NSString stringWithFormat:
+	                             @"https://graph.facebook.com/%@/picture?width=%u&height=%u",
+	                             userID,
+	                             (unsigned int)size.width,
+	                             (unsigned int)size.height]];
 }
 
 #pragma mark - PRIVATE METHODS

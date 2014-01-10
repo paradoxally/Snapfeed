@@ -72,17 +72,17 @@ static const CGFloat kiPhone4InchShutterViewHeight = 140;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImageToPhotoAlbum) name:kImageCapturedSuccessfully object:nil];
     [self.view.layer addSublayer:self.captureManager.previewLayer];
     
-    [self addCloseButton];
-    
     UIImage *shutterImage = [UIImage imageNamed:@"shutter"];
     UIButton *shutterButton = [[UIButton alloc] initWithFrame:CGRectMake(160 - shutterImage.size.width / 2, cameraShutterView.frame.size.height / 2 - shutterImage.size.height / 2, shutterImage.size.width, shutterImage.size.height)];
     [shutterButton setImage:shutterImage forState:UIControlStateNormal];
     [shutterButton addTarget:self action:@selector(shutterButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [cameraShutterView addSubview:shutterButton];
-    [self.view addSubview:cameraShutterView];
-    [self.view addSubview:cameraControlsView];
     
     self.imageCropRect = CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 9, 320, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height - cameraShutterView.frame.size.height - cameraControlsView.frame.size.height - 9);
+    
+    [self addCloseButton];
+    [self.view addSubview:cameraShutterView];
+    [self.view addSubview:cameraControlsView];
 
 	[[self.captureManager captureSession] startRunning];
 }

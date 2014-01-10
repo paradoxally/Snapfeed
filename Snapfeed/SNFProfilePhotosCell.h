@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SNFProfilePhotosCell : UICollectionViewCell
-
-@property (nonatomic, strong) IBOutlet UIImageView *thumbnail;
+@interface SNFProfilePhotosCell : UITableViewCell
 
 @end

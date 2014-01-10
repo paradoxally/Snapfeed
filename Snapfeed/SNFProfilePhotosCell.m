@@ -10,20 +10,17 @@
 
 @implementation SNFProfilePhotosCell
 
-- (id)initWithFrame:(CGRect)frame
+- (void)awakeFromNib {
+    self.separatorInset = UIEdgeInsetsMake(0, self.bounds.size.width, 0, 0);
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
     }
     return self;
-}
-
--(void)prepareForReuse {
-    [super prepareForReuse];
-    
-    self.thumbnail.image = nil;
-    
 }
 
 @end
