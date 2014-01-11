@@ -19,13 +19,13 @@
 
 @property (nonatomic, strong) NSMutableArray *photos;
 
-@property (strong, nonatomic) IBOutlet SNFProfilePictureButton *profilePicture;
-@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *descLabel;
-@property (strong, nonatomic) IBOutlet UILabel *numberFriendsLabel;
-@property (strong, nonatomic) IBOutlet UILabel *numberPhotosLabel;
-@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) IBOutlet UILabel *numberAlbumsLabel;
+@property (weak, nonatomic) IBOutlet SNFProfilePictureButton *profilePicture;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberFriendsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberPhotosLabel;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *numberAlbumsLabel;
 
 @end
 

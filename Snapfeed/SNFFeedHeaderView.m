@@ -9,19 +9,11 @@
 #import "SNFFeedHeaderView.h"
 #import "SNFFacebook.h"
 #import "SNFAppDelegate.h"
+#import "SNFFeedHeaderUserButton.h"
 #import "NSDate+ShortTimeAgo.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation SNFFeedHeaderView
-
-- (UIImageView *)avatar {
-    if (!_avatar) {
-        _avatar = [[UIImageView alloc] init];
-        _avatar.frame = CGRectMake(10, 10, 30, 30);
-    }
-    
-    return _avatar;
-}
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -35,23 +27,22 @@
     
     
     // NAME FROM
-    UILabel *from = [[UILabel alloc]initWithFrame:CGRectMake(50,0,170,50)];
-    from.text = self.username;
-    from.font = [UIFont boldSystemFontOfSize:14];
+    SNFFeedHeaderUserButton *fromUserButton = [[SNFFeedHeaderUserButton alloc]initWithFrame:CGRectMake(50,10,210,30)];
+    [fromUserButton setTitle:self.username forState:UIControlStateNormal];
     
     // DATE
     if (![self.datePostedString isEqualToString:@""]) {
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *datePosted = [df dateFromString: self.datePostedString];
-        UILabel *relativeTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(230,0,80,50)];
-        relativeTimeLabel.text = [datePosted shortTimeAgo];;
+        UILabel *relativeTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(270,10,40,30)];
+        relativeTimeLabel.text = [datePosted shortTimeAgo];
         relativeTimeLabel.textAlignment = NSTextAlignmentRight;
         [relativeTimeLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
         
         // ICON FOR DATE
         CGSize sizeDateText = [relativeTimeLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.0f]}];
-        UIImageView *dateIcon = [[UIImageView alloc] initWithFrame:CGRectMake(320-sizeDateText.width-15-15, 17, 15, 15)];
+        UIImageView *dateIcon = [[UIImageView alloc] initWithFrame:CGRectMake(320-sizeDateText.width-15-15, 22, 15, 15)];
         //dateIcon.image = [UIImage imageNamed:@"alarm_clock-25"];
         dateIcon.contentMode = UIViewContentModeCenter;
         
@@ -59,17 +50,13 @@
         [self addSubview:dateIcon];
     }
     
-    // AVATAR
-    //self.avatar = [[UIImageView alloc] init];
-    //self.avatar.frame = CGRectMake(10, 10, 30, 30);
-    //avatar.image = [UIImage imageNamed:@"user_male-50"];
-    [self.avatar.layer setCornerRadius:15.0];
-    [self.avatar.layer setBorderColor:[UIColor flatDarkWhiteColor].CGColor];
-    [self.avatar.layer setBorderWidth:0.5f];
-    [self.avatar.layer setMasksToBounds:YES];
+    SNFProfilePictureButton *avatar = [[SNFProfilePictureButton alloc] initWithFrame:CGRectMake(10, 10, 30, 30)];
+    if (self.avatarURL) {
+		[avatar setProfileImageFromURL:self.avatarURL forState:UIControlStateNormal];
+	}
     
-    [self addSubview:from];
-    [self addSubview:self.avatar];
+    [self addSubview:fromUserButton];
+    [self addSubview:avatar];
     
     [self setNeedsDisplay];
 

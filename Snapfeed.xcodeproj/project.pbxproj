@@ -44,6 +44,7 @@
 		0FCF6CEB1880E78F0073283E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FCF6CEA1880E78F0073283E /* QuartzCore.framework */; };
 		0FCF6CF21881956D0073283E /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF6CEF1881956D0073283E /* UIScrollView+SVInfiniteScrolling.m */; };
 		0FCF6CF31881956D0073283E /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF6CF11881956D0073283E /* UIScrollView+SVPullToRefresh.m */; };
+		0FCF6CF61881DF740073283E /* SNFFeedHeaderUserButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF6CF51881DF740073283E /* SNFFeedHeaderUserButton.m */; };
 		0FD2D9E21871CDBD007860CA /* NSArray+PrettyPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */; };
 		0FD2D9E418759F27007860CA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD2D9E318759F27007860CA /* MobileCoreServices.framework */; };
 		0FD2D9E61875D177007860CA /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FD2D9E51875D177007860CA /* CameraOverlayView.xib */; };
@@ -124,6 +125,8 @@
 		0FCF6CEF1881956D0073283E /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		0FCF6CF01881956D0073283E /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		0FCF6CF11881956D0073283E /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		0FCF6CF41881DF740073283E /* SNFFeedHeaderUserButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedHeaderUserButton.h; sourceTree = "<group>"; };
+		0FCF6CF51881DF740073283E /* SNFFeedHeaderUserButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedHeaderUserButton.m; sourceTree = "<group>"; };
 		0FD2D9E01871CDBD007860CA /* NSArray+PrettyPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PrettyPrint.h"; sourceTree = "<group>"; };
 		0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PrettyPrint.m"; sourceTree = "<group>"; };
 		0FD2D9E318759F27007860CA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -348,6 +351,8 @@
 				0FD2D9E81876105D007860CA /* SNFCameraOverlayView.m */,
 				0FB7CC70188050D50089D09E /* SNFProfilePictureButton.h */,
 				0FB7CC71188050D50089D09E /* SNFProfilePictureButton.m */,
+				0FCF6CF41881DF740073283E /* SNFFeedHeaderUserButton.h */,
+				0FCF6CF51881DF740073283E /* SNFFeedHeaderUserButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -539,6 +544,7 @@
 				0FB7CC5E187F2CA30089D09E /* UIImage+SquareImage.m in Sources */,
 				0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */,
 				0FB7CC7518806BD50089D09E /* SNFProfilePhotosCell.m in Sources */,
+				0FCF6CF61881DF740073283E /* SNFFeedHeaderUserButton.m in Sources */,
 				0FD2D9EC187655BC007860CA /* CaptureSessionManager.m in Sources */,
 				0FCF6CF21881956D0073283E /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				0FB901A11860F3EB00918088 /* SNFFeedPhotoCell.m in Sources */,

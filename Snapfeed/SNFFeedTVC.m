@@ -276,12 +276,7 @@ static const NSUInteger kPhotoViewHeight = 320;
 	header.datePostedString = [[self.posts[section][@"created_time"] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] stringByReplacingOccurrencesOfString:@"T" withString:@" "];
 	DDLogVerbose(@"%@: Post %ld date: %@", THIS_FILE, (long)section, header.datePostedString);
     
-	NSURL *avatarURL = [[SNFFacebook sharedInstance] picURLForUser:header.userID andSize:CGSizeMake(100, 100)];
-	if (avatarURL) {
-		[header.avatar setImageWithURL:avatarURL
-		              placeholderImage:nil
-		                       options:SDWebImageRefreshCached];
-	}
+    header.avatarURL = [[SNFFacebook sharedInstance] picURLForUser:header.userID andSize:CGSizeMake(100, 100)];
     
 	// TAP ON FROM TO OPEN
 	/*UITapGestureRecognizer *tapOnFromLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedOnFromLabel:)];
