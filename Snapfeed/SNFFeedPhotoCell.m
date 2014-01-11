@@ -36,10 +36,14 @@
         [self.likeButton setTitle:@"Liked" forState:UIControlStateSelected];
         [self.likeButton setBackgroundColor:[UIColor flatRedColor]];
         [self.likeButton setSelected:YES];
+        self.likeCount++;
+        [self setLikeLabelCount];
     } else {
         [self.likeButton setTitle:@"Like" forState:UIControlStateNormal];
         [self.likeButton setBackgroundColor:[UIColor flatDarkGrayColor]];
         [self.likeButton setSelected:NO];
+        self.likeCount--;
+        [self setLikeLabelCount];
     }
 }
 
