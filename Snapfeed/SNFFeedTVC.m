@@ -13,6 +13,7 @@
 #import "SNFAppDelegate.h"
 #import "SNFRoundedRectButton.h"
 #import "NSArray+PrettyPrint.h"
+#import "SVPullToRefresh.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVWebViewController.h>
 #import <UIImage+Resize.h>
@@ -24,7 +25,7 @@ NSString *const postUnlikedNotificationName = @"postUnliked";
 static const NSUInteger kTableViewHeaderHeight = 50;
 static const NSUInteger kPhotoViewHeight = 320;
 
-@interface SNFFeedTVC () <TTTAttributedLabelDelegate>
+@interface SNFFeedTVC () <TTTAttributedLabelDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UIImagePickerController *picker;
 @property (nonatomic, strong) NSMutableArray *posts; // data source
@@ -43,6 +44,14 @@ static const NSUInteger kPhotoViewHeight = 320;
 	}
     
 	return _picker;
+}
+
+- (NSMutableArray *)posts {
+    if (!_posts) {
+        _posts = [NSMutableArray new];
+    }
+    
+    return _posts;
 }
 
 - (NSMutableArray *)likedPosts {
@@ -67,13 +76,13 @@ static const NSUInteger kPhotoViewHeight = 320;
 	//SDWebImageManager.sharedManager.delegate = self;
     
 	if (![self.posts count] > 0)
-		[self getPhotos];
+		[self getPhotosWithURL:nil];
     
-	// Uncomment the following line to preserve selection between presentations.
-	// self.clearsSelectionOnViewWillAppear = NO;
-    
-	// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-	// self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    __weak SNFFeedTVC *weakSelf = self;
+    // setup infinite scrolling
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf requestPostsAtBottom];
+    }];
     
 	[[NSNotificationCenter defaultCenter] addObserver:self
 	                                         selector:@selector(postLiked:)
@@ -102,28 +111,67 @@ static const NSUInteger kPhotoViewHeight = 320;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)getPhotos {
-	//[self loadingData:YES];
+- (void)getPhotosWithURL:(NSString *)url {
+    // We are going to load data
+    self.isLoadingData = YES;
     
-	self.isLoadingData = YES;
-	[[SNFFacebook sharedInstance] getMainFeedPhotos: ^(FBRequestConnection *request, NSDictionary *result, NSError *error) {
-	    self.posts = result[@"data"];
-	    self.paging = result[@"paging"];
-        
-	    for (id postID in[result valueForKeyPath:@"data.id"]) {
-	        [self.postIDs addObject:postID];
-		}
-        
-	    [[SNFFacebook sharedInstance] getLikedPostsForIDs:[self.postIDs copy] andResponse: ^(FBRequestConnection *request, id result, NSError *error) {
-	        [self.likedPosts addObjectsFromArray:result[@"data"]];
+    DDLogInfo(@"%@: Getting main feed photos...", THIS_FILE);
+	[[SNFFacebook sharedInstance] getMainFeedPhotosWithURL:url andResponse: ^(FBRequestConnection *request, NSDictionary *result, NSError *error) {
+        if (error) {
+            // If an error occurs, end all requests
+            DDLogError(@"%@: Error requesting posts: %@", THIS_FILE, error);
+            [self endPhotosFetchwithSuccess:NO firstFetch:(url ? NO : YES)];
+        } else {
+            // Add fetched posts to those we already have (if none, append to empty array)
+            [self.posts addObjectsFromArray:result[@"data"]];
+            // Save the paging for future "infinite scrolling" requests
+            self.paging = result[@"paging"];
             
-	        dispatch_async(dispatch_get_main_queue(), ^{
-	            self.isLoadingData = NO;
-	            [self.tableView reloadData];
-	            [self.tableView setNeedsDisplay];
-			});
-		}];
+            // Reset post IDs and save the ones we just fetched
+            self.postIDs = nil;
+            for (id postID in [result valueForKeyPath:@"data.id"]) {
+                [self.postIDs addObject:postID];
+            }
+            
+            // Get the like status for the post IDs we saved
+            DDLogInfo(@"%@: Getting liked posts...", THIS_FILE);
+            [[SNFFacebook sharedInstance] getLikedPostsForIDs:[self.postIDs copy] andResponse: ^(FBRequestConnection *request, id result, NSError *error) {
+                // Add the result to our array for reference
+                [self.likedPosts addObjectsFromArray:result[@"data"]];
+                
+                // Clean up
+                [self endPhotosFetchwithSuccess:YES firstFetch:(url ? NO : YES)];
+            }];
+        }
 	}];
+}
+
+- (void)endPhotosFetchwithSuccess:(BOOL)success firstFetch:(BOOL)first {
+    __weak SNFFeedTVC *weakSelf = self;
+    
+    // Do UI operations on the main queue
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!first) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        }
+        self.isLoadingData = NO;
+        if (success) {
+            [weakSelf.tableView reloadData];
+        }
+    });
+}
+
+
+- (void)requestPostsAtBottom {
+    __weak SNFFeedTVC *weakSelf = self;
+    
+    NSString *nextPostsURL = self.paging[@"next"];
+    if (nextPostsURL) {
+        [self getPhotosWithURL:nextPostsURL];
+    } else {
+        // If there is no post link to query the FB API, just end animation
+        [weakSelf.tableView.infiniteScrollingView stopAnimating];
+    }
 }
 
 /*- (void)loadingData:(BOOL)isLoading {
@@ -190,15 +238,14 @@ static const NSUInteger kPhotoViewHeight = 320;
 	DDLogVerbose(@"%@: Image URL: %@", THIS_FILE, imageURL);
 	[cell.photoView setImageWithURL:imageURL];
     
-	NSUInteger likes = [post[@"likes"][@"summary"][@"total_count"] unsignedIntegerValue];
-	DDLogVerbose(@"Likes: %u", (unsigned int)likes);
-	if (likes == 0) {
+	cell.likeCount = [post[@"likes"][@"summary"][@"total_count"] unsignedIntegerValue];
+	DDLogVerbose(@"Likes: %u", (unsigned int)cell.likeCount);
+    [cell setLikeLabelCount];
+    
+	if (cell.likeCount == 0) {
 		cell.likesSection.hidden = YES;
 	}
-	else {
-		cell.likeLabel.text = [NSString stringWithFormat:@"%u likes", (unsigned int)likes];
-	}
-    
+	
 	NSString *description = post[@"message"];
 	DDLogVerbose(@"Description: %@", description);
 	if (!description) {

@@ -9,6 +9,7 @@
 #import "SNFFacebook.h"
 #import "SNFAppDelegate.h"
 #import "NSArray+PrettyPrint.h"
+#import <RegExCategories.h>
 
 @implementation SNFFacebook
 
@@ -96,9 +97,16 @@
 	}];
 }
 
-- (void)getMainFeedPhotos:(FBRequestResponseWithDictionary)response {
-	// MAIN FEED
-	[[FBRequest requestForGraphPath:@"me/home?fields=type,from,picture,message,comments.limit(3).summary(true),likes.limit(1).summary(true)&filter=app_2305272732&limit=10"] startWithCompletionHandler: ^(FBRequestConnection *connection,
+- (void)getMainFeedPhotosWithURL:(NSString *)url andResponse:(FBRequestResponseWithDictionary)response {
+	// Main feed
+    if (!url) { // initial request does not have url set
+        url = @"me/home?fields=type,from,picture,message,comments.limit(3).summary(true),likes.limit(1).summary(true)&filter=app_2305272732&limit=10";
+    } else {
+        // Remove the initial part of the URL for the graph path request
+        url = [url replace:RX(@"^http\\w:/+graph.facebook.com") with:@""];
+    }
+    
+	[[FBRequest requestForGraphPath:url] startWithCompletionHandler: ^(FBRequestConnection *connection,
 	                                                                                                                                                                                                       NSDictionary *result,
 	                                                                                                                                                                                                       NSError *error) {
 	    response(connection, result, error);

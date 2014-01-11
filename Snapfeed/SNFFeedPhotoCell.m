@@ -43,6 +43,14 @@
     }
 }
 
+- (void)setLikeLabelCount {
+    if (self.likeCount == 0) {
+        self.likeLabel.text = @"";
+    } else {
+        self.likeLabel.text = [NSString stringWithFormat:@"%lu %@", (unsigned long)self.likeCount, (self.likeCount == 1 ? @"like" : @"likes" )];
+    }
+}
+
 - (IBAction)likeButtonTapped:(SNFRoundedRectButton *)button {
     DDLogVerbose(@"%@: Button tapped for cell: #%lu and Facebook post ID: %@", THIS_FILE, (unsigned long)self.sectionIndex, self.postID);
     NSDictionary *post = @{ @"post_id" : self.postID };

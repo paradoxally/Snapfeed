@@ -11,6 +11,7 @@
 
 @interface SNFFeedPhotoCell : UITableViewCell <TTTAttributedLabelDelegate>
 @property (nonatomic) NSUInteger sectionIndex;
+@property (nonatomic) NSUInteger likeCount;
 @property (weak, nonatomic) NSString *postID;
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *description;
@@ -19,5 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIView *likesSection;
 
 - (void)setLikeButtonSelected:(BOOL)selected;
+- (void)setLikeLabelCount;
 
 @end
