@@ -29,6 +29,7 @@
 		0FAE9E71185BF58B00896242 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E70185BF58B00896242 /* CoreTelephony.framework */; };
 		0FAE9E73185BF59200896242 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E72185BF59200896242 /* SystemConfiguration.framework */; };
 		0FAE9E75185BF59600896242 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FAE9E74185BF59600896242 /* libz.dylib */; };
+		0FB5F41918844BC800136FB7 /* SNFFeedNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB5F41818844BC800136FB7 /* SNFFeedNavigationController.m */; };
 		0FB7CC49187D005A0089D09E /* SNFCameraNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC48187D005A0089D09E /* SNFCameraNavigationController.m */; };
 		0FB7CC4D187D88F30089D09E /* SNFCameraNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC4C187D88F30089D09E /* SNFCameraNavigationBar.m */; };
 		0FB7CC53187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC52187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m */; };
@@ -69,12 +70,12 @@
 		0BD8E9F508BD483FB729A856 /* Pods-Snapfeed.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapfeed.xcconfig"; path = "Pods/Pods-Snapfeed.xcconfig"; sourceTree = "<group>"; };
 		0F01AC48186D283B006C01A0 /* NSDate+ShortTimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ShortTimeAgo.h"; sourceTree = "<group>"; };
 		0F01AC49186D283B006C01A0 /* NSDate+ShortTimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ShortTimeAgo.m"; sourceTree = "<group>"; };
-		0F757C39186238A600BB4868 /* SNFFeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedHeaderView.h; sourceTree = "<group>"; };
-		0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedHeaderView.m; sourceTree = "<group>"; };
+		0F757C39186238A600BB4868 /* SNFFeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNFFeedHeaderView.h; path = Snapfeed/SNFFeedHeaderView.h; sourceTree = "<group>"; };
+		0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNFFeedHeaderView.m; path = Snapfeed/SNFFeedHeaderView.m; sourceTree = "<group>"; };
 		0F964540185C0643004B2DE5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		0FA4A5D2185C012C00D2C8E8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
-		0FA6DCBC1862ABEA0036626B /* SNFRoundedRectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFRoundedRectButton.h; sourceTree = "<group>"; };
-		0FA6DCBD1862ABEA0036626B /* SNFRoundedRectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFRoundedRectButton.m; sourceTree = "<group>"; };
+		0FA6DCBC1862ABEA0036626B /* SNFRoundedRectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNFRoundedRectButton.h; path = Snapfeed/SNFRoundedRectButton.h; sourceTree = "<group>"; };
+		0FA6DCBD1862ABEA0036626B /* SNFRoundedRectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNFRoundedRectButton.m; path = Snapfeed/SNFRoundedRectButton.m; sourceTree = "<group>"; };
 		0FAE9E30185BEFAD00896242 /* Snapfeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapfeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FAE9E33185BEFAD00896242 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FAE9E35185BEFAD00896242 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,6 +96,8 @@
 		0FAE9E70185BF58B00896242 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		0FAE9E72185BF59200896242 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0FAE9E74185BF59600896242 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		0FB5F41718844BC800136FB7 /* SNFFeedNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedNavigationController.h; sourceTree = "<group>"; };
+		0FB5F41818844BC800136FB7 /* SNFFeedNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedNavigationController.m; sourceTree = "<group>"; };
 		0FB7CC47187D005A0089D09E /* SNFCameraNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFCameraNavigationController.h; sourceTree = "<group>"; };
 		0FB7CC48187D005A0089D09E /* SNFCameraNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFCameraNavigationController.m; sourceTree = "<group>"; };
 		0FB7CC4B187D88F30089D09E /* SNFCameraNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFCameraNavigationBar.h; sourceTree = "<group>"; };
@@ -115,18 +118,18 @@
 		0FB7CC7418806BD50089D09E /* SNFProfilePhotosCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFProfilePhotosCell.m; sourceTree = "<group>"; };
 		0FB90198185FBC3C00918088 /* SNFFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFriendsViewController.h; sourceTree = "<group>"; };
 		0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFriendsViewController.m; sourceTree = "<group>"; };
-		0FB9019B1860F05A00918088 /* SNFFeedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedTVC.h; sourceTree = "<group>"; };
-		0FB9019C1860F05A00918088 /* SNFFeedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedTVC.m; sourceTree = "<group>"; };
-		0FB9019F1860F3EB00918088 /* SNFFeedPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedPhotoCell.h; sourceTree = "<group>"; };
-		0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedPhotoCell.m; sourceTree = "<group>"; };
+		0FB9019B1860F05A00918088 /* SNFFeedTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNFFeedTVC.h; path = Snapfeed/SNFFeedTVC.h; sourceTree = "<group>"; };
+		0FB9019C1860F05A00918088 /* SNFFeedTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNFFeedTVC.m; path = Snapfeed/SNFFeedTVC.m; sourceTree = "<group>"; };
+		0FB9019F1860F3EB00918088 /* SNFFeedPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNFFeedPhotoCell.h; path = Snapfeed/SNFFeedPhotoCell.h; sourceTree = "<group>"; };
+		0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNFFeedPhotoCell.m; path = Snapfeed/SNFFeedPhotoCell.m; sourceTree = "<group>"; };
 		0FCF6CEA1880E78F0073283E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0FCF6CED1881956D0073283E /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
 		0FCF6CEE1881956D0073283E /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
 		0FCF6CEF1881956D0073283E /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		0FCF6CF01881956D0073283E /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		0FCF6CF11881956D0073283E /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
-		0FCF6CF41881DF740073283E /* SNFFeedHeaderUserButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFFeedHeaderUserButton.h; sourceTree = "<group>"; };
-		0FCF6CF51881DF740073283E /* SNFFeedHeaderUserButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFeedHeaderUserButton.m; sourceTree = "<group>"; };
+		0FCF6CF41881DF740073283E /* SNFFeedHeaderUserButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNFFeedHeaderUserButton.h; path = Snapfeed/SNFFeedHeaderUserButton.h; sourceTree = "<group>"; };
+		0FCF6CF51881DF740073283E /* SNFFeedHeaderUserButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNFFeedHeaderUserButton.m; path = Snapfeed/SNFFeedHeaderUserButton.m; sourceTree = "<group>"; };
 		0FD2D9E01871CDBD007860CA /* NSArray+PrettyPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PrettyPrint.h"; sourceTree = "<group>"; };
 		0FD2D9E11871CDBD007860CA /* NSArray+PrettyPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PrettyPrint.m"; sourceTree = "<group>"; };
 		0FD2D9E318759F27007860CA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -242,6 +245,8 @@
 		0FAE9E39185BEFAD00896242 /* Snapfeed */ = {
 			isa = PBXGroup;
 			children = (
+				0FCF6CEC1881954C0073283E /* SVPullToRefresh */,
+				0FB5F41518844B5D00136FB7 /* Feed */,
 				0FB7CC68187F94B10089D09E /* Profile */,
 				0FB7CC46187D00100089D09E /* Camera */,
 				0F01AC4B186D2844006C01A0 /* Helpers */,
@@ -251,12 +256,10 @@
 				0FAE9E45185BEFAD00896242 /* Main.storyboard */,
 				0FAE9E42185BEFAD00896242 /* SNFAppDelegate.h */,
 				0FAE9E43185BEFAD00896242 /* SNFAppDelegate.m */,
-				0FB9019B1860F05A00918088 /* SNFFeedTVC.h */,
-				0FB9019C1860F05A00918088 /* SNFFeedTVC.m */,
 				0FB90198185FBC3C00918088 /* SNFFriendsViewController.h */,
 				0FB90199185FBC3C00918088 /* SNFFriendsViewController.m */,
 				0FAE9E3A185BEFAD00896242 /* Supporting Files */,
-				0FB9019E1860F39E00918088 /* Views */,
+				0FB9019E1860F39E00918088 /* Generic Views */,
 			);
 			path = Snapfeed;
 			sourceTree = "<group>";
@@ -290,6 +293,34 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0FB5F41518844B5D00136FB7 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				0FB5F41618844B8500136FB7 /* Views */,
+				0FB9019B1860F05A00918088 /* SNFFeedTVC.h */,
+				0FB9019C1860F05A00918088 /* SNFFeedTVC.m */,
+				0FB5F41718844BC800136FB7 /* SNFFeedNavigationController.h */,
+				0FB5F41818844BC800136FB7 /* SNFFeedNavigationController.m */,
+			);
+			name = Feed;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		0FB5F41618844B8500136FB7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0F757C39186238A600BB4868 /* SNFFeedHeaderView.h */,
+				0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */,
+				0FB9019F1860F3EB00918088 /* SNFFeedPhotoCell.h */,
+				0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */,
+				0FA6DCBC1862ABEA0036626B /* SNFRoundedRectButton.h */,
+				0FA6DCBD1862ABEA0036626B /* SNFRoundedRectButton.m */,
+				0FCF6CF41881DF740073283E /* SNFFeedHeaderUserButton.h */,
+				0FCF6CF51881DF740073283E /* SNFFeedHeaderUserButton.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		0FB7CC46187D00100089D09E /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,7 +349,6 @@
 		0FB7CC68187F94B10089D09E /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				0FCF6CEC1881954C0073283E /* SVPullToRefresh */,
 				0FB7CC6C187FAA050089D09E /* Views */,
 				0FB7CC69187F96F60089D09E /* SNFProfileTVC.h */,
 				0FB7CC6A187F96F60089D09E /* SNFProfileTVC.m */,
@@ -337,24 +367,16 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		0FB9019E1860F39E00918088 /* Views */ = {
+		0FB9019E1860F39E00918088 /* Generic Views */ = {
 			isa = PBXGroup;
 			children = (
-				0F757C39186238A600BB4868 /* SNFFeedHeaderView.h */,
-				0F757C3A186238A600BB4868 /* SNFFeedHeaderView.m */,
-				0FB9019F1860F3EB00918088 /* SNFFeedPhotoCell.h */,
-				0FB901A01860F3EB00918088 /* SNFFeedPhotoCell.m */,
-				0FA6DCBC1862ABEA0036626B /* SNFRoundedRectButton.h */,
-				0FA6DCBD1862ABEA0036626B /* SNFRoundedRectButton.m */,
 				0FD2D9E51875D177007860CA /* CameraOverlayView.xib */,
 				0FD2D9E71876105D007860CA /* SNFCameraOverlayView.h */,
 				0FD2D9E81876105D007860CA /* SNFCameraOverlayView.m */,
 				0FB7CC70188050D50089D09E /* SNFProfilePictureButton.h */,
 				0FB7CC71188050D50089D09E /* SNFProfilePictureButton.m */,
-				0FCF6CF41881DF740073283E /* SNFFeedHeaderUserButton.h */,
-				0FCF6CF51881DF740073283E /* SNFFeedHeaderUserButton.m */,
 			);
-			name = Views;
+			name = "Generic Views";
 			sourceTree = "<group>";
 		};
 		0FCF6CEC1881954C0073283E /* SVPullToRefresh */ = {
@@ -535,6 +557,7 @@
 				0FB7CC49187D005A0089D09E /* SNFCameraNavigationController.m in Sources */,
 				0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */,
 				0FA6DCBE1862ABEA0036626B /* SNFRoundedRectButton.m in Sources */,
+				0FB5F41918844BC800136FB7 /* SNFFeedNavigationController.m in Sources */,
 				0FB7CC4D187D88F30089D09E /* SNFCameraNavigationBar.m in Sources */,
 				0FB7CC53187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m in Sources */,
 				0FB7CC72188050D50089D09E /* SNFProfilePictureButton.m in Sources */,

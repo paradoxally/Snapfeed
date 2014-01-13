@@ -95,13 +95,19 @@ static const NSUInteger kPhotoViewHeight = 320;
 	                                         selector:@selector(postUnliked:)
 	                                             name:postUnlikedNotificationName
 	                                           object:nil];
+    
+    [self.navigationController.navigationBar setBarTintColor:[UIColor flatDarkBlueColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+	[self.navigationController.navigationBar setTranslucent:NO];
+    
+    [self followScrollView:self.tableView];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
-	/*if(![self.posts count] > 0)
-     [self getPhotos];*/
+    [self refreshNavbar];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -200,6 +206,10 @@ static const NSUInteger kPhotoViewHeight = 320;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	// Return the number of rows in the section.
 	return 1;
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    [self showNavbar];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

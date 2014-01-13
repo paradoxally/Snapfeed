@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AMScrollingNavbarTableViewController.h>
 
 extern NSString *const postLikedNotificationName;
 extern NSString *const postUnlikedNotificationName;
 
-@interface SNFFeedTVC : UITableViewController
+@interface SNFFeedTVC : AMScrollingNavbarTableViewController
 
 @end

@@ -2,7 +2,7 @@
 # platform :ios, "6.0"
 
 target "Snapfeed" do
-    pod 'SDWebImage', '~> 3.5.1'
+    pod 'SDWebImage'
     pod 'CocoaLumberjack'
     pod 'UIColor+MLPFlatColors'
     pod 'TTTAttributedLabel'
@@ -11,6 +11,7 @@ target "Snapfeed" do
     pod 'SparkInspector'
     pod 'Reveal-iOS-SDK'
     pod 'RegExCategories'
+    pod 'AMScrollingNavbar', :head
 end
 
 target "SnapfeedTests" do

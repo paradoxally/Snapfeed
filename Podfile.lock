@@ -1,4 +1,5 @@
 PODS:
+  - AMScrollingNavbar (HEAD based on 0.4.1)
   - CocoaLumberjack (1.7.0):
     - CocoaLumberjack/Core
     - CocoaLumberjack/Extensions
@@ -17,10 +18,11 @@ PODS:
   - UIImage-Resize (1.0.1)
 
 DEPENDENCIES:
+  - AMScrollingNavbar (HEAD)
   - CocoaLumberjack
   - RegExCategories
   - Reveal-iOS-SDK
-  - SDWebImage (~> 3.5.1)
+  - SDWebImage
   - SparkInspector
   - SVWebViewController (HEAD)
   - TTTAttributedLabel
@@ -28,6 +30,7 @@ DEPENDENCIES:
   - UIImage-Resize
 
 SPEC CHECKSUMS:
+  AMScrollingNavbar: d56590aa89706c409d1f37c3d806b9d138af507a
   CocoaLumberjack: be87113f649942f020a37c061c58009b6ee5ff68
   RegExCategories: 4251b5b17ed9d0e16229652ff8539c131365e218
   Reveal-iOS-SDK: f2525cb560a564fdc086316e89ec45ced6977fd3

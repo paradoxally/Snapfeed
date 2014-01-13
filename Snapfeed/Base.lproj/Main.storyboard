@@ -29,7 +29,7 @@
                 <navigationController definesPresentationContext="YES" id="bGO-EC-WVu" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" id="85U-vI-dP6"/>
                     <navigationItem key="navigationItem" id="C21-GX-OIM"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5mm-FP-977">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="5mm-FP-977">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -43,14 +43,14 @@
         <!--FeedTVC - Feed-->
         <scene sceneID="d3b-QU-59u">
             <objects>
-                <tableViewController title="Feed" id="mP3-x9-0ed" customClass="SNFFeedTVC" sceneMemberID="viewController">
+                <tableViewController title="Feed" hidesBottomBarWhenPushed="YES" id="mP3-x9-0ed" customClass="SNFFeedTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zTn-fS-aJN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FeedCell" rowHeight="433" id="6vx-Co-cwt" customClass="SNFFeedPhotoCell">
-                                <rect key="frame" x="0.0" y="86" width="320" height="433"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="433"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6vx-Co-cwt" id="G1q-mI-8bo">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="433"/>
@@ -194,7 +194,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pqc-p0-pqt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1139" y="-513"/>
+            <point key="canvasLocation" x="945" y="-513"/>
         </scene>
         <!--Take Photo View Controller-->
         <scene sceneID="bsF-Yj-KHr">
@@ -205,7 +205,7 @@
                         <viewControllerLayoutGuide type="bottom" id="6Mo-to-J74"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6ab-xR-JBd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -215,12 +215,12 @@
             </objects>
             <point key="canvasLocation" x="2062" y="-513"/>
         </scene>
-        <!--Navigation Controller - Feed-->
+        <!--Feed Navigation Controller - Feed-->
         <scene sceneID="Kew-vy-Mud">
             <objects>
-                <navigationController definesPresentationContext="YES" id="CTy-Bo-Vku" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="CTy-Bo-Vku" customClass="SNFFeedNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Feed" id="1Ae-fR-IVO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OrH-7K-uEK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="OrH-7K-uEK">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -229,7 +229,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfp-8E-NQT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="605" y="-513"/>
+            <point key="canvasLocation" x="539" y="-513"/>
         </scene>
         <!--Open Session View Controller - Snapfeed-->
         <scene sceneID="rVW-zK-xyo">
@@ -240,11 +240,11 @@
                         <viewControllerLayoutGuide type="bottom" id="NOh-IH-Ky2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Fl7-6c-QmR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKz-wD-I87">
-                                <rect key="frame" x="54" y="317" width="212" height="45"/>
+                                <rect key="frame" x="54" y="405" width="212" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -257,7 +257,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome to Snapfeed. Tap below to login with Facebook." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="228" translatesAutoresizingMaskIntoConstraints="NO" id="siV-mw-r1Z">
-                                <rect key="frame" x="46" y="151" width="228" height="90"/>
+                                <rect key="frame" x="46" y="239" width="228" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -294,7 +294,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ProfileViewController" title="Profile" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vIz-Ay-gwF" customClass="SNFProfileTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Uhe-Mv-N9d">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -302,7 +302,7 @@
                             <tableViewSection id="PA5-RP-FHc">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="bPR-9f-YGd">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bPR-9f-YGd" id="Kf5-ZN-wve">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
@@ -360,7 +360,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="86" id="now-e6-sf9">
-                                        <rect key="frame" x="0.0" y="164" width="320" height="86"/>
+                                        <rect key="frame" x="0.0" y="100" width="320" height="86"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="now-e6-sf9" id="3rb-QC-XmK">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
@@ -382,7 +382,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="259" id="4zN-Ox-uTB" customClass="SNFProfilePhotosCell">
-                                        <rect key="frame" x="0.0" y="250" width="320" height="259"/>
+                                        <rect key="frame" x="0.0" y="186" width="320" height="259"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4zN-Ox-uTB" id="vW8-bh-aSP">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="258"/>
@@ -453,7 +453,7 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="fNh-ix-Flr"/>
