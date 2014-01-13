@@ -9,11 +9,26 @@
 #import "SNFFeedHeaderView.h"
 #import "SNFFacebook.h"
 #import "SNFAppDelegate.h"
-#import "SNFFeedHeaderUserButton.h"
 #import "NSDate+ShortTimeAgo.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation SNFFeedHeaderView
+
+- (SNFFeedHeaderUserButton *)fromUserButton {
+    if (!_fromUserButton) {
+        _fromUserButton = [[SNFFeedHeaderUserButton alloc]initWithFrame:CGRectMake(50,10,210,30)];
+    }
+    
+    return _fromUserButton;
+}
+
+- (SNFProfilePictureButton *)avatarButton {
+    if (!_avatarButton) {
+        _avatarButton = [[SNFProfilePictureButton alloc] initWithFrame:CGRectMake(10, 10, 30, 30)];
+    }
+    
+    return _avatarButton;
+}
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -27,8 +42,7 @@
     
     
     // NAME FROM
-    SNFFeedHeaderUserButton *fromUserButton = [[SNFFeedHeaderUserButton alloc]initWithFrame:CGRectMake(50,10,210,30)];
-    [fromUserButton setTitle:self.username forState:UIControlStateNormal];
+    [self.fromUserButton setTitle:self.username forState:UIControlStateNormal];
     
     // DATE
     if (![self.datePostedString isEqualToString:@""]) {
@@ -50,13 +64,12 @@
         [self addSubview:dateIcon];
     }
     
-    SNFProfilePictureButton *avatar = [[SNFProfilePictureButton alloc] initWithFrame:CGRectMake(10, 10, 30, 30)];
     if (self.avatarURL) {
-		[avatar setProfileImageFromURL:self.avatarURL forState:UIControlStateNormal];
+		[self.avatarButton setProfileImageFromURL:self.avatarURL forState:UIControlStateNormal];
 	}
     
-    [self addSubview:fromUserButton];
-    [self addSubview:avatar];
+    [self addSubview:self.fromUserButton];
+    [self addSubview:self.avatarButton];
     
     [self setNeedsDisplay];
 

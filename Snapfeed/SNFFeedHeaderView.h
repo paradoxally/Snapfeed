@@ -7,6 +7,7 @@
 //
 
 #import "SNFProfilePictureButton.h"
+#import "SNFFeedHeaderUserButton.h"
 #import <UIKit/UIKit.h>
 
 @interface SNFFeedHeaderView : UIView
@@ -15,6 +16,8 @@
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *datePostedString;
 @property (nonatomic, strong) NSURL *avatarURL;
-@property (nonatomic, weak) SNFProfilePictureButton *avatar;
+
+@property (nonatomic, strong) SNFProfilePictureButton *avatarButton;
+@property (nonatomic, strong) SNFFeedHeaderUserButton *fromUserButton;
 
 @end

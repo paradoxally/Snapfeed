@@ -14,6 +14,7 @@
 #import "SNFRoundedRectButton.h"
 #import "NSArray+PrettyPrint.h"
 #import "SVPullToRefresh.h"
+#import "SNFProfileTVC.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVWebViewController.h>
 #import <UIImage+Resize.h>
@@ -33,6 +34,7 @@ static const NSUInteger kPhotoViewHeight = 320;
 @property (nonatomic, strong) NSMutableArray *postIDs; // all post IDs
 @property (nonatomic, strong) NSMutableArray *likedPosts; // post IDs containing user like info
 @property (nonatomic) BOOL isLoadingData;
+@property (nonatomic, strong) NSString *activeUserID;
 
 @end
 
@@ -274,10 +276,12 @@ static const NSUInteger kPhotoViewHeight = 320;
 	header.username = postAuthor[@"name"];
 	DDLogVerbose(@"%@: User ID: %@; Name: %@", THIS_FILE, header.userID, header.username);
 	header.datePostedString = [[self.posts[section][@"created_time"] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] stringByReplacingOccurrencesOfString:@"T" withString:@" "];
-	DDLogVerbose(@"%@: Post %ld date: %@", THIS_FILE, (long)section, header.datePostedString);
+	DDLogVerbose(@"%@: Post %u date: %@", THIS_FILE, (unsigned int)section, header.datePostedString);
     
     header.avatarURL = [[SNFFacebook sharedInstance] picURLForUser:header.userID andSize:CGSizeMake(100, 100)];
     
+    [header.avatarButton addTarget:self action:@selector(showProfileView:) forControlEvents:UIControlEventTouchUpInside];
+    [header.fromUserButton addTarget:self action:@selector(showProfileView:) forControlEvents:UIControlEventTouchUpInside];
 	// TAP ON FROM TO OPEN
 	/*UITapGestureRecognizer *tapOnFromLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedOnFromLabel:)];
      [tapOnFromLabel setNumberOfTapsRequired:1];
@@ -304,6 +308,23 @@ static const NSUInteger kPhotoViewHeight = 320;
     
 	//DDLogVerbose(@"%@: Extra size height: %.1f", THIS_FILE, kTableViewCellHeight + extraSize.size.height);
 	return kPhotoViewHeight + (likes == 0 && ![description isEqualToString:@""] ? -25 : 0) + (likes == 0 && [description isEqualToString:@""] ? 10 : 40) + ceilf(extraDescriptionSize.size.height) + ([description isEqualToString:@""] ? 40 : 55);
+}
+
+- (void)showProfileView:(UIButton *)sender {
+    // Get position of the tapped button to figure out which cell header it came from
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    // Grab the section number
+    NSUInteger section = [self.tableView indexPathForRowAtPoint:buttonPosition].section;
+    self.activeUserID = self.posts[section][@"from"][@"id"];
+    DDLogVerbose(@"%@: User ID %@ for post %u", THIS_FILE, self.activeUserID, (unsigned int)section);
+    [self performSegueWithIdentifier:@"showProfileView" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showProfileView"]) {
+		SNFProfileTVC *profileVC = (SNFProfileTVC *)segue.destinationViewController;
+        profileVC.userID = self.activeUserID;
+    }
 }
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {

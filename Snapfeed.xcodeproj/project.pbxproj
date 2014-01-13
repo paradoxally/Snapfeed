@@ -34,7 +34,7 @@
 		0FB7CC53187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC52187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m */; };
 		0FB7CC56187DD3A20089D09E /* SNFCameraControlButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC55187DD3A20089D09E /* SNFCameraControlButton.m */; };
 		0FB7CC5E187F2CA30089D09E /* UIImage+SquareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC5D187F2CA30089D09E /* UIImage+SquareImage.m */; };
-		0FB7CC6B187F96F60089D09E /* ProfileTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC6A187F96F60089D09E /* ProfileTVC.m */; };
+		0FB7CC6B187F96F60089D09E /* SNFProfileTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC6A187F96F60089D09E /* SNFProfileTVC.m */; };
 		0FB7CC6F187FAA3A0089D09E /* SNFProfilePhotosCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC6E187FAA3A0089D09E /* SNFProfilePhotosCollectionViewCell.m */; };
 		0FB7CC72188050D50089D09E /* SNFProfilePictureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC71188050D50089D09E /* SNFProfilePictureButton.m */; };
 		0FB7CC7518806BD50089D09E /* SNFProfilePhotosCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC7418806BD50089D09E /* SNFProfilePhotosCell.m */; };
@@ -105,8 +105,8 @@
 		0FB7CC55187DD3A20089D09E /* SNFCameraControlButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFCameraControlButton.m; sourceTree = "<group>"; };
 		0FB7CC5C187F2CA30089D09E /* UIImage+SquareImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SquareImage.h"; sourceTree = "<group>"; };
 		0FB7CC5D187F2CA30089D09E /* UIImage+SquareImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SquareImage.m"; sourceTree = "<group>"; };
-		0FB7CC69187F96F60089D09E /* ProfileTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTVC.h; sourceTree = "<group>"; };
-		0FB7CC6A187F96F60089D09E /* ProfileTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTVC.m; sourceTree = "<group>"; };
+		0FB7CC69187F96F60089D09E /* SNFProfileTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFProfileTVC.h; sourceTree = "<group>"; };
+		0FB7CC6A187F96F60089D09E /* SNFProfileTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFProfileTVC.m; sourceTree = "<group>"; };
 		0FB7CC6D187FAA3A0089D09E /* SNFProfilePhotosCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFProfilePhotosCollectionViewCell.h; sourceTree = "<group>"; };
 		0FB7CC6E187FAA3A0089D09E /* SNFProfilePhotosCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFProfilePhotosCollectionViewCell.m; sourceTree = "<group>"; };
 		0FB7CC70188050D50089D09E /* SNFProfilePictureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFProfilePictureButton.h; sourceTree = "<group>"; };
@@ -320,8 +320,8 @@
 			children = (
 				0FCF6CEC1881954C0073283E /* SVPullToRefresh */,
 				0FB7CC6C187FAA050089D09E /* Views */,
-				0FB7CC69187F96F60089D09E /* ProfileTVC.h */,
-				0FB7CC6A187F96F60089D09E /* ProfileTVC.m */,
+				0FB7CC69187F96F60089D09E /* SNFProfileTVC.h */,
+				0FB7CC6A187F96F60089D09E /* SNFProfileTVC.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -540,7 +540,7 @@
 				0FB7CC72188050D50089D09E /* SNFProfilePictureButton.m in Sources */,
 				0FB9019A185FBC3C00918088 /* SNFFriendsViewController.m in Sources */,
 				0FAE9E44185BEFAD00896242 /* SNFAppDelegate.m in Sources */,
-				0FB7CC6B187F96F60089D09E /* ProfileTVC.m in Sources */,
+				0FB7CC6B187F96F60089D09E /* SNFProfileTVC.m in Sources */,
 				0FB7CC5E187F2CA30089D09E /* UIImage+SquareImage.m in Sources */,
 				0F757C3B186238A600BB4868 /* SNFFeedHeaderView.m in Sources */,
 				0FB7CC7518806BD50089D09E /* SNFProfilePhotosCell.m in Sources */,

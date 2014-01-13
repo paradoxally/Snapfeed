@@ -28,6 +28,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="bGO-EC-WVu" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" id="85U-vI-dP6"/>
+                    <navigationItem key="navigationItem" id="C21-GX-OIM"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5mm-FP-977">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -188,7 +189,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="vIz-Ay-gwF" kind="push" identifier="showProfileView" id="rni-bV-t55"/>
+                        <segue destination="vIz-Ay-gwF" kind="push" identifier="showProfileView" id="fNh-ix-Flr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pqc-p0-pqt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -291,7 +292,7 @@
         <!--ProfileTVC - Profile-->
         <scene sceneID="XEH-W4-750">
             <objects>
-                <tableViewController storyboardIdentifier="ProfileViewController" title="Profile" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vIz-Ay-gwF" customClass="ProfileTVC" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ProfileViewController" title="Profile" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vIz-Ay-gwF" customClass="SNFProfileTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Uhe-Mv-N9d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -455,6 +456,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="a2R-I2-753"/>
+        <segue reference="fNh-ix-Flr"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,12 +1,12 @@
 //
-//  ProfileTVC.m
+//  SNFProfileTVC.m
 //  Snapfeed
 //
 //  Created by Nino Vitale on 1/10/14.
 //
 //
 
-#import "ProfileTVC.h"
+#import "SNFProfileTVC.h"
 #import "SNFFacebook.h"
 #import "SNFProfilePhotosCollectionViewCell.h"
 #import "SNFProfilePictureButton.h"
@@ -15,7 +15,7 @@
 #import <UIImageView+WebCache.h>
 #import <RegExCategories.h>
 
-@interface ProfileTVC ()
+@interface SNFProfileTVC ()
 
 @property (nonatomic, strong) NSMutableArray *photos;
 
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation ProfileTVC
+@implementation SNFProfileTVC
 
 - (NSMutableArray *)photos {
 	if (!_photos) {
@@ -51,7 +51,6 @@
 	[super viewWillAppear:animated];
     
 	if (FBSession.activeSession.isOpen) {
-		DDLogVerbose(@"%@: %@", THIS_FILE, self.profilePicture);
 		[self populateUserDetails];
 	}
 }
