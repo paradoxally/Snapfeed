@@ -101,13 +101,13 @@ static const NSUInteger kPhotoViewHeight = 320;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 	[self.navigationController.navigationBar setTranslucent:NO];
     
-    [self followScrollView:self.tableView];
+    //[self followScrollView:self.tableView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self refreshNavbar];
+    //[self refreshNavbar];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -208,9 +208,9 @@ static const NSUInteger kPhotoViewHeight = 320;
 	return 1;
 }
 
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+/*- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     [self showNavbar];
-}
+}*/
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *cellIdentifier = @"FeedCell";
@@ -334,6 +334,7 @@ static const NSUInteger kPhotoViewHeight = 320;
     if ([segue.identifier isEqualToString:@"showProfileView"]) {
 		SNFProfileTVC *profileVC = (SNFProfileTVC *)segue.destinationViewController;
         profileVC.userID = self.activeUserID;
+        profileVC.hidesBottomBarWhenPushed = YES;
     }
 }
 

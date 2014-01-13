@@ -43,7 +43,7 @@
         <!--FeedTVC - Feed-->
         <scene sceneID="d3b-QU-59u">
             <objects>
-                <tableViewController title="Feed" hidesBottomBarWhenPushed="YES" id="mP3-x9-0ed" customClass="SNFFeedTVC" sceneMemberID="viewController">
+                <tableViewController title="Feed" id="mP3-x9-0ed" customClass="SNFFeedTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zTn-fS-aJN">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
