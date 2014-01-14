@@ -146,7 +146,10 @@
 
 - (void)getRecentPhotosFromUser:(NSString *)userID andResponse:(FBRequestResponseWithDictionary)response {
 	// Make the API request
-	[[FBRequest requestForGraphPath:@"me/photos/uploaded?fields=source&limit=25"]
+    NSString *url = [NSString stringWithFormat:@"%@/photos/uploaded?fields=source&limit=25", userID];
+    
+    DDLogInfo(@"%@: Recent photos from user query: %@", THIS_FILE, url);
+	[[FBRequest requestForGraphPath:url]
 	 startWithCompletionHandler: ^(FBRequestConnection *connection,
 	                               NSDictionary *result,
 	                               NSError *error) {

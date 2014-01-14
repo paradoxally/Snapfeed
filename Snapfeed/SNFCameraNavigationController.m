@@ -42,6 +42,7 @@
     
     SNFCameraNavigationBar *navigationBar = [[SNFCameraNavigationBar alloc] initWithFrame:
                                     CGRectMake(0, 0, self.navigationBar.frame.size.width, 53)];
+    navigationBar.tag = 1;
     [self.navigationBar insertSubview:navigationBar atIndex:0];
 }
 

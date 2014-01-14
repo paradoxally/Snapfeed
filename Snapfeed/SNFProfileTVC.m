@@ -41,6 +41,10 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
+    if (!self.userID) {
+        self.userID = @"me";
+    }
+    
     // This will remove extra separators from tableview
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     

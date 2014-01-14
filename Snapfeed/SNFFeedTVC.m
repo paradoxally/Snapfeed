@@ -334,7 +334,6 @@ static const NSUInteger kPhotoViewHeight = 320;
     if ([segue.identifier isEqualToString:@"showProfileView"]) {
 		SNFProfileTVC *profileVC = (SNFProfileTVC *)segue.destinationViewController;
         profileVC.userID = self.activeUserID;
-        profileVC.hidesBottomBarWhenPushed = YES;
     }
 }
 

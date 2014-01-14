@@ -10,6 +10,7 @@
 #import "SNFAppDelegate.h"
 #import "SNFCameraControlButton.h"
 #import "UIImage+SquareImage.h"
+#import "SNFPostingPhotoViewController.h"
 #import "SNFTakePhotoViewController.h"
 
 static const CGFloat kViewAlphaValue = 0.9;
@@ -21,6 +22,8 @@ static const CGFloat kiPhone4InchShutterViewHeight = 140;
 @interface SNFTakePhotoViewController ()
 
 @property (nonatomic) CGRect imageCropRect;
+
+@property (nonatomic, strong) UIImage *croppedImage;
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 
@@ -118,12 +121,13 @@ static const CGFloat kiPhone4InchShutterViewHeight = 140;
     CGSize croppedImageSize = CGSizeMake(1936, 1936);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        UIImage *croppedImage = [UIImage squareImageWithImage:self.captureManager.stillImage scaledToSize:croppedImageSize];
+        self.croppedImage = [UIImage squareImageWithImage:self.captureManager.stillImage scaledToSize:croppedImageSize];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            UIImageWriteToSavedPhotosAlbum(croppedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+            UIImageWriteToSavedPhotosAlbum(self.croppedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
             self.captureManager.stillImage = nil;
             
+            [self performSegueWithIdentifier:@"showPostingView" sender:self];
             /*UIImageView *view = [[UIImageView alloc] initWithFrame:self.imageCropRect];
             view.image = croppedImage;
             view.layer.borderWidth = 1;
@@ -133,6 +137,14 @@ static const CGFloat kiPhone4InchShutterViewHeight = 140;
         });
     });
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showPostingView"]) {
+        SNFPostingPhotoViewController *postingPhotoVC = (SNFPostingPhotoViewController *)segue.destinationViewController;
+        postingPhotoVC.photo = self.croppedImage;
+        self.croppedImage = nil;
+    }
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
