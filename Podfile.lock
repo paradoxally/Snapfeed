@@ -1,5 +1,6 @@
 PODS:
   - AMScrollingNavbar (HEAD based on 0.4.1)
+  - CHTTextView (0.1)
   - CocoaLumberjack (1.7.0):
     - CocoaLumberjack/Core
     - CocoaLumberjack/Extensions
@@ -19,6 +20,7 @@ PODS:
 
 DEPENDENCIES:
   - AMScrollingNavbar (HEAD)
+  - CHTTextView
   - CocoaLumberjack
   - RegExCategories
   - Reveal-iOS-SDK
@@ -31,6 +33,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AMScrollingNavbar: d56590aa89706c409d1f37c3d806b9d138af507a
+  CHTTextView: 5fafe1f28c6d90711ae5781cf2f295bb8b236b33
   CocoaLumberjack: be87113f649942f020a37c061c58009b6ee5ff68
   RegExCategories: 4251b5b17ed9d0e16229652ff8539c131365e218
   Reveal-iOS-SDK: f2525cb560a564fdc086316e89ec45ced6977fd3

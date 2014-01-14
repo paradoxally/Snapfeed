@@ -12,6 +12,7 @@ target "Snapfeed" do
     pod 'Reveal-iOS-SDK'
     pod 'RegExCategories'
     pod 'AMScrollingNavbar', :head
+    pod 'CHTTextView'
 end
 
 target "SnapfeedTests" do

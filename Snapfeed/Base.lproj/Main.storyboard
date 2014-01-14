@@ -218,7 +218,7 @@
             </objects>
             <point key="canvasLocation" x="2022" y="-513"/>
         </scene>
-        <!--Posting Photo View Controller-->
+        <!--Posting Photo View Controller - Share-->
         <scene sceneID="Umy-YA-ggd">
             <objects>
                 <viewController id="spu-8W-7e8" customClass="SNFPostingPhotoViewController" sceneMemberID="viewController">
@@ -279,7 +279,7 @@
                             <constraint firstItem="nOa-yk-cnc" firstAttribute="leading" secondItem="BuM-Z3-8Hc" secondAttribute="leading" id="u7U-pV-VSM"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="pOa-jo-J4v"/>
+                    <navigationItem key="navigationItem" title="Share" id="pOa-jo-J4v"/>
                     <connections>
                         <outlet property="tableView" destination="BuM-Z3-8Hc" id="ueY-42-LLh"/>
                     </connections>
@@ -352,6 +352,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yty-XB-GBv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
