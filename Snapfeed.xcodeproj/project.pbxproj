@@ -32,6 +32,9 @@
 		0FB5F41E18848E0E00136FB7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FB5F41D18848E0E00136FB7 /* MapKit.framework */; };
 		0FB5F4221884C29D00136FB7 /* SNFPostingPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB5F4211884C29D00136FB7 /* SNFPostingPhotoViewController.m */; };
 		0FB5F4251885EA7500136FB7 /* SNFFeedNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB5F4241885EA7500136FB7 /* SNFFeedNavigationController.m */; };
+		0FB5F42B1886F3FD00136FB7 /* M13ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB5F4281886F3FD00136FB7 /* M13ProgressView.m */; };
+		0FB5F42C1886F3FD00136FB7 /* M13ProgressViewRing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB5F42A1886F3FD00136FB7 /* M13ProgressViewRing.m */; };
+		0FB5F42F1886FF7100136FB7 /* SNFProgressOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB5F42E1886FF7100136FB7 /* SNFProgressOverlayView.m */; };
 		0FB7CC49187D005A0089D09E /* SNFCameraNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC48187D005A0089D09E /* SNFCameraNavigationController.m */; };
 		0FB7CC4D187D88F30089D09E /* SNFCameraNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC4C187D88F30089D09E /* SNFCameraNavigationBar.m */; };
 		0FB7CC53187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7CC52187DA49A0089D09E /* UINavigationItem+iOS7Spacing.m */; };
@@ -103,6 +106,12 @@
 		0FB5F4211884C29D00136FB7 /* SNFPostingPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFPostingPhotoViewController.m; sourceTree = "<group>"; };
 		0FB5F4231885EA7500136FB7 /* SNFFeedNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNFFeedNavigationController.h; path = Snapfeed/SNFFeedNavigationController.h; sourceTree = "<group>"; };
 		0FB5F4241885EA7500136FB7 /* SNFFeedNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNFFeedNavigationController.m; path = Snapfeed/SNFFeedNavigationController.m; sourceTree = "<group>"; };
+		0FB5F4271886F3FD00136FB7 /* M13ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13ProgressView.h; sourceTree = "<group>"; };
+		0FB5F4281886F3FD00136FB7 /* M13ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13ProgressView.m; sourceTree = "<group>"; };
+		0FB5F4291886F3FD00136FB7 /* M13ProgressViewRing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13ProgressViewRing.h; sourceTree = "<group>"; };
+		0FB5F42A1886F3FD00136FB7 /* M13ProgressViewRing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13ProgressViewRing.m; sourceTree = "<group>"; };
+		0FB5F42D1886FF7100136FB7 /* SNFProgressOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFProgressOverlayView.h; sourceTree = "<group>"; };
+		0FB5F42E1886FF7100136FB7 /* SNFProgressOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFProgressOverlayView.m; sourceTree = "<group>"; };
 		0FB7CC47187D005A0089D09E /* SNFCameraNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFCameraNavigationController.h; sourceTree = "<group>"; };
 		0FB7CC48187D005A0089D09E /* SNFCameraNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFCameraNavigationController.m; sourceTree = "<group>"; };
 		0FB7CC4B187D88F30089D09E /* SNFCameraNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFCameraNavigationBar.h; sourceTree = "<group>"; };
@@ -252,6 +261,7 @@
 		0FAE9E39185BEFAD00896242 /* Snapfeed */ = {
 			isa = PBXGroup;
 			children = (
+				0FB5F4261886F38D00136FB7 /* Progress View */,
 				0FB5F41F1884C25B00136FB7 /* Posting Photo */,
 				0FCF6CEC1881954C0073283E /* SVPullToRefresh */,
 				0FB5F41518844B5D00136FB7 /* Feed */,
@@ -336,6 +346,19 @@
 				0FB5F4211884C29D00136FB7 /* SNFPostingPhotoViewController.m */,
 			);
 			name = "Posting Photo";
+			sourceTree = "<group>";
+		};
+		0FB5F4261886F38D00136FB7 /* Progress View */ = {
+			isa = PBXGroup;
+			children = (
+				0FB5F4271886F3FD00136FB7 /* M13ProgressView.h */,
+				0FB5F4281886F3FD00136FB7 /* M13ProgressView.m */,
+				0FB5F4291886F3FD00136FB7 /* M13ProgressViewRing.h */,
+				0FB5F42A1886F3FD00136FB7 /* M13ProgressViewRing.m */,
+				0FB5F42D1886FF7100136FB7 /* SNFProgressOverlayView.h */,
+				0FB5F42E1886FF7100136FB7 /* SNFProgressOverlayView.m */,
+			);
+			name = "Progress View";
 			sourceTree = "<group>";
 		};
 		0FB7CC46187D00100089D09E /* Camera */ = {
@@ -571,8 +594,11 @@
 				0FD2D9EF18765CD9007860CA /* SNFTakePhotoViewController.m in Sources */,
 				0FB9019D1860F05A00918088 /* SNFFeedTVC.m in Sources */,
 				0FB7CC56187DD3A20089D09E /* SNFCameraControlButton.m in Sources */,
+				0FB5F42B1886F3FD00136FB7 /* M13ProgressView.m in Sources */,
+				0FB5F42F1886FF7100136FB7 /* SNFProgressOverlayView.m in Sources */,
 				0FB7CC6F187FAA3A0089D09E /* SNFProfilePhotosCollectionViewCell.m in Sources */,
 				0F01AC4A186D283B006C01A0 /* NSDate+ShortTimeAgo.m in Sources */,
+				0FB5F42C1886F3FD00136FB7 /* M13ProgressViewRing.m in Sources */,
 				0FB7CC49187D005A0089D09E /* SNFCameraNavigationController.m in Sources */,
 				0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */,
 				0FA6DCBE1862ABEA0036626B /* SNFRoundedRectButton.m in Sources */,

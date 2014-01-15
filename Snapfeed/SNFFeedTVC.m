@@ -15,6 +15,7 @@
 #import "NSArray+PrettyPrint.h"
 #import "SVPullToRefresh.h"
 #import "SNFProfileTVC.h"
+#import "SNFProgressOverlayView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVWebViewController.h>
 #import <UIImage+Resize.h>
@@ -49,11 +50,11 @@ static const NSUInteger kPhotoViewHeight = 320;
 }
 
 - (NSMutableArray *)posts {
-    if (!_posts) {
-        _posts = [NSMutableArray new];
-    }
+	if (!_posts) {
+		_posts = [NSMutableArray new];
+	}
     
-    return _posts;
+	return _posts;
 }
 
 - (NSMutableArray *)likedPosts {
@@ -77,14 +78,27 @@ static const NSUInteger kPhotoViewHeight = 320;
     
 	//SDWebImageManager.sharedManager.delegate = self;
     
+	[self.navigationController.navigationBar setBarTintColor:[UIColor flatDarkBlueColor]];
+	[self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+	[self.navigationController.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+	[self.navigationController.navigationBar setTranslucent:NO];
+    
+    
+	SNFProgressOverlayView *view = [[SNFProgressOverlayView alloc] initWithFrame:self.tableView.bounds];
+	view.backgroundColor = [UIColor whiteColor];
+	view.opaque = YES;
+	[self.tableView addSubview:view];
+	//[self.tableView bringSubviewToFront:view];
+	[self.tableView setScrollEnabled:NO];
+    
 	if (![self.posts count] > 0)
 		[self getPhotosWithURL:nil];
     
-    __weak SNFFeedTVC *weakSelf = self;
-    // setup infinite scrolling
-    [self.tableView addInfiniteScrollingWithActionHandler:^{
-        [weakSelf requestPostsAtBottom];
-    }];
+	__weak SNFFeedTVC *weakSelf = self;
+	// setup infinite scrolling
+	[self.tableView addInfiniteScrollingWithActionHandler: ^{
+	    [weakSelf requestPostsAtBottom];
+	}];
     
 	[[NSNotificationCenter defaultCenter] addObserver:self
 	                                         selector:@selector(postLiked:)
@@ -96,18 +110,7 @@ static const NSUInteger kPhotoViewHeight = 320;
 	                                             name:postUnlikedNotificationName
 	                                           object:nil];
     
-    [self.navigationController.navigationBar setBarTintColor:[UIColor flatDarkBlueColor]];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-	[self.navigationController.navigationBar setTranslucent:NO];
-    
-    //[self followScrollView:self.tableView];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    //[self refreshNavbar];
+	//[self followScrollView:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,66 +123,84 @@ static const NSUInteger kPhotoViewHeight = 320;
 }
 
 - (void)getPhotosWithURL:(NSString *)url {
-    // We are going to load data
-    self.isLoadingData = YES;
+	// We are going to load data
+	self.isLoadingData = YES;
     
-    DDLogInfo(@"%@: Getting main feed photos...", THIS_FILE);
+	DDLogInfo(@"%@: Getting main feed photos...", THIS_FILE);
 	[[SNFFacebook sharedInstance] getMainFeedPhotosWithURL:url andResponse: ^(FBRequestConnection *request, NSDictionary *result, NSError *error) {
-        if (error) {
-            // If an error occurs, end all requests
-            DDLogError(@"%@: Error requesting posts: %@", THIS_FILE, error);
-            [self endPhotosFetchwithSuccess:NO firstFetch:(url ? NO : YES)];
-        } else {
-            // Add fetched posts to those we already have (if none, append to empty array)
-            [self.posts addObjectsFromArray:result[@"data"]];
-            // Save the paging for future "infinite scrolling" requests
-            self.paging = result[@"paging"];
+	    if (error) {
+	        // If an error occurs, end all requests
+	        DDLogError(@"%@: Error requesting posts: %@", THIS_FILE, error);
+	        [self endPhotosFetchwithSuccess:NO firstFetch:(url ? NO : YES)];
+		}
+	    else {
+	        // Add fetched posts to those we already have (if none, append to empty array)
+	        [self.posts addObjectsFromArray:result[@"data"]];
+	        // Save the paging for future "infinite scrolling" requests
+	        self.paging = result[@"paging"];
             
-            // Reset post IDs and save the ones we just fetched
-            self.postIDs = nil;
-            for (id postID in [result valueForKeyPath:@"data.id"]) {
-                [self.postIDs addObject:postID];
-            }
+	        // Reset post IDs and save the ones we just fetched
+	        self.postIDs = nil;
+	        for (id postID in[result valueForKeyPath:@"data.id"]) {
+	            [self.postIDs addObject:postID];
+			}
             
-            // Get the like status for the post IDs we saved
-            DDLogInfo(@"%@: Getting liked posts...", THIS_FILE);
-            [[SNFFacebook sharedInstance] getLikedPostsForIDs:[self.postIDs copy] andResponse: ^(FBRequestConnection *request, id result, NSError *error) {
-                // Add the result to our array for reference
-                [self.likedPosts addObjectsFromArray:result[@"data"]];
+	        // Get the like status for the post IDs we saved
+	        DDLogInfo(@"%@: Getting liked posts...", THIS_FILE);
+	        [[SNFFacebook sharedInstance] getLikedPostsForIDs:[self.postIDs copy] andResponse: ^(FBRequestConnection *request, id result, NSError *error) {
+	            // Add the result to our array for reference
+	            [self.likedPosts addObjectsFromArray:result[@"data"]];
                 
-                // Clean up
-                [self endPhotosFetchwithSuccess:YES firstFetch:(url ? NO : YES)];
-            }];
-        }
+	            // Clean up
+	            [self endPhotosFetchwithSuccess:YES firstFetch:(url ? NO : YES)];
+			}];
+		}
 	}];
 }
 
 - (void)endPhotosFetchwithSuccess:(BOOL)success firstFetch:(BOOL)first {
-    __weak SNFFeedTVC *weakSelf = self;
+	__weak SNFFeedTVC *weakSelf = self;
     
-    // Do UI operations on the main queue
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (!first) {
-            [weakSelf.tableView.infiniteScrollingView stopAnimating];
-        }
-        self.isLoadingData = NO;
-        if (success) {
-            [weakSelf.tableView reloadData];
-        }
-    });
+	// Do UI operations on the main queue
+	dispatch_async(dispatch_get_main_queue(), ^{
+	    DDLogInfo(@"%@: Finished data fetch! First fetch: %@; Success: %@", THIS_FILE, BOOLtoNSString(first), BOOLtoNSString(success));
+	    DDLogVerbose(@"%@", self.tableView.subviews);
+	    for (id view in self.tableView.subviews) {
+	        if ([view isMemberOfClass:[SNFProgressOverlayView class]]) {
+	            [UIView animateWithDuration:0.5f
+	                             animations: ^{
+                                     [(SNFProgressOverlayView *)view setAlpha: 0];
+                                 }
+                 
+	                             completion: ^(BOOL finished) {
+                                     if (finished) {
+                                         [view removeFromSuperview];
+                                     }
+                                 }];
+	            [self.tableView setScrollEnabled:YES];
+			}
+		}
+	    if (!first) {
+	        [weakSelf.tableView.infiniteScrollingView stopAnimating];
+		}
+	    self.isLoadingData = NO;
+	    if (success) {
+	        [weakSelf.tableView reloadData];
+		}
+	});
 }
 
-
 - (void)requestPostsAtBottom {
-    __weak SNFFeedTVC *weakSelf = self;
+	__weak SNFFeedTVC *weakSelf = self;
     
-    NSString *nextPostsURL = self.paging[@"next"];
-    if (nextPostsURL) {
-        [self getPhotosWithURL:nextPostsURL];
-    } else {
-        // If there is no post link to query the FB API, just end animation
-        [weakSelf.tableView.infiniteScrollingView stopAnimating];
-    }
+	NSString *nextPostsURL = self.paging[@"next"];
+	if (nextPostsURL) {
+		[self getPhotosWithURL:nextPostsURL];
+	}
+	else {
+		// If there is no post link to query the FB API, just end animation
+		[weakSelf.tableView.infiniteScrollingView stopAnimating];
+	}
 }
 
 /*- (void)loadingData:(BOOL)isLoading {
@@ -209,8 +230,8 @@ static const NSUInteger kPhotoViewHeight = 320;
 }
 
 /*- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    [self showNavbar];
-}*/
+ [self showNavbar];
+ }*/
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *cellIdentifier = @"FeedCell";
@@ -252,12 +273,12 @@ static const NSUInteger kPhotoViewHeight = 320;
     
 	cell.likeCount = [post[@"likes"][@"summary"][@"total_count"] unsignedIntegerValue];
 	DDLogVerbose(@"Likes: %u", (unsigned int)cell.likeCount);
-    [cell setLikeLabelCount];
+	[cell setLikeLabelCount];
     
 	if (cell.likeCount == 0) {
 		cell.likesSection.hidden = YES;
 	}
-	
+    
 	NSString *description = post[@"message"];
 	DDLogVerbose(@"Description: %@", description);
 	if (!description) {
@@ -288,10 +309,10 @@ static const NSUInteger kPhotoViewHeight = 320;
 	header.datePostedString = [[self.posts[section][@"created_time"] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] stringByReplacingOccurrencesOfString:@"T" withString:@" "];
 	DDLogVerbose(@"%@: Post %u date: %@", THIS_FILE, (unsigned int)section, header.datePostedString);
     
-    header.avatarURL = [[SNFFacebook sharedInstance] picURLForUser:header.userID andSize:CGSizeMake(100, 100)];
+	header.avatarURL = [[SNFFacebook sharedInstance] picURLForUser:header.userID andSize:CGSizeMake(100, 100)];
     
-    [header.avatarButton addTarget:self action:@selector(showProfileView:) forControlEvents:UIControlEventTouchUpInside];
-    [header.fromUserButton addTarget:self action:@selector(showProfileView:) forControlEvents:UIControlEventTouchUpInside];
+	[header.avatarButton addTarget:self action:@selector(showProfileView:) forControlEvents:UIControlEventTouchUpInside];
+	[header.fromUserButton addTarget:self action:@selector(showProfileView:) forControlEvents:UIControlEventTouchUpInside];
 	// TAP ON FROM TO OPEN
 	/*UITapGestureRecognizer *tapOnFromLabel = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedOnFromLabel:)];
      [tapOnFromLabel setNumberOfTapsRequired:1];
@@ -321,20 +342,20 @@ static const NSUInteger kPhotoViewHeight = 320;
 }
 
 - (void)showProfileView:(UIButton *)sender {
-    // Get position of the tapped button to figure out which cell header it came from
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-    // Grab the section number
-    NSUInteger section = [self.tableView indexPathForRowAtPoint:buttonPosition].section;
-    self.activeUserID = self.posts[section][@"from"][@"id"];
-    DDLogVerbose(@"%@: User ID %@ for post %u", THIS_FILE, self.activeUserID, (unsigned int)section);
-    [self performSegueWithIdentifier:@"showProfileView" sender:self];
+	// Get position of the tapped button to figure out which cell header it came from
+	CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+	// Grab the section number
+	NSUInteger section = [self.tableView indexPathForRowAtPoint:buttonPosition].section;
+	self.activeUserID = self.posts[section][@"from"][@"id"];
+	DDLogVerbose(@"%@: User ID %@ for post %u", THIS_FILE, self.activeUserID, (unsigned int)section);
+	[self performSegueWithIdentifier:@"showProfileView" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showProfileView"]) {
+	if ([segue.identifier isEqualToString:@"showProfileView"]) {
 		SNFProfileTVC *profileVC = (SNFProfileTVC *)segue.destinationViewController;
-        profileVC.userID = self.activeUserID;
-    }
+		profileVC.userID = self.activeUserID;
+	}
 }
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {

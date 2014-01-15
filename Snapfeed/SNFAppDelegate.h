@@ -10,6 +10,7 @@
 #import <UIColor+MLPFlatColors.h>
 
 #define IS_IPHONE_4_INCH ([[UIScreen mainScreen] bounds].size.height == 568)
+#define BOOLtoNSString(aBOOL) aBOOL ? @"YES" : @"NO"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;    // logging level
 
