@@ -13,6 +13,8 @@
 #import "SNFPostingPhotoViewController.h"
 #import "SNFTakePhotoViewController.h"
 
+NSString *const flashModeChangedNotificationName = @"flashModeChangedNotification";
+
 static const CGFloat kViewAlphaValue = 0.9;
 static const CGFloat kCameraBarsHeight = 53;
 static const CGFloat kiPhoneScreenWidth = 320;
@@ -56,12 +58,14 @@ static const CGFloat kiPhone4InchShutterViewHeight = 140;
     SNFCameraControlButton *switchCameraButton = [[SNFCameraControlButton alloc] initWithFrame:
                                           CGRectMake(105, -1, switchCameraImage.size.width, kCameraBarsHeight)];
     [switchCameraButton setImage:switchCameraImage forState:UIControlStateNormal];
+    [switchCameraButton addTarget:self action:@selector(switchCameras:) forControlEvents:UIControlEventTouchUpInside];
     [cameraControlsView addSubview:switchCameraButton];
     
     UIImage *noFlashImage = [UIImage imageNamed:@"no-flash"];
     SNFCameraControlButton *flashButton = [[SNFCameraControlButton alloc] initWithFrame:
                                                   CGRectMake(190, 0, noFlashImage.size.width, kCameraBarsHeight)];
     [flashButton setImage:noFlashImage forState:UIControlStateNormal];
+    [flashButton addTarget:self action:@selector(toggleFlash:) forControlEvents:UIControlEventTouchUpInside];
     [cameraControlsView addSubview:flashButton];
     
     SNFCameraControlButton *flashButton2 = [[SNFCameraControlButton alloc] initWithFrame:
@@ -86,8 +90,35 @@ static const CGFloat kiPhone4InchShutterViewHeight = 140;
     [self addCloseButton];
     [self.view addSubview:cameraShutterView];
     [self.view addSubview:cameraControlsView];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(flashModeToggled:)
+                                                 name:flashModeChangedNotificationName
+                                               object:nil];
+    
+    [[self.captureManager captureSession] startRunning];
+}
 
-	[[self.captureManager captureSession] startRunning];
+- (void)switchCameras:(id)sender {
+    DDLogVerbose(@"%@: Switching cameras", THIS_FILE);
+    [self.captureManager.captureSession stopRunning];
+    [self.captureManager switchCameras];
+    [self.captureManager.captureSession startRunning]; 
+}
+
+- (void)toggleFlash:(id)sender {
+    DDLogVerbose(@"%@: Toggling flash", THIS_FILE);
+    [self.captureManager toggleFlash];
+}
+
+- (void)flashModeToggled:(NSNotification *)notification {
+    DDLogVerbose(@"%@: Previous flash mode: %d  New flash mode: %d",
+                 THIS_FILE,
+                 [notification.userInfo[@"old"] integerValue],
+                 [notification.userInfo[@"new"] integerValue]);
+    
+    // Change button icon here!
 }
 
 - (void)addCloseButton {
@@ -107,8 +138,8 @@ static const CGFloat kiPhone4InchShutterViewHeight = 140;
 }
 
 - (void)shutterButtonPressed {
+    //[self.captureManager.captureSession stopRunning];
     [self.captureManager captureStillImage];
-    [self.captureManager.captureSession stopRunning];
 }
 
 - (void)saveImageToPhotoAlbum

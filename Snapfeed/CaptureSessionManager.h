@@ -21,5 +21,7 @@
 - (void)addStillImageOutput;
 - (void)captureStillImage;
 - (void)addVideoInputFrontCamera:(BOOL)front;
+- (void)switchCameras;
+- (void)toggleFlash;
 
 @end

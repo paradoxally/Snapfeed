@@ -9,6 +9,8 @@
 #import "CaptureSessionManager.h"
 #import <UIKit/UIKit.h>
 
+extern NSString *const flashModeChangedNotificationName;
+
 @interface SNFTakePhotoViewController : UIViewController
 
 @property (nonatomic, strong) CaptureSessionManager *captureManager;
