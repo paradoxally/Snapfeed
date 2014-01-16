@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <KSReachability.h>
+#import <TWMessageBarManager.h>
 #import <UIColor+MLPFlatColors.h>
 
 #define IS_IPHONE_4_INCH ([[UIScreen mainScreen] bounds].size.height == 568)
@@ -19,5 +21,9 @@ extern NSString *const FBSessionStateOpenedNotification;
 @interface SNFAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
++ (instancetype)sharedInstance;
+
+- (BOOL)isReachable;
 
 @end

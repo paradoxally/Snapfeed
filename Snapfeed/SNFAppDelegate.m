@@ -15,7 +15,33 @@ static NSString * const kCrashlyticsAPIKey = @"60c72262c2fc4df8067a6e7a2774efc31
 
 NSString *const FBSessionStateOpenedNotification = @"FBSessionStateOpenedNotification";
 
+@interface SNFAppDelegate ()
+
+@property (nonatomic, strong) KSReachability *reachability;
+
+@end
+
 @implementation SNFAppDelegate
+
++ (instancetype)sharedInstance {
+	static dispatch_once_t once;
+	static id sharedInstance;
+    
+	dispatch_once(&once, ^
+                  {
+                      sharedInstance = [self new];
+                  });
+    
+	return sharedInstance;
+}
+
+- (KSReachability *)reachability {
+    if (!_reachability) {
+        _reachability = [KSReachability reachabilityToHost:nil];
+    }
+    
+    return _reachability;
+}
 
 // Method for handling opening Facebook URLs
 - (BOOL)application:(UIApplication *)application
@@ -35,6 +61,15 @@ NSString *const FBSessionStateOpenedNotification = @"FBSessionStateOpenedNotific
 	[[DDTTYLogger sharedInstance] setForegroundColor:[UIColor orangeColor] backgroundColor:nil forFlag:LOG_FLAG_WARN];
 	[[DDTTYLogger sharedInstance] setForegroundColor:[UIColor flatGreenColor] backgroundColor:nil forFlag:LOG_FLAG_INFO];
 	[[DDTTYLogger sharedInstance] setForegroundColor:[UIColor flatWhiteColor] backgroundColor:nil forFlag:LOG_FLAG_VERBOSE];
+    
+    // Find out when initialization has completed.
+    self.reachability.onInitializationComplete = ^(KSReachability* reachability)
+    {
+        DDLogInfo(@"%@: Initialization complete. Reachability = %d. Flags = %x", THIS_FILE, reachability.reachable, reachability.flags);
+    };
+    
+    // Enable notifications via NSNotificationCenter.
+    self.reachability.notificationName = kDefaultNetworkReachabilityChangedNotification;
     
     // Crashlytics initialization
     [Crashlytics startWithAPIKey:kCrashlyticsAPIKey];
@@ -73,6 +108,10 @@ NSString *const FBSessionStateOpenedNotification = @"FBSessionStateOpenedNotific
     [self.window makeKeyAndVisible];
 }
 
+- (BOOL)isReachable {
+    return self.reachability.reachable;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -100,6 +139,7 @@ NSString *const FBSessionStateOpenedNotification = @"FBSessionStateOpenedNotific
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.reachability = nil;
     //[FBSession.activeSession close];
 }
 

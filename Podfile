@@ -13,6 +13,8 @@ target "Snapfeed" do
     pod 'RegExCategories'
     pod 'AMScrollingNavbar', :head
     pod 'CHTTextView'
+    pod 'KSReachability'
+    pod 'TWMessageBarManager', :head
 end
 
 target "SnapfeedTests" do

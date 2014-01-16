@@ -76,13 +76,10 @@ static const NSUInteger kPhotoViewHeight = 320;
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-	//SDWebImageManager.sharedManager.delegate = self;
-    
 	[self.navigationController.navigationBar setBarTintColor:[UIColor flatDarkBlueColor]];
 	[self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
 	[self.navigationController.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
 	[self.navigationController.navigationBar setTranslucent:NO];
-    
     
 	SNFProgressOverlayView *view = [[SNFProgressOverlayView alloc] initWithFrame:self.tableView.bounds];
 	view.backgroundColor = [UIColor whiteColor];
@@ -90,6 +87,8 @@ static const NSUInteger kPhotoViewHeight = 320;
 	[self.tableView addSubview:view];
 	//[self.tableView bringSubviewToFront:view];
 	[self.tableView setScrollEnabled:NO];
+    
+    [self setupRefreshControl:@selector(refreshControlgetPhotos)];
     
 	if (![self.posts count] > 0)
 		[self getPhotosWithURL:nil];
@@ -110,6 +109,11 @@ static const NSUInteger kPhotoViewHeight = 320;
 	                                             name:postUnlikedNotificationName
 	                                           object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onReachabilityChanged:)
+                                                 name:kDefaultNetworkReachabilityChangedNotification
+                                               object:nil];
+    
 	//[self followScrollView:self.tableView];
 }
 
@@ -122,6 +126,17 @@ static const NSUInteger kPhotoViewHeight = 320;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)refreshControlgetPhotos {
+    [self getPhotosWithURL:nil];
+}
+
+- (void)setupRefreshControl:(SEL)action
+{
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:action forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+}
+
 - (void)getPhotosWithURL:(NSString *)url {
 	// We are going to load data
 	self.isLoadingData = YES;
@@ -132,10 +147,17 @@ static const NSUInteger kPhotoViewHeight = 320;
 	        // If an error occurs, end all requests
 	        DDLogError(@"%@: Error requesting posts: %@", THIS_FILE, error);
 	        [self endPhotosFetchwithSuccess:NO firstFetch:(url ? NO : YES)];
+            if (error.code == 5) {
+                [self showNoConnectionNotification];
+            }
 		}
 	    else {
 	        // Add fetched posts to those we already have (if none, append to empty array)
-	        [self.posts addObjectsFromArray:result[@"data"]];
+            if (url) {
+                [self.posts addObjectsFromArray:result[@"data"]];
+            } else {
+                self.posts = result[@"data"];
+            }
 	        // Save the paging for future "infinite scrolling" requests
 	        self.paging = result[@"paging"];
             
@@ -149,7 +171,11 @@ static const NSUInteger kPhotoViewHeight = 320;
 	        DDLogInfo(@"%@: Getting liked posts...", THIS_FILE);
 	        [[SNFFacebook sharedInstance] getLikedPostsForIDs:[self.postIDs copy] andResponse: ^(FBRequestConnection *request, id result, NSError *error) {
 	            // Add the result to our array for reference
-	            [self.likedPosts addObjectsFromArray:result[@"data"]];
+                if (url) {
+                    [self.likedPosts addObjectsFromArray:result[@"data"]];
+                } else {
+                    self.likedPosts = result[@"data"];
+                }
                 
 	            // Clean up
 	            [self endPhotosFetchwithSuccess:YES firstFetch:(url ? NO : YES)];
@@ -178,7 +204,9 @@ static const NSUInteger kPhotoViewHeight = 320;
                                      }
                                  }];
 	            [self.tableView setScrollEnabled:YES];
-			}
+			} else {
+                [self.refreshControl performSelector:@selector(endRefreshing) withObject:nil afterDelay:0];
+            }
 		}
 	    if (!first) {
 	        [weakSelf.tableView.infiniteScrollingView stopAnimating];
@@ -201,6 +229,22 @@ static const NSUInteger kPhotoViewHeight = 320;
 		// If there is no post link to query the FB API, just end animation
 		[weakSelf.tableView.infiniteScrollingView stopAnimating];
 	}
+}
+
+- (void) onReachabilityChanged:(NSNotification *)notification
+{
+    KSReachability *reachability = (KSReachability *)notification.object;
+    DDLogVerbose(@"%@: Reachability changed to %d. Flags = %x (NSNotification)", THIS_FILE, reachability.reachable, reachability.flags);
+}
+
+- (void)showNoConnectionNotification {
+    // Display a non-intrusive alert to remind the user there is no Internet connection
+    if (![[SNFAppDelegate sharedInstance] isReachable]) {
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Network Error"
+                                                       description:@"Check your network connection. Facebook could also be down."
+                                                              type:TWMessageBarMessageTypeError
+                                                        duration:3.0];
+    }
 }
 
 /*- (void)loadingData:(BOOL)isLoading {
