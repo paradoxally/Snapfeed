@@ -25,6 +25,7 @@ static const CGFloat kRectButtonCornerRadius = 2.5f;
     [super layoutSubviews];
     
     [self.layer setCornerRadius:kRectButtonCornerRadius];
+    [self setTitleColor:[UIColor flatDarkWhiteColor] forState:UIControlStateHighlighted];
 }
 
 @end
