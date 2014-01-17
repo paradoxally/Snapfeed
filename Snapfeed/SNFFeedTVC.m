@@ -231,7 +231,7 @@ static const NSUInteger kPhotoViewHeight = 320;
 	}
 }
 
-- (void) onReachabilityChanged:(NSNotification *)notification
+- (void)onReachabilityChanged:(NSNotification *)notification
 {
     KSReachability *reachability = (KSReachability *)notification.object;
     DDLogVerbose(@"%@: Reachability changed to %d. Flags = %x (NSNotification)", THIS_FILE, reachability.reachable, reachability.flags);
@@ -386,14 +386,14 @@ static const NSUInteger kPhotoViewHeight = 320;
 }
 
 - (void)showProfileView:(UIButton *)sender {
-	// Get position of the tapped button to figure out which cell header it came from
-	CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-	// Grab the section number
-	NSUInteger section = [self.tableView indexPathForRowAtPoint:buttonPosition].section;
-	self.activeUserID = self.posts[section][@"from"][@"id"];
-	DDLogVerbose(@"%@: User ID %@ for post %u", THIS_FILE, self.activeUserID, (unsigned int)section);
-	[self performSegueWithIdentifier:@"showProfileView" sender:self];
+    NSIndexPath *indexPath = [self getIndexPathFromSender:sender];
+    if (indexPath) {
+        self.activeUserID = self.posts[indexPath.section][@"from"][@"id"];
+        DDLogVerbose(@"%@: User ID %@ for post %u", THIS_FILE, self.activeUserID, (unsigned int)indexPath.section);
+        [self performSegueWithIdentifier:@"showProfileView" sender:self];
+    }
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"showProfileView"]) {
@@ -442,8 +442,33 @@ static const NSUInteger kPhotoViewHeight = 320;
 	}
 }
 
+- (IBAction)postOptionsTapped:(SNFRoundedRectButton *)sender {
+    NSIndexPath *indexPath = [self getIndexPathFromSender:sender];
+    if (indexPath) {
+        UIImage *image = [(UIImageView *)[[[self.tableView cellForRowAtIndexPath:indexPath] contentView] viewWithTag:100] image];
+        DDLogVerbose(@"%@: Share image info: %@", THIS_FILE, image);
+        [self showShareOptionsForImage:image];
+    }
+}
+
+- (void)showShareOptionsForImage:(UIImage *)image {
+    UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:@[image] applicationActivities:nil];
+    shareController.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact];
+    [self presentViewController:shareController animated:YES completion:nil];
+}
+
 - (IBAction)addPhotoTapped:(UIBarButtonItem *)sender {
 	[self presentImagePicker:UIImagePickerControllerSourceTypeCamera];
+}
+
+
+#pragma mark - Helper methods
+
+- (NSIndexPath *)getIndexPathFromSender:(id)sender {
+    // Get position of the tapped button to figure out which cell header it came from
+	CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+	// Grab the section number
+	return [self.tableView indexPathForRowAtPoint:buttonPosition];
 }
 
 - (void)presentImagePicker:(UIImagePickerControllerSourceType)sourceType {
