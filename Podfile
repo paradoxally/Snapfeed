@@ -15,6 +15,7 @@ target "Snapfeed" do
     pod 'CHTTextView'
     pod 'KSReachability'
     pod 'TWMessageBarManager', :head
+    pod 'FTLocationManager'
 end
 
 target "SnapfeedTests" do

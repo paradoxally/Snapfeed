@@ -33,7 +33,7 @@
 
 - (void)openSession {
 	[FBSession openActiveSessionWithReadPermissions:@[@"user_photos", @"read_stream", @"basic_info", @"user_location", @"email", @"user_friends", @"user_birthday"]
-	                                   allowLoginUI:YES
+	                                   allowLoginUI:NO
 	                              completionHandler:
 	 ^(FBSession *session,
 	   FBSessionState state, NSError *readPermissionsError) {
@@ -161,7 +161,7 @@
 - (void)getPagesWithinLocation:(CLLocation *)location andResponse:(FBRequestResponseWithID)response {
     NSString *query = [NSString stringWithFormat:
 	                   @"SELECT page_id "
-	                   @"FROM page "
+	                   @"FROM place "
 	                   @"WHERE distance(latitude, longitude, \"%f\", \"%f\") < 500 "
                        @"LIMIT 5 ", location.coordinate.latitude, location.coordinate.longitude];
     
