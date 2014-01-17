@@ -11,7 +11,7 @@
 
 extern NSString *const flashModeChangedNotificationName;
 
-@interface SNFTakePhotoViewController : UIViewController
+@interface SNFTakePhotoViewController : UIViewController <UIAccelerometerDelegate>
 
 @property (nonatomic, strong) CaptureSessionManager *captureManager;
 

@@ -12,6 +12,7 @@
 #import "UIImage+SquareImage.h"
 #import "SNFPostingPhotoViewController.h"
 #import "SNFTakePhotoViewController.h"
+#import <CoreMotion/CoreMotion.h>
 
 NSString *const flashModeChangedNotificationName = @"flashModeChangedNotification";
 
@@ -27,6 +28,11 @@ static const CGSize kImageSize = {612, 612};
 @property (nonatomic) CGRect imageCropRect;
 
 @property (nonatomic, strong) UIImage *croppedImage;
+@property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) UIView *leftHelperLine;
+@property (nonatomic, strong) UIView *rightHelperLine;
+@property (nonatomic, strong) CMMotionManager *motionManager;
+@property (nonatomic) BOOL isLevelVisible;
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 
@@ -53,6 +59,7 @@ static const CGSize kImageSize = {612, 612};
     SNFCameraControlButton *gridButton = [[SNFCameraControlButton alloc] initWithFrame:
                                           CGRectMake(30, 0, gridImage.size.width, kCameraBarsHeight)];
     [gridButton setImage:gridImage forState:UIControlStateNormal];
+    [gridButton addTarget:self action:@selector(toggleLevel:) forControlEvents:UIControlEventTouchUpInside];
     [cameraControlsView addSubview:gridButton];
     
     UIImage *switchCameraImage = [UIImage imageNamed:@"switch-camera"];
@@ -69,10 +76,10 @@ static const CGSize kImageSize = {612, 612};
     [flashButton addTarget:self action:@selector(toggleFlash:) forControlEvents:UIControlEventTouchUpInside];
     [cameraControlsView addSubview:flashButton];
     
-    SNFCameraControlButton *flashButton2 = [[SNFCameraControlButton alloc] initWithFrame:
+    /*SNFCameraControlButton *flashButton2 = [[SNFCameraControlButton alloc] initWithFrame:
                                            CGRectMake(265, 0, noFlashImage.size.width, kCameraBarsHeight)];
     [flashButton2 setImage:noFlashImage forState:UIControlStateNormal];
-    [cameraControlsView addSubview:flashButton2];
+    [cameraControlsView addSubview:flashButton2];*/
     
 	CGRect layerRect = CGRectMake(0, 0, kiPhoneScreenWidth, self.view.bounds.size.height - cameraShutterView.bounds.size.height);
     [self.captureManager.previewLayer setBounds:layerRect];
@@ -99,6 +106,59 @@ static const CGSize kImageSize = {612, 612};
                                                object:nil];
     
     [[self.captureManager captureSession] startRunning];
+}
+
+#define kFilteringFactor 0.175
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    if ([self.motionManager isAccelerometerActive]) {
+        [self.motionManager stopAccelerometerUpdates];
+    }
+}
+
+- (void)toggleLevel:(id)sender {
+    if (self.isLevelVisible) {
+        // hide level and stop accelerometer updates
+        self.isLevelVisible = NO;
+        [self.leftHelperLine removeFromSuperview];
+        [self.rightHelperLine removeFromSuperview];
+        [self.lineView removeFromSuperview];
+        if ([self.motionManager isAccelerometerActive]) {
+            [self.motionManager stopAccelerometerUpdates];
+        }
+    } else {
+        self.isLevelVisible = YES;
+        self.leftHelperLine = [[UIView alloc] initWithFrame:CGRectMake(0, 230, 70, 1)];
+        self.leftHelperLine.backgroundColor = [UIColor whiteColor];
+        self.rightHelperLine = [[UIView alloc] initWithFrame:CGRectMake(250, 230, 70, 1)];
+        self.rightHelperLine.backgroundColor = [UIColor whiteColor];
+        self.lineView = [[UIView alloc] initWithFrame:CGRectMake(85, 230, 150, 2)];
+        self.lineView.backgroundColor = [UIColor redColor];
+        [self.view addSubview:self.leftHelperLine];
+        [self.view addSubview:self.rightHelperLine];
+        [self.view addSubview:self.lineView];
+        
+        self.motionManager = [[CMMotionManager alloc] init];
+        self.motionManager.accelerometerUpdateInterval = 0.25;
+        
+        [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue]
+                                                 withHandler:^(CMAccelerometerData  *accelerometerData, NSError *error) {
+                                                     CGFloat x=accelerometerData.acceleration.x;
+                                                     x = accelerometerData.acceleration.x * kFilteringFactor + x * (1.0 - kFilteringFactor);
+                                                     [UIView beginAnimations:@"rotate" context:nil];
+                                                     [UIView setAnimationDuration:0.1];
+                                                     self.lineView.transform=CGAffineTransformMakeRotation(-x);
+                                                     if (x > -0.01 && x < 0.01) {
+                                                         DDLogVerbose(@"STABLE: %f", x);
+                                                         self.lineView.backgroundColor = [UIColor greenColor];
+                                                     } else {
+                                                         self.lineView.backgroundColor = [UIColor redColor];
+                                                     }
+                                                     [UIView commitAnimations];
+                                                 }];
+    }
 }
 
 - (void)switchCameras:(id)sender {

@@ -59,6 +59,7 @@
 		0FD2D9EF18765CD9007860CA /* SNFTakePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2D9EE18765CD9007860CA /* SNFTakePhotoViewController.m */; };
 		0FF1CF6E185FA427008CFD76 /* SNFFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */; };
 		0FF1CF72185FAD2F008CFD76 /* SNFOpenSessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF1CF71185FAD2F008CFD76 /* SNFOpenSessionViewController.m */; };
+		0FF41C161888EA97004310DE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF41C151888EA97004310DE /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +159,7 @@
 		0FF1CF6D185FA427008CFD76 /* SNFFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFFacebook.m; sourceTree = "<group>"; };
 		0FF1CF70185FAD2F008CFD76 /* SNFOpenSessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNFOpenSessionViewController.h; sourceTree = "<group>"; };
 		0FF1CF71185FAD2F008CFD76 /* SNFOpenSessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNFOpenSessionViewController.m; sourceTree = "<group>"; };
+		0FF41C151888EA97004310DE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		AEB6E181D8534314AF72E10C /* libPods-Snapfeed.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snapfeed.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -166,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FF41C161888EA97004310DE /* CoreMotion.framework in Frameworks */,
 				0FB5F41E18848E0E00136FB7 /* MapKit.framework in Frameworks */,
 				0FCF6CEB1880E78F0073283E /* QuartzCore.framework in Frameworks */,
 				0FD2D9E418759F27007860CA /* MobileCoreServices.framework in Frameworks */,
@@ -241,6 +244,7 @@
 		0FAE9E32185BEFAD00896242 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0FF41C151888EA97004310DE /* CoreMotion.framework */,
 				0FB5F41D18848E0E00136FB7 /* MapKit.framework */,
 				0FCF6CEA1880E78F0073283E /* QuartzCore.framework */,
 				0FD2D9E318759F27007860CA /* MobileCoreServices.framework */,
