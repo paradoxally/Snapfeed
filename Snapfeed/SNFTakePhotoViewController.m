@@ -32,6 +32,7 @@ static const CGSize kImageSize = {612, 612};
 @property (nonatomic, strong) UIView *leftHelperLine;
 @property (nonatomic, strong) UIView *rightHelperLine;
 @property (nonatomic, strong) CMMotionManager *motionManager;
+@property (nonatomic, strong) SNFCameraControlButton *flashButton;
 @property (nonatomic) BOOL isLevelVisible;
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
@@ -69,12 +70,11 @@ static const CGSize kImageSize = {612, 612};
     [switchCameraButton addTarget:self action:@selector(switchCameras:) forControlEvents:UIControlEventTouchUpInside];
     [cameraControlsView addSubview:switchCameraButton];
     
-    UIImage *noFlashImage = [UIImage imageNamed:@"no-flash"];
-    SNFCameraControlButton *flashButton = [[SNFCameraControlButton alloc] initWithFrame:
-                                                  CGRectMake(190, 0, noFlashImage.size.width, kCameraBarsHeight)];
-    [flashButton setImage:noFlashImage forState:UIControlStateNormal];
-    [flashButton addTarget:self action:@selector(toggleFlash:) forControlEvents:UIControlEventTouchUpInside];
-    [cameraControlsView addSubview:flashButton];
+    self.flashButton = [[SNFCameraControlButton alloc] initWithFrame:
+                                                  CGRectMake(190, 0, 40, kCameraBarsHeight)];
+    [self.flashButton setImage:[UIImage imageNamed:@"flash-off"] forState:UIControlStateNormal];
+    [self.flashButton addTarget:self action:@selector(toggleFlash:) forControlEvents:UIControlEventTouchUpInside];
+    [cameraControlsView addSubview:self.flashButton];
     
     /*SNFCameraControlButton *flashButton2 = [[SNFCameraControlButton alloc] initWithFrame:
                                            CGRectMake(265, 0, noFlashImage.size.width, kCameraBarsHeight)];
@@ -174,12 +174,30 @@ static const CGSize kImageSize = {612, 612};
 }
 
 - (void)flashModeToggled:(NSNotification *)notification {
+    NSInteger newFlashIndex = [notification.userInfo[@"new"] integerValue];
     DDLogVerbose(@"%@: Previous flash mode: %d  New flash mode: %d",
                  THIS_FILE,
                  [notification.userInfo[@"old"] integerValue],
-                 [notification.userInfo[@"new"] integerValue]);
+                 newFlashIndex);
     
-    // Change button icon here!
+    // Change flash button icon!
+    switch (newFlashIndex) {
+        case 0:
+            [self.flashButton setImage:[UIImage imageNamed:@"flash-off"] forState:UIControlStateNormal];
+            break;
+            
+        case 1:
+            [self.flashButton setImage:[UIImage imageNamed:@"flash-on"] forState:UIControlStateNormal];
+            break;
+            
+        case 2:
+            [self.flashButton setImage:[UIImage imageNamed:@"flash-auto"] forState:UIControlStateNormal];
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 - (void)addCloseButton {
