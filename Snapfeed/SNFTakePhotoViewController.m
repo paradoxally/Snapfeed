@@ -20,6 +20,7 @@ static const CGFloat kCameraBarsHeight = 53;
 static const CGFloat kiPhoneScreenWidth = 320;
 static const CGFloat kiPhoneShutterViewHeight = 118;
 static const CGFloat kiPhone4InchShutterViewHeight = 140;
+static const CGSize kImageSize = {612, 612};
 
 @interface SNFTakePhotoViewController ()
 
@@ -149,7 +150,7 @@ static const CGFloat kiPhone4InchShutterViewHeight = 140;
     DDLogVerbose(@"%@: Original image size: (%f, %f)", THIS_FILE, self.captureManager.stillImage.size.width, self.captureManager.stillImage.size.height);
     
     // Resize image first before saving to album
-    CGSize croppedImageSize = CGSizeMake(1936, 1936);
+    CGSize croppedImageSize = kImageSize;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         self.croppedImage = [UIImage squareImageWithImage:self.captureManager.stillImage scaledToSize:croppedImageSize];

@@ -7,7 +7,7 @@
 //
 
 #import "SNFPostingPhotoViewController.h"
-#import <CHTTextView.h>
+#import "SNFFacebook.h"
 
 NSInteger const kTextCellType   = 0;
 NSInteger const kSwitchCellType = 1;
@@ -16,10 +16,19 @@ NSInteger const kScrollViewCellType = 2;
 @interface SNFPostingPhotoViewController ()
 
 @property (nonatomic, strong) NSArray *postingCellData;
+@property (nonatomic, strong) CHTTextView *caption;
 
 @end
 
 @implementation SNFPostingPhotoViewController
+
+- (CHTTextView *)caption {
+    if (!_caption) {
+        _caption = [[CHTTextView alloc] initWithFrame:CGRectMake(100, 10, 220, 80)];
+    }
+    
+    return _caption;
+}
 
 - (void)viewDidLoad
 {
@@ -46,7 +55,7 @@ NSInteger const kScrollViewCellType = 2;
                           ]
                       ];
     
-	// Do any additional setup after loading the view.
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -88,11 +97,11 @@ NSInteger const kScrollViewCellType = 2;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	DDLogVerbose(@"%@: Type: %d for section, row(%d, %d)", THIS_FILE, [[self.postingCellData[indexPath.section][indexPath.row] valueForKey:@"type"] integerValue], indexPath.section, indexPath.row);
+	DDLogVerbose(@"%@: Type: %d for section, row(%d, %d)", THIS_FILE, (int)[[self.postingCellData[indexPath.section][indexPath.row] valueForKey:@"type"] integerValue], (int)indexPath.section, (int)indexPath.row);
 	NSInteger cellType = [[self.postingCellData[indexPath.section][indexPath.row] valueForKey:@"type"] integerValue];
 	if (cellType == kSwitchCellType) {
 		UISwitch *cellSwitch = [[UISwitch alloc] init];
-		cellSwitch.tag = [[NSString stringWithFormat:@"%d%d", indexPath.section, indexPath.row] integerValue];
+		cellSwitch.tag = [[NSString stringWithFormat:@"%d%d", (int)indexPath.section, (int)indexPath.row] integerValue];
 		//[cellSwitch addTarget:self action:@selector(switchToggled:) forControlEvents:UIControlEventValueChanged];
 		cell.accessoryView = cellSwitch;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -114,17 +123,32 @@ NSInteger const kScrollViewCellType = 2;
         [imageView setImage:self.photo];
         [cell addSubview:imageView];
         
-        CHTTextView *caption = [[CHTTextView alloc] initWithFrame:CGRectMake(100, 10, 220, 80)];
-        caption.font = [UIFont systemFontOfSize:14.0f];
-        caption.placeholder = @"Write a caption...";
-        caption.placeholderTextColor = [UIColor flatDarkWhiteColor];
+        self.caption.font = [UIFont systemFontOfSize:14.0f];
+        self.caption.placeholder = @"Write a caption...";
+        self.caption.placeholderTextColor = [UIColor flatDarkWhiteColor];
         
-        [cell addSubview:caption];
+        [cell addSubview:self.caption];
     }
     
 	cell.textLabel.text = [self.postingCellData[indexPath.section][indexPath.row] valueForKey:@"title"];
     
 	return cell;
+}
+
+- (IBAction)shareButtonTapped:(UIButton *)sender {
+    DDLogVerbose(@"Posting photo!");
+    [[SNFFacebook sharedInstance] postPhotoWithInfo:@{@"picture" : UIImagePNGRepresentation(self.photo),
+                                                      @"message" : self.caption.text}
+                                        andResponse:^(FBRequestConnection *request, id result, NSError *error) {
+                                            if (error) {
+                                                DDLogError(@"%@: Error posting photo: %@", THIS_FILE, error);
+                                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed to post" message:@"Could not post photo to Facebook. Please try again." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                                                [alert show];
+                                            } else {
+                                                DDLogVerbose(@"Response: %@", result);
+                                                [self dismissViewControllerAnimated:YES completion:nil];
+                                            }
+    }];
 }
 
 - (BOOL)prefersStatusBarHidden {

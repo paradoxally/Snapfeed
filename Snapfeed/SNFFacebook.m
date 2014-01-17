@@ -99,16 +99,17 @@
 
 - (void)getMainFeedPhotosWithURL:(NSString *)url andResponse:(FBRequestResponseWithDictionary)response {
 	// Main feed
-    if (!url) { // initial request does not have url set
-        url = @"me/home?fields=type,from,picture,message,comments.limit(3).summary(true),likes.limit(1).summary(true)&filter=app_2305272732&limit=10";
-    } else {
-        // Remove the initial part of the URL for the graph path request
-        url = [url replace:RX(@"^http\\w:/+graph.facebook.com") with:@""];
-    }
+	if (!url) { // initial request does not have url set
+		url = @"me/home?fields=type,from,picture,message,comments.limit(3).summary(true),likes.limit(1).summary(true)&filter=app_2305272732&limit=10";
+	}
+	else {
+		// Remove the initial part of the URL for the graph path request
+		url = [url replace:RX(@"^http\\w:/+graph.facebook.com") with:@""];
+	}
     
 	[[FBRequest requestForGraphPath:url] startWithCompletionHandler: ^(FBRequestConnection *connection,
-	                                                                                                                                                                                                       NSDictionary *result,
-	                                                                                                                                                                                                       NSError *error) {
+	                                                                   NSDictionary *result,
+	                                                                   NSError *error) {
 	    response(connection, result, error);
 	}];
 }
@@ -146,13 +147,42 @@
 
 - (void)getRecentPhotosFromUser:(NSString *)userID andResponse:(FBRequestResponseWithDictionary)response {
 	// Make the API request
-    NSString *url = [NSString stringWithFormat:@"%@/photos/uploaded?fields=source&limit=25", userID];
+	NSString *url = [NSString stringWithFormat:@"%@/photos/uploaded?fields=source&limit=25", userID];
     
-    DDLogInfo(@"%@: Recent photos from user query: %@", THIS_FILE, url);
+	DDLogInfo(@"%@: Recent photos from user query: %@", THIS_FILE, url);
 	[[FBRequest requestForGraphPath:url]
 	 startWithCompletionHandler: ^(FBRequestConnection *connection,
 	                               NSDictionary *result,
 	                               NSError *error) {
+         response(connection, result, error);
+     }];
+}
+
+- (void)getPagesWithinLocation:(CLLocation *)location andResponse:(FBRequestResponseWithID)response {
+    NSString *query = [NSString stringWithFormat:
+	                   @"SELECT page_id "
+	                   @"FROM page "
+	                   @"WHERE distance(latitude, longitude, \"%f\", \"%f\") < 500 "
+                       @"LIMIT 5 ", location.coordinate.latitude, location.coordinate.longitude];
+    
+	DDLogVerbose(@"%@: FQL query: %@", THIS_FILE, query);
+	NSDictionary *queryParam = @{ @"q" : query };
+    
+	[FBRequestConnection startWithGraphPath:@"/fql"
+	                             parameters:queryParam
+	                             HTTPMethod:@"GET"
+	                      completionHandler: ^(FBRequestConnection *connection, id result, NSError *error) {
+                              response(connection, result, error);
+                          }];
+}
+
+- (void)postPhotoWithInfo:(NSDictionary *)postInfo andResponse:(FBRequestResponseWithID)response {
+	[FBRequestConnection startWithGraphPath:@"me/photos"
+	                             parameters:postInfo
+	                             HTTPMethod:@"POST"
+	                      completionHandler: ^(FBRequestConnection *connection,
+	                                           id result,
+	                                           NSError *error) {
          response(connection, result, error);
      }];
 }

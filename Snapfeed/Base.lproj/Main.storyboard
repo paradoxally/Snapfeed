@@ -265,6 +265,9 @@
                                         </fragment>
                                     </attributedString>
                                 </state>
+                                <connections>
+                                    <action selector="shareButtonTapped:" destination="spu-8W-7e8" eventType="touchUpInside" id="Vi2-dt-v4q"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -357,7 +360,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="B0F-qO-iP6" kind="relationship" relationship="rootViewController" id="t5D-Ck-3is"/>
+                        <segue destination="B0F-qO-iP6" kind="relationship" relationship="rootViewController" id="t27-7D-JF8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PZ2-1N-wRn" userLabel="First Responder" sceneMemberID="firstResponder"/>

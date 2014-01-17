@@ -24,6 +24,7 @@ typedef void (^FBRequestResponseWithID)(FBRequestConnection *request, id result,
 - (void)friendsFromUser:(NSString *)userID andResponse:(FBRequestResponseWithDictionary)response;
 - (void)photosFromUser:(NSString *)userID andResponse:(FBRequestResponseWithID)response;
 - (void)getRecentPhotosFromUser:(NSString *)userID andResponse:(FBRequestResponseWithDictionary)response;
+- (void)getPagesWithinLocation:(CLLocation *)location andResponse:(FBRequestResponseWithID)response;
 
 - (void)getMainFeedPhotosWithURL:(NSString *)url andResponse:(FBRequestResponseWithDictionary)response;
 - (void)getLikedPostsForIDs:(NSArray *)postIDs andResponse:(FBRequestResponseWithID)response;
@@ -32,5 +33,6 @@ typedef void (^FBRequestResponseWithID)(FBRequestConnection *request, id result,
 - (void)unlikePost:(NSString *)postID andResponse:(FBRequestResponseWithID)response;
 
 - (NSURL *)picURLForUser:(NSString *)userID andSize:(CGSize)size;
+- (void)postPhotoWithInfo:(NSDictionary *)postInfo andResponse:(FBRequestResponseWithID)response;
 
 @end
